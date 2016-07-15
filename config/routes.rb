@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   # devise_for :users
   devise_for :users, :controllers => { registrations: 'registrations' }
+  # , passwords: 'passwords'
   resources :users
   resources :variants
   resources :store_products
@@ -13,7 +14,7 @@ Rails.application.routes.draw do
     get '/sign_in' => 'devise/sessions#new'
     get '/sign_up' => 'devise/registrations#new'
     delete '/logout' => 'devise/sessions#destroy'
-    get '/reset_pass' => 'devise/passwords#edit'
+    get 'users/:id/reset_pass' => 'devise/passwords#edit'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

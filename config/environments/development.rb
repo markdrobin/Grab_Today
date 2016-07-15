@@ -38,4 +38,8 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  config.action_mailer.default_url_options = { host: 'localhost', port: 4000 }
+  # Defined default url options in environment files (used for devise gem)
+  # Edit port: based on your port (usually 3000)
 end

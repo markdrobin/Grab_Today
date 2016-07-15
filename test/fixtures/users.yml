@@ -3,15 +3,13 @@
 one:
   first_name: MyString
   last_name: MyString
-  login_status: MyString
-  username: MyString
-  password: MyString
   email: MyString
+  password: MyString
+  login_status: MyString
 
 two:
   first_name: MyString
   last_name: MyString
-  login_status: MyString
-  username: MyString
-  password: MyString
   email: MyString
+  password: MyString
+  login_status: MyString

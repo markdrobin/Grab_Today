@@ -1,9 +1,21 @@
 Rails.application.routes.draw do
+  # devise_for :users
+  devise_for :users, :controllers => { registrations: 'registrations' }
+  resources :users
   resources :variants
   resources :store_products
   resources :products
   resources :stores
-  resources :users
+
+  root to: 'home#index'
+
+  as :user do
+    get '/sign_in' => 'devise/sessions#new'
+    get '/sign_up' => 'devise/registrations#new'
+    delete '/logout' => 'devise/sessions#destroy'
+    get '/reset_pass' => 'devise/passwords#edit'
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

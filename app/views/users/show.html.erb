@@ -21,9 +21,18 @@
 <!--</p>-->
 
 <p>
+  <strong>User Type:</strong>
+  <%= @user.user_type %>
+</p>
+
+
+
+<p>
   <strong>Login status:</strong>
   <%= @user.login_status %>
 </p>
+
+
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %> |

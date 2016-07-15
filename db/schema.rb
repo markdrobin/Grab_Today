@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160714090939) do
+ActiveRecord::Schema.define(version: 20160715042341) do
 
   create_table "product_variants", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -54,14 +54,18 @@ ActiveRecord::Schema.define(version: 20160714090939) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "first_name",   limit: 255
-    t.string   "last_name",    limit: 255
-    t.string   "login_status", limit: 255
-    t.string   "username",     limit: 255
-    t.string   "password",     limit: 255
-    t.string   "email",        limit: 255
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.string   "first_name",          limit: 255
+    t.string   "last_name",           limit: 255
+    t.string   "login_status",        limit: 255
+    t.string   "username",            limit: 255
+    t.string   "password",            limit: 255
+    t.string   "email",               limit: 255
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "avatar_file_name",    limit: 255
+    t.string   "avatar_content_type", limit: 255
+    t.integer  "avatar_file_size",    limit: 4
+    t.datetime "avatar_updated_at"
   end
 
   create_table "variants", force: :cascade do |t|

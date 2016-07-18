@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   # devise_for :users
-  devise_for :users, path: '', :controllers => { registrations: 'registrations' },
-             :path_names => {:sign_up => '/login', :logout => '/logout'} do
+  devise_for :user, path: '', :controllers => { registrations: 'registrations'},
+             :path_names => {:sign_in => 'sign_in', :sign_up => 'sign_up', :sign_out => 'sign_out'} do
 
   end
   resources :users
@@ -13,9 +13,9 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   as :user do
-    # get '/sign_in' => 'devise/sessions#new', :bew_user_
+    # get '/sign_in' => 'devise/sessions#new'
     # get '/sign_up' => 'devise/registrations#new'
-    # delete '/logout' => 'devise/sessions#destroy'
+    # delete ':id/sign_out' => 'devise/sessions#destroy'
     # get '/reset_pass' => 'devise/passwords#edit'
   end
 

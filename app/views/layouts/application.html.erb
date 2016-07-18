@@ -19,14 +19,14 @@
         <% if current_user %>
             <% if current_user.first_name %>
               <%= 'Hello, ' + current_user.first_name + '!' %> |
-              <%= link_to 'Logout', logout_path, :method => :delete %>
+              <%= link_to 'Logout', '/sign_out', :method => :delete %>
                 <% else  %>
               <%= 'Hello there!' %>
-              <%= link_to 'Logout', logout_path, :method => :delete %>
+              <%= link_to 'Logout', '/sign_out', :method => :delete %>
             <% end %>
         <% else %>
-            <%= link_to "Login", 'sign_in' %></a> |
-            <%= link_to "Signup", 'sign_up' %></a>
+            <%= link_to "Login", '/sign_in' %></a> |
+            <%= link_to "Sign-up", '/sign_up' %></a>
         <% end %>
       </div>
     </div>

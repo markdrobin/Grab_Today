@@ -24,9 +24,8 @@ class StoresController < ApplicationController
   # POST /stores
   # POST /stores.json
   def create
-    #@store = Store.new(store_params.merge({:user_id => @user.id}))
-    #@store.save
-
+    @store = Store.new(store_params)
+    
     respond_to do |format|
       if @store.save
         format.html { redirect_to @store, notice: 'Store was successfully created.' }

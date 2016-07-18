@@ -8,7 +8,11 @@ Rails.application.routes.draw do
   resources :variants
   resources :store_products
   resources :products
-  resources :stores
+  resources :stores do
+    member do
+      # get '/'
+    end
+  end
 
   root to: 'home#index'
 

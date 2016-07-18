@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="14954b71-b1a4-46ed-8f2e-d3f66322119a" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/devise/confirmations/new.html.erb" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/devise/mailer/confirmation_instructions.html.erb" afterPath="" />
@@ -25,6 +26,8 @@
     <ignored path="$PROJECT_DIR$/vendor/bundle/" />
     <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+=======
+>>>>>>> staging
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +38,7 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
+<<<<<<< HEAD
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="grab_today" />
@@ -144,6 +148,9 @@
     <option name="height" value="978" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+=======
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+>>>>>>> staging
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkout" />
@@ -153,6 +160,7 @@
     <ConfirmationsSetting value="0" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
+<<<<<<< HEAD
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
@@ -456,18 +464,17 @@
       <item index="3" class="java.lang.String" itemvalue="Rails.Development: grab_today" />
     </list>
   </component>
+=======
+>>>>>>> staging
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
-  <component name="SvnConfiguration">
-    <configuration />
-  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="14954b71-b1a4-46ed-8f2e-d3f66322119a" name="Default" comment="" />
-      <created>1468398020729</created>
+      <created>1468580273672</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
+<<<<<<< HEAD
       <updated>1468398020729</updated>
       <workItem from="1468398022933" duration="2584000" />
       <workItem from="1468473324189" duration="8994000" />
@@ -520,6 +527,12 @@
       <collection />
     </option>
   </component>
+=======
+      <updated>1468580273672</updated>
+    </task>
+    <servers />
+  </component>
+>>>>>>> staging
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
@@ -527,6 +540,7 @@
     <breakpoint-manager />
     <watches-manager />
   </component>
+<<<<<<< HEAD
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/config/initializers/setup_mail.rb" />
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/users.js" />
@@ -902,4 +916,6 @@
       </provider>
     </entry>
   </component>
+=======
+>>>>>>> staging
 </project>

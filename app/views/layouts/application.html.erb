@@ -2,37 +2,61 @@
 <html>
 <head>
   <title>Grab.Today</title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <link rel="stylesheet" type="text/css" href="assets/stylesheets/custom.css">
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
 
-  <div class="header">
-    <div class="container">
-      <!--<%#= link_to root_path do %>-->
-        <!--<img src="http://s3.amazonaws.com/codecademy-content/courses/rails-auth/img/fotofoto-logo.svg" width="80" height="80"> &#12501; &#65387; &#12488; &#12501; &#65387; &#12488;-->
-      <!--<%# end %>-->
-      <div class="nav pull-right">
-        <% if current_user %>
+<body>
+<%= nav_bar fixed: :top, responsive: true, brand: "Grab.Today" do %>
+    <%= menu_group do %>
+        <%= menu_item "Home", root_path %>
+        <%#= menu_item "About Us", about_us_path %>
+        <%#= menu_item "Contact", contact_path %>
+    <% end %>
+    <% if current_user %>
+        <%= menu_group pull: :right do %>
             <% if current_user.first_name %>
-              <%= 'Hello, ' + current_user.first_name + '!' %> |
-              <%= link_to 'Logout', '/sign_out', :method => :delete %>
-                <% else  %>
-              <%= 'Hello there!' %>
-              <%= link_to 'Logout', '/sign_out', :method => :delete %>
+                <% @greet = 'Hello, ' + current_user.first_name + '!' %>
+            <% else %>
+                <% @greet = 'Hello there!' %>
             <% end %>
-        <% else %>
-            <%= link_to "Login", '/sign_in' %></a> |
-            <%= link_to "Sign-up", '/sign_up' %></a>
+            <%= drop_down @greet do %>
+                <%= menu_item "View Account", user_path(current_user) %>
+                <%= drop_down_divider %>
+                <%= menu_item "Sign Out", '/sign_out', :method => :delete %>
+            <% end %>
         <% end %>
+    <% else %>
+        <%= menu_group pull: :right do %>
+            <%= menu_item "Sign In", '/sign_in' %>
+            <%= menu_item "Sign Up", '/sign_up' %>
+        <% end %>
+    <% end %>
+<% end %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-centered">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      <div class="yield-block">
+        <table id="yield-table">
+          <tr>
+            <td id="col-left">
+            </td>
+            <td id="col-mid">
+              <%= yield %>
+            </td>
+            <td id="col-right">
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>
-
-<%= yield %>
+</div>
 
 </body>
 </html>

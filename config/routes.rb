@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # devise_for :users
-  devise_for :user, path: '', :controllers => { registrations: 'registrations'},
+  devise_for :users, path: '', :controllers => { registrations: 'users/registrations'},
              :path_names => {:sign_in => 'sign_in', :sign_up => 'sign_up', :sign_out => 'sign_out'} do
 
   end
@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     # get '/sign_in' => 'devise/sessions#new'
     # get '/sign_up' => 'devise/registrations#new'
     # delete ':id/sign_out' => 'devise/sessions#destroy'
-    # get '/reset_pass' => 'devise/passwords#edit'
+    get 'users/:id/reset_pass' => 'devise/passwords#edit'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

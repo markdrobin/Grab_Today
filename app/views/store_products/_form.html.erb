@@ -1,25 +1,41 @@
-<%= form_for(@store_product) do |f| %>
-  <% if @store_product.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@store_product.errors.count, "error") %> prohibited this store_product from being saved:</h2>
+<%= form_for @store_product, :html => { :class => "form-horizontal store_product" } do |f| %>
 
-      <ul>
-      <% @store_product.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <% if @store_product.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@store_product.errors.count, "error") %> prohibited this store_product from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @store_product.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :price %><br>
-    <%= f.text_field :price %>
+  <div class="form-group">
+    <%= f.label :price, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :price, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:price) %>
   </div>
-  <div class="field">
-    <%= f.label :stock %><br>
-    <%= f.number_field :stock %>
+  <div class="form-group">
+    <%= f.label :stock, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :stock, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:stock) %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                store_products_path, :class => 'btn btn-default' %>
+    </div>
   </div>
+
 <% end %>

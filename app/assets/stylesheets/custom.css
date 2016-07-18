@@ -1,0 +1,49 @@
+/* application.html BODY */
+
+.navbar-fixed-top {
+    background-color: #ee0c0c;
+    margin: 0px;
+}
+
+.col-centered{
+    float: none;
+    margin: 0px auto;
+}
+
+/* YIELD */
+
+.yield-block {
+    background-color: #666666;
+    align-items: center;
+}
+
+.btn {
+    background-color: #730E15;
+    color: white;
+}
+
+.nav {
+    color: white;
+}
+
+#yield-table {
+    margin: 0px auto;
+}
+
+#col-mid {
+    background-color: #BBBBBB;
+    margin: inherit;
+    width: auto;
+}
+
+#col-left {
+    background-color: #999999;
+    margin: inherit;
+    width: auto;
+}
+
+#col-right {
+    background-color: #999999;
+    margin: inherit;
+    width: auto;
+}

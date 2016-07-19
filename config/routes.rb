@@ -4,7 +4,9 @@ Rails.application.routes.draw do
              :path_names => {:sign_in => 'sign_in', :sign_up => 'sign_up', :sign_out => 'sign_out'} do
 
   end
-  resources :users
+  resources :users do
+    get :owned_stores
+  end
   resources :variants
   resources :store_products
   resources :products

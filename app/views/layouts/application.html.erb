@@ -7,7 +7,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body id="body">
   <%= nav_bar fixed: :top, responsive: true, brand: "Grab.Today" do %>
     <%= menu_group do %>
         <%= menu_item "Home", root_path %>
@@ -29,8 +29,8 @@
         <% end %>
     <% else %>
         <%= menu_group pull: :right do %>
-            <%= menu_item "Sign In", 'sign_in' %>
-            <%= menu_item "Sign Up", 'sign_up' %>
+            <%= menu_item "Sign In", '/sign_in' %>
+            <%= menu_item "Sign Up", '/sign_up' %>
         <% end %>
     <% end %>
   <% end %>
@@ -40,7 +40,7 @@
     <p class="alert"><%= alert %></p>
   </div>
 
-  <div class="container">
+  <div id="contents" class="container">
     <div class="row">
       <div class="col-centered">
         <div class="yield-block">

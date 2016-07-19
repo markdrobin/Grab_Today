@@ -1,7 +1,7 @@
 /* navbar */
 .navbar-default {
-    background-color: #ee0c0c;
-    border-color: #fff;
+    background-color: #cd0000;
+    border-color: #cd0000;
 }
 /* title */
 .navbar-default .navbar-brand {
@@ -9,7 +9,7 @@
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-    color: #b40000;
+    color: #ffe5e5;
 }
 /* link */
 .navbar-default .navbar-nav > li > a {
@@ -68,15 +68,16 @@
     }
 }
 
-.navbar-fixed-top {
-    background-color: #cd0000;
-    margin: 0px;
-}
+/*.navbar-fixed-top {*/
+    /*background-color: #cd0000;*/
+    /*margin: 0px;*/
+/*}*/
 
 /* BODY */
+#body {
+  padding-top: 50px;
 
-body {
-    padding-top: 40px;
+    /*background-color: #666666;*/
 }
 
 .col-centered.alert {
@@ -84,21 +85,22 @@ body {
     margin: 0px auto;
 }
 
-.container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+#contents{
+    margin-top: 40px;
+    //position: absolute;
+    //top: 50%;
+    //left: 50%;
+    //transform: translate(-50%, -50%);
 }
 
 /* NOTIFIERS */
 
 .notifiers {
     right: auto;
-    margin-top: 50px;
+    margin-top: 10px;
     height: 20px;
     width: 100%;
-    position: absolute;
+    /*position: absolute;*/
 }
 
 .alert {
@@ -118,6 +120,13 @@ h1 {
     margin: 0px;
 }
 
+h2 {
+  color: white;
+  padding: 10px;
+  background-color: #cd0000;
+  margin: 0px;
+}
+
 #yield-table {
     margin: 0px auto;
 }
@@ -129,9 +138,13 @@ h1 {
 }
 
 /* LINKS */
-.extra_links {
-    color: #ffaeae;
-}
+//* a {
+//    color: #ffaeae;
+//}
+//
+//.extra_links {
+//    color: #ffaeae;
+//}
 
 /* INPUT FIELDS */
 
@@ -140,33 +153,37 @@ input[type="text"] {
     border-color: #930000;
     border-width: 1px;
     border-radius: 0px;
-    width: 270px;
+    width: 100%;
 }
 input[type="password"] {
     border: solid;
     border-color: #930000;
     border-width: 1px;
     border-radius: 0px;
-    width: 270px;
+    width: 100%;
 }
 input[type="email"] {
     border: solid;
     border-color: #930000;
     border-width: 1px;
     border-radius: 0px;
-    width: 270px;
+    width: 100%;
 }
 
 /* BUTTONS */
+
+.btn {
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+}
 
 input[type="submit"]{
     background-color: #cd0000;
     color: white;
     padding: 5px 105px;
-    -moz-border-radius: 0px;
-    -webkit-border-radius: 0px;
-    border-radius: 0px;
 }
+
 input[type="submit"]:hover{
     background-color: #ee0c0c;
     color: white;

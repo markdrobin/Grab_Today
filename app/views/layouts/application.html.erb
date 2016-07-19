@@ -9,14 +9,14 @@
 </head>
 
 <body id="body">
-  <%= nav_bar fixed: :top, responsive: true, brand: "Grab.Today" do %>
-    <%= menu_group do %>
-        <%= menu_item "Home", root_path %>
-        <%#= menu_item "About Us", about_us_path %>
-        <%#= menu_item "Contact", contact_path %>
-    <% end %>
+  <%= nav_bar fixed: :top, responsive: true, brand: image_tag('grab_today.png') do %>
     <% if current_user %>
         <%= menu_group pull: :right do %>
+            <%= menu_group do %>
+                <%= menu_item "Home", root_path %>
+                <%#= menu_item "About Us", about_us_path %>
+                <%#= menu_item "Contact", contact_path %>
+            <% end %>
             <% if current_user.first_name %>
                 <% @greet = 'Hello, ' + current_user.first_name + '!' %>
             <% else %>
@@ -36,10 +36,20 @@
     <% end %>
 <% end %>
 
-  <div class="notifiers">
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-  </div>
+  <% if notice %>
+    <div class="notifiers notice">
+      <span class="closebtn">&times;</span>
+      <%= notice %>
+    </div>
+  <% end %>
+  <% if alert %>
+    <div class="notifiers alert">
+      <span class="closebtn">&times;</span>
+      <%= alert %>
+    </div>
+  <% end %>
+
+  <%= image_tag('Billboard.png', class: "banner-wrap" )%>
 
   <div id="contents" class="container">
     <div class="row">
@@ -50,6 +60,8 @@
               <td id="col-left">
               </td>
               <td id="col-mid">
+                <!-- <div class="banner-wrap"> -->
+              <!-- </div> -->
                 <%= yield %>
               </td>
               <td id="col-right">
@@ -62,5 +74,30 @@
   </div>
 </div>
 
+<script>
+  var close = document.getElementsByClassName("closebtn");
+  var i;
+
+  // Loop through all close buttons
+  for (i = 0; i < close.length; i++) {
+      // When someone clicks on a close button
+      close[i].onclick = function(){
+
+          // Get the parent of <span class="closebtn"> (<div class="alert">)
+          var div = this.parentElement;
+
+          // Set the opacity of div to 0 (transparent)
+          div.style.opacity = "0";
+
+          // Hide the div after 600ms (the same amount of milliseconds it takes to fade out)
+          setTimeout(function(){ div.style.display = "none"; }, 600);
+      }
+
+      $(".notifiers").alert();
+        window.setTimeout(function() { $(".notifiers").alert('.closebtn'); }, 2000);
+      }
+</script>
 </body>
+
+<!-- <%= javascript_include_tag('application.js') %> -->
 </html>

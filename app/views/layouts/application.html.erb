@@ -8,8 +8,8 @@
   <%= csrf_meta_tags %>
 </head>
 
-<body>
-<%= nav_bar fixed: :top, responsive: true, brand: "Grab.Today" do %>
+<body id="body">
+  <%= nav_bar fixed: :top, responsive: true, brand: "Grab.Today" do %>
     <%= menu_group do %>
         <%= menu_item "Home", root_path %>
         <%#= menu_item "About Us", about_us_path %>
@@ -36,23 +36,27 @@
     <% end %>
 <% end %>
 
-<div class="container">
-  <div class="row">
-    <div class="col-centered">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-      <div class="yield-block">
-        <table id="yield-table">
-          <tr>
-            <td id="col-left">
-            </td>
-            <td id="col-mid">
-              <%= yield %>
-            </td>
-            <td id="col-right">
-            </td>
-          </tr>
-        </table>
+  <div class="notifiers">
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+  </div>
+
+  <div id="contents" class="container">
+    <div class="row">
+      <div class="col-centered">
+        <div class="yield-block">
+          <table id="yield-table">
+            <tr>
+              <td id="col-left">
+              </td>
+              <td id="col-mid">
+                <%= yield %>
+              </td>
+              <td id="col-right">
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
   </div>

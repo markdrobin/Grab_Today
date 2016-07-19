@@ -1,61 +1,97 @@
-<center>
-  <%= form_for(@store) do |f| %>
-      <% if @store.errors.any? %>
-          <div id="error_explanation">
-            <h2><%= pluralize(@store.errors.count, "error") %> prohibited this store from being saved:</h2>
+<%= form_for @store, :html => { :class => "form-horizontal store" } do |f| %>
 
-            <ul>
-              <% @store.errors.full_messages.each do |message| %>
-                  <li><%= message %></li>
-              <% end %>
-            </ul>
-          </div>
-      <% end %>
-
-      <%= image_tag @store.avatar.url, size: "100x100" %>
-      <div class="field">
-        <%= f.label :avatar %><br>
-        <%= f.file_field :avatar %>
+  <% if @store.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@store.errors.count, "error") %> prohibited this store from being saved:</h3>
       </div>
-      <div class="field">
-        <%= f.label :name %><br>
-        <%= f.text_field :name %>
+      <div class="panel-body">
+        <ul>
+        <% @store.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
       </div>
-      <div class="field">
-        <%= f.label :contact %><br>
-        <%= f.text_field :contact %>
-      </div>
-      <div class="field">
-        <%= f.label :location %><br>
-        <%= f.text_field :location %>
-      </div>
-      <div class="field">
-        <%= f.label :category %><br>
-        <%= f.select :category, @store.store_types.values, {include_blank: 'select category'} %>
-      </div>
-      <div class="field">
-        <%= f.label :store_hours %><br>
-        <%= f.text_field :store_hours %>
-      </div>
-      <div class="field">
-        <%= f.label :description %><br>
-        <%= f.text_field :description %>
-      </div>
-      <div class="field">
-        <%= f.label :website %><br>
-        <%= f.text_field :website %>
-      </div>
-      <div class="field">
-        <%= f.label :facebook_page %><br>
-        <%= f.text_field :facebook_page %>
-      </div>
-      <div class="field">
-        <%= f.label :twitter_page %><br>
-        <%= f.text_field :twitter_page %>
-      </div>
-      <div class="actions">
-        <%= f.submit %>
-      </div>
-
+    </div>
   <% end %>
-</center>
+
+  <div class="form-group">
+    <%= f.label :name, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :name, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:name) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :contact, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :contact, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:contact) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :location, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :location, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:location) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :category, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :category, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:category) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :store_hours, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :store_hours, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:store_hours) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :average_sales, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :average_sales, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:average_sales) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :description, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :description, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:description) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :website, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :website, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:website) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :facebook_page, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :facebook_page, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:facebook_page) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :twitter_page, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :twitter_page, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:twitter_page) %>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                stores_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>

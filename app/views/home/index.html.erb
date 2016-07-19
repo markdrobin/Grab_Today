@@ -1,0 +1,6 @@
+<h1> GRAB.TODAY </h1>
+
+<% if current_user %>
+    <%= link_to 'View Account', user_path(current_user)%> |
+    <%= link_to 'View Owned Stores', user_path(current_user)%>
+<% end %>

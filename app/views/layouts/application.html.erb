@@ -1,14 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>GrabToday</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <title>Grab.Today</title>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <link rel="stylesheet" type="text/css" href="assets/stylesheets/custom.css">
+  <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
-<body>
 
-<%= yield %>
+<body>
+<%= nav_bar fixed: :top, responsive: true, brand: "Grab.Today" do %>
+    <%= menu_group do %>
+        <%= menu_item "Home", root_path %>
+        <%#= menu_item "About Us", about_us_path %>
+        <%#= menu_item "Contact", contact_path %>
+    <% end %>
+    <% if current_user %>
+        <%= menu_group pull: :right do %>
+            <% if current_user.first_name %>
+                <% @greet = 'Hello, ' + current_user.first_name + '!' %>
+            <% else %>
+                <% @greet = 'Hello there!' %>
+            <% end %>
+            <%= drop_down @greet do %>
+                <%= menu_item "View Account", user_path(current_user) %>
+                <%= drop_down_divider %>
+                <%= menu_item "Sign Out", '/sign_out', :method => :delete %>
+            <% end %>
+        <% end %>
+    <% else %>
+        <%= menu_group pull: :right do %>
+            <%= menu_item "Sign In", '/sign_in' %>
+            <%= menu_item "Sign Up", '/sign_up' %>
+        <% end %>
+    <% end %>
+<% end %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-centered">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      <div class="yield-block">
+        <table id="yield-table">
+          <tr>
+            <td id="col-left">
+            </td>
+            <td id="col-mid">
+              <%= yield %>
+            </td>
+            <td id="col-right">
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

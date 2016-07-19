@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
+# Include default devise modules. Others available are:
+# :lockable, :timeoutable and :omniauthable
   has_many :stores
-  has_attached_file :avatar, default_url: "/assets/default_pp.png"
-  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+  accepts_nested_attributes_for :stores
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable
 end

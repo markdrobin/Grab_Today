@@ -3,8 +3,10 @@
 <head>
   <title>Grab.Today</title>
   <%= stylesheet_link_tag 'application', media: 'all' %>
-  <link rel="stylesheet" type="text/css" href="assets/stylesheets/custom.css">
+  <!-- <link rel="stylesheet" type="text/css" href="assets/stylesheets/custom.scss"> -->
   <%= javascript_include_tag 'application' %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='http://fonts.googleapis.com/css?family=Oswald:400,700|Open+Sans:400italic,600italic,700italic,400,600,700' rel='stylesheet' type='text/css'>
   <%= csrf_meta_tags %>
 </head>
 
@@ -49,55 +51,12 @@
     </div>
   <% end %>
 
-  <%= image_tag('Billboard.png', class: "banner-wrap" )%>
-
   <div id="contents" class="container">
-    <div class="row">
-      <div class="col-centered">
         <div class="yield-block">
-          <table id="yield-table">
-            <tr>
-              <td id="col-left">
-              </td>
-              <td id="col-mid">
-                <!-- <div class="banner-wrap"> -->
-              <!-- </div> -->
-                <%= yield %>
-              </td>
-              <td id="col-right">
-              </td>
-            </tr>
-          </table>
+          <%= yield %>
         </div>
-      </div>
-    </div>
   </div>
 </div>
 
-<script>
-  var close = document.getElementsByClassName("closebtn");
-  var i;
-
-  // Loop through all close buttons
-  for (i = 0; i < close.length; i++) {
-      // When someone clicks on a close button
-      close[i].onclick = function(){
-
-          // Get the parent of <span class="closebtn"> (<div class="alert">)
-          var div = this.parentElement;
-
-          // Set the opacity of div to 0 (transparent)
-          div.style.opacity = "0";
-
-          // Hide the div after 600ms (the same amount of milliseconds it takes to fade out)
-          setTimeout(function(){ div.style.display = "none"; }, 600);
-      }
-
-      $(".notifiers").alert();
-        window.setTimeout(function() { $(".notifiers").alert('.closebtn'); }, 2000);
-      }
-</script>
 </body>
-
-<!-- <%= javascript_include_tag('application.js') %> -->
 </html>

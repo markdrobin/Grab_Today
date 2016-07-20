@@ -3,7 +3,7 @@
   <h1><%= t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
 
-<table class="table table-striped">
+<!-- <table class="table table-striped">
   <thead>
   <tr>
     <th><%= model_class.human_attribute_name(:avatar) %></th>
@@ -39,19 +39,85 @@
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_store_path(store), :class => 'btn btn-default btn-xs' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      store_path(store),
-                      :method => :delete,
-                      :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
-                      :class => 'btn btn-xs btn-danger' %>
+    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                store_path(store),
+                :method => :delete,
+                :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
+                :class => 'btn btn-xs btn-danger' %>
         </td>
       </tr>
   <% end %>
   </tbody>
-</table>
+</table> -->
+<!-- START THE FEATURETTES -->
+<% @stores.each_with_index do |store, index| %>
 
-<%= link_to t('.back', :default => t("helpers.links.back")),
-            root_path, :class => 'btn btn-default'  %>
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_store_path,
-            :class => 'btn btn-primary' %>
+    <% if (index % 2) != 0 %>
+        <div class="row featurette">
+          <div class="col-md-7">
+            <h2 class="featurette-heading"><%= store.name %></h2>
+
+            <p class="lead"><strong><%= model_class.human_attribute_name(:category) %>: </strong><%= store.category %>
+            </p>
+
+            <p class="lead"><strong><%= model_class.human_attribute_name(:location) %>: </strong><%= store.location %>
+            </p>
+
+            <p class="lead">
+              <strong><%= model_class.human_attribute_name(:description) %>: </strong><%= store.description %></p>
+
+            <p class="lead"><strong><%= model_class.human_attribute_name(:website) %>: </strong><%= store.website %></p>
+
+            <p class="lead">
+              <strong><%= model_class.human_attribute_name(:facebook_page) %>: </strong><%= store.facebook_page %></p>
+            <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                        edit_store_path(store), :class => 'btn btn-default btn-xs' %>
+            <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                        store_path(store),
+                        :method => :delete,
+                        :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
+                        :class => 'btn btn-xs btn-danger' %>
+          </div>
+          <div class="col-md-5">
+            <!-- <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image"> -->
+            <%= image_tag(store.avatar, class: "featurette-image img-responsive center-block") %>
+          </div>
+        </div>
+    <% else %>
+        <div class="row featurette">
+          <div class="col-md-7 col-md-push-5">
+            <h2 class="featurette-heading"><%= store.name %></h2>
+
+            <p class="lead"><strong><%= model_class.human_attribute_name(:category) %>: </strong><%= store.category %>
+            </p>
+
+            <p class="lead"><strong><%= model_class.human_attribute_name(:location) %>: </strong><%= store.location %>
+            </p>
+
+            <p class="lead">
+              <strong><%= model_class.human_attribute_name(:description) %>: </strong><%= store.description %></p>
+
+            <p class="lead"><strong><%= model_class.human_attribute_name(:website) %>: </strong><%= store.website %></p>
+
+            <p class="lead">
+              <strong><%= model_class.human_attribute_name(:facebook_page) %>: </strong><%= store.facebook_page %></p>
+            <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                        edit_store_path(store), :class => 'btn btn-default btn-xs' %>
+            <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                        store_path(store),
+                        :method => :delete,
+                        :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
+                        :class => 'btn btn-xs btn-danger' %>
+          </div>
+          <div class="col-md-5 col-md-pull-7">
+            <%= image_tag(store.avatar, class: "featurette-image img-responsive center-block") %>
+          </div>
+        </div>
+    <% end %>
+    <hr class="featurette-divider">
+<% end %>
+<!-- /END THE FEATURETTES -->
+
+<br><br><br><%= link_to t('.new', :default => t("helpers.links.new")),
+                        new_store_path,
+                        :class => 'btn btn-primary' %>

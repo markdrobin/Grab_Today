@@ -10,4 +10,8 @@ class User < ActiveRecord::Base
   def get_avatar
     avatar
   end
+
+  def is_owner?
+    user_type == 'Store Owner'
+  end
 end

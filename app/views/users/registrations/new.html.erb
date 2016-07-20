@@ -32,15 +32,17 @@
     </div>
 
     <div class="field">
-      <%= f.label :user_type %><br>
-      <%= f.select :user_type, options_for_select([['Customer', 'Customer'], ['Store Owner', 'Store Owner']]), {include_blank: 'Select user type'}, class: 'user-type' %>
+      <%= f.label :user_type %><em> (leave unchecked if Customer)</em><br>
+      <!--<#%= f.select :user_type, options_for_select([['Customer', 'Customer'], ['Store Owner', 'Store Owner']]), {include_blank: 'Select user type'}, class: 'user-type' %>-->
+      <%= f.check_box :user_type, {class: 'user-type', checked: resource.is_owner?}, "Store Owner", "Customer" %>
+      I am a Store Owner
       <br>
     </div>
 
-    <div class="add_store_field" style="display:none;">
+    <div class="add_store_field <%= 'hidden' unless resource.is_owner? %>">
       <%= f.fields_for :stores do |store_form| %>
-            <%= store_form.label "Add your store" %><br>
-            <%= store_form.text_field :name %><br>
+          <%= store_form.label "Add your store" %><br>
+          <%= store_form.text_field :name %><br>
       <% end %>
     </div>
 

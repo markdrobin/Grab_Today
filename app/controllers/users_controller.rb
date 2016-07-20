@@ -68,7 +68,7 @@ class UsersController < ApplicationController
 
   def owned_stores
     @user = User.find_by_id(params[:id])
-    #@stores = @user.stores
+    @stores = @user.stores
   end
 
   private

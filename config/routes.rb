@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
   # devise_for :users
-  devise_for :users, path: '', :controllers => { registrations: 'users/registrations'},
+  devise_for :users, path: '', :controllers => {registrations: 'users/registrations'},
              :path_names => {:sign_in => 'sign_in', :sign_up => 'sign_up', :sign_out => 'sign_out'} do
 
   end
   resources :users do
-    get :owned_stores
+    member do
+      get :owned_stores
+    end
   end
   resources :variants
   resources :store_products

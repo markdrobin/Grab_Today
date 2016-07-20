@@ -1,4 +1,4 @@
-<%- model_class = User -%>
+<%- model_class = Store -%>
 <div class="page-header">
   <h1><%= t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
@@ -6,7 +6,6 @@
 <table class="table table-striped">
   <thead>
   <tr>
-    <th><%= model_class.human_attribute_name(:id) %></th>
     <th><%= model_class.human_attribute_name(:avatar) %></th>
     <th><%= model_class.human_attribute_name(:name) %></th>
     <th><%= model_class.human_attribute_name(:contact) %></th>
@@ -23,11 +22,10 @@
   </tr>
   </thead>
   <tbody>
-  <% @user.stores.each do |store| %>
+  <% @stores.each do |store| %>
       <tr>
-        <td><%= link_to store.id, store_path(store) %></td>
         <td><%= image_tag store.avatar.url, size: "50x50" %></td>
-        <td><%= store.name %></td>
+        <td><%= link_to store.name, store_path(store) %></td>
         <td><%= store.contact %></td>
         <td><%= store.location %></td>
         <td><%= store.category %></td>
@@ -51,3 +49,7 @@
   <% end %>
   </tbody>
 </table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_store_path,
+            :class => 'btn btn-primary' %>

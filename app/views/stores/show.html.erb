@@ -27,7 +27,7 @@
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
-              stores_path, :class => 'btn btn-default'  %>
+              owned_stores_user_path(current_user), :class => 'btn btn-default'  %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_store_path(@store), :class => 'btn btn-default' %>
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

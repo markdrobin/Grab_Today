@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   protect_from_forgery
   before_action :authenticate_user!
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :owned_stores]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :owned_stores, :delete_stores]
 
   # GET /users
   # GET /users.json
@@ -45,6 +45,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    @user.avatar = params[:avatar]
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -79,6 +80,6 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :login_status, :user_type)
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :login_status, :user_type, :avatar)
   end
 end

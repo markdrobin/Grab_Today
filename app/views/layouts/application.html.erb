@@ -6,12 +6,12 @@
   <!-- <link rel="stylesheet" type="text/css" href="assets/stylesheets/custom.scss"> -->
   <%= javascript_include_tag 'application' %>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href='http://fonts.googleapis.com/css?family=Oswald:400,700|Open+Sans:400italic,600italic,700italic,400,600,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Oswald:400,700|Open+Sans:400italic,600italic,700italic,400,600,700' rel='stylesheet' type='text/css'>
   <%= csrf_meta_tags %>
 </head>
 
 <body id="body">
-  <%= nav_bar fixed: :top, responsive: true, brand: image_tag('grab_today4.png') do %>
+<%= nav_bar fixed: :top, responsive: true, brand: image_tag('grab_today4.png') do %>
     <% if current_user %>
         <%= menu_group pull: :right do %>
             <%= menu_group do %>
@@ -26,6 +26,7 @@
             <% end %>
             <%= drop_down @greet do %>
                 <%= menu_item "View Account", user_path(current_user) %>
+                <%= current_user.user_type == 'Customer' ? '' : (menu_item "View Stores", owned_stores_user_path(current_user)) %>
                 <%= drop_down_divider %>
                 <%= menu_item "Sign Out", '/sign_out', :method => :delete %>
             <% end %>
@@ -38,24 +39,24 @@
     <% end %>
 <% end %>
 
-  <% if notice %>
+<% if notice %>
     <div class="notifiers notice">
       <span class="closebtn">&times;</span>
       <%= notice %>
     </div>
-  <% end %>
-  <% if alert %>
+<% end %>
+<% if alert %>
     <div class="notifiers alert">
       <span class="closebtn">&times;</span>
       <%= alert %>
     </div>
-  <% end %>
+<% end %>
 
-  <div id="contents" class="container">
-        <div class="yield-block">
-          <%= yield %>
-        </div>
+<div id="contents" class="container">
+  <div class="yield-block">
+    <%= yield %>
   </div>
+</div>
 </div>
 
 </body>

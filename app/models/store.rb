@@ -1,4 +1,5 @@
 class Store < ActiveRecord::Base
+  acts_as_paranoid
   belongs_to :user
   has_many :store_products
   has_many :products, :through => :store_products

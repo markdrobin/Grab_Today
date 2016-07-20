@@ -2,7 +2,7 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
-
+<center><%= image_tag @store.avatar.url, size: "200x200" %></center><br>
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
   <dd><%= @store.name %></dd>
@@ -27,7 +27,7 @@
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
-              stores_path, :class => 'btn btn-default'  %>
+              owned_stores_user_path(current_user), :class => 'btn btn-default'  %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_store_path(@store), :class => 'btn btn-default' %>
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

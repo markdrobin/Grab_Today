@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160715133452) do
+ActiveRecord::Schema.define(version: 20160719093953) do
 
   create_table "product_variants", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -35,19 +35,23 @@ ActiveRecord::Schema.define(version: 20160715133452) do
   end
 
   create_table "stores", force: :cascade do |t|
-    t.string   "name",          limit: 255
-    t.string   "contact",       limit: 255
-    t.string   "location",      limit: 255
-    t.string   "category",      limit: 255
-    t.string   "store_hours",   limit: 255
-    t.decimal  "average_sales",             precision: 10
-    t.string   "description",   limit: 255
-    t.string   "website",       limit: 255
-    t.string   "facebook_page", limit: 255
-    t.string   "twitter_page",  limit: 255
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
-    t.integer  "user_id",       limit: 4
+    t.string   "name",                limit: 255
+    t.string   "contact",             limit: 255
+    t.string   "location",            limit: 255
+    t.string   "category",            limit: 255
+    t.string   "store_hours",         limit: 255
+    t.decimal  "average_sales",                   precision: 10
+    t.string   "description",         limit: 255
+    t.string   "website",             limit: 255
+    t.string   "facebook_page",       limit: 255
+    t.string   "twitter_page",        limit: 255
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.string   "avatar_file_name",    limit: 255
+    t.string   "avatar_content_type", limit: 255
+    t.integer  "avatar_file_size",    limit: 4
+    t.datetime "avatar_updated_at"
+    t.integer  "user_id",             limit: 4
   end
 
   add_index "stores", ["user_id"], name: "index_stores_on_user_id", using: :btree
@@ -69,6 +73,10 @@ ActiveRecord::Schema.define(version: 20160715133452) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
+    t.string   "avatar_file_name",       limit: 255
+    t.string   "avatar_content_type",    limit: 255
+    t.integer  "avatar_file_size",       limit: 4
+    t.datetime "avatar_updated_at"
     t.string   "confirmation_token",     limit: 255
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
@@ -86,4 +94,5 @@ ActiveRecord::Schema.define(version: 20160715133452) do
     t.datetime "updated_at",             null: false
   end
 
+  add_foreign_key "stores", "users"
 end

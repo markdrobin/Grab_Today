@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   protect_from_forgery
   before_action :authenticate_user!
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :owned_stores]
 
   # GET /users
   # GET /users.json
@@ -12,6 +12,8 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @user = User.find(params[:id])
+    @stores = @user.stores
   end
 
   # GET /users/new
@@ -64,14 +66,19 @@ class UsersController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
+  def owned_stores
+    @user = User.find_by_id(params[:id])
+    @stores = @user.stores
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :login_status, :user_type)
-    end
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find_by_id(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :login_status, :user_type)
+  end
 end

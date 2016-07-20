@@ -25,7 +25,6 @@
                 <% @greet = 'Hello there!' %>
             <% end %>
             <%= drop_down @greet do %>
-                <%= menu_item "View Stores Owned", owned_stores_user_path(current_user) %>
                 <%= menu_item "View Account", user_path(current_user) %>
                 <%= menu_item "View Stores", owned_stores_user_path(current_user) %>
                 <!-- <%= drop_down_divider %> -->

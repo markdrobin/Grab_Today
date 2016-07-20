@@ -42,19 +42,6 @@
   <!--<dd><%= @user.unconfirmed_email %></dd>-->
 </dl>
 
-<p>
-  <strong>Store owned:</strong>
-<table>
-  <tbody>
-  <% @stores.each do |store| %>
-      <tr>
-        <td><%= store.name %></td>
-      </tr>
-  <% end %>
-  </tbody>
-</table><br>
-</p>
-
 <%= link_to t('.back', :default => t("helpers.links.back")),
               root_path, :class => 'btn btn-default'  %>
 <%= link_to 'Edit', edit_user_registration_path, :class => 'btn btn-default'%>

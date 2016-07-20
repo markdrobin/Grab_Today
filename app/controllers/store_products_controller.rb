@@ -25,6 +25,7 @@ class StoreProductsController < ApplicationController
   # POST /store_products.json
   def create
     @store_product = StoreProduct.new(store_product_params)
+    # @store_product.store_id =
 
     respond_to do |format|
       if @store_product.save
@@ -69,6 +70,6 @@ class StoreProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def store_product_params
-      params.require(:store_product).permit(:price, :stock)
+      params.require(:store_product).permit(:price, :stock, :name, :product_type, :brand, :manufacturer, :store_id)
     end
 end

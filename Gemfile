@@ -49,3 +49,5 @@ gem 'devise'
 
 # Twitter Bootstrap for Rails 4, 3.x Asset Pipeline
 gem "twitter-bootstrap-rails"
+
+gem "paranoia", "~> 2.0"

@@ -3,6 +3,7 @@
   <h1><%= t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 
+<%= image_tag @user.avatar.url, size: "200x200" %><br><br>
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:first_name) %>:</strong></dt>
   <dd><%= @user.first_name %></dd>
@@ -41,19 +42,6 @@
   <!--<dt><strong><%= model_class.human_attribute_name(:unconfirmed_email) %>:</strong></dt>-->
   <!--<dd><%= @user.unconfirmed_email %></dd>-->
 </dl>
-
-<p>
-  <strong>Store owned:</strong>
-<table>
-  <tbody>
-  <% @stores.each do |store| %>
-      <tr>
-        <td><%= store.name %></td>
-      </tr>
-  <% end %>
-  </tbody>
-</table><br>
-</p>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               root_path, :class => 'btn btn-default'  %>

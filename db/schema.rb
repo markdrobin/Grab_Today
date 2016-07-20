@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160719093953) do
+ActiveRecord::Schema.define(version: 20160720081127) do
 
   create_table "product_variants", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -52,8 +52,10 @@ ActiveRecord::Schema.define(version: 20160719093953) do
     t.integer  "avatar_file_size",    limit: 4
     t.datetime "avatar_updated_at"
     t.integer  "user_id",             limit: 4
+    t.datetime "deleted_at"
   end
 
+  add_index "stores", ["deleted_at"], name: "index_stores_on_deleted_at", using: :btree
   add_index "stores", ["user_id"], name: "index_stores_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|

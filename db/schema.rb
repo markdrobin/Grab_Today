@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160721022723) do
+ActiveRecord::Schema.define(version: 20160721031039) do
 
   create_table "product_variants", force: :cascade do |t|
     t.datetime "created_at",                 null: false
@@ -24,12 +24,17 @@ ActiveRecord::Schema.define(version: 20160721022723) do
   add_index "product_variants", ["variant_id"], name: "index_product_variants_on_variant_id", using: :btree
 
   create_table "products", force: :cascade do |t|
-    t.string   "name",         limit: 255
-    t.string   "product_type", limit: 255
-    t.string   "brand",        limit: 255
-    t.string   "manufacturer", limit: 255
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.string   "name",                limit: 255
+    t.string   "product_type",        limit: 255
+    t.string   "brand",               limit: 255
+    t.string   "manufacturer",        limit: 255
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "description",         limit: 255
+    t.string   "avatar_file_name",    limit: 255
+    t.string   "avatar_content_type", limit: 255
+    t.integer  "avatar_file_size",    limit: 4
+    t.datetime "avatar_updated_at"
   end
 
   create_table "store_products", force: :cascade do |t|
@@ -85,14 +90,14 @@ ActiveRecord::Schema.define(version: 20160721022723) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
-    t.string   "confirmation_token",     limit: 255
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email",      limit: 255
     t.string   "avatar_file_name",       limit: 255
     t.string   "avatar_content_type",    limit: 255
     t.integer  "avatar_file_size",       limit: 4
     t.datetime "avatar_updated_at"
+    t.string   "confirmation_token",     limit: 255
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email",      limit: 255
     t.string   "user_type",              limit: 255
   end
 

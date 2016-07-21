@@ -4,7 +4,8 @@ class StoreProduct < ActiveRecord::Base
   has_many :product_variants
   has_many :variants, :through => :product_variants
 
-  attr_accessor :name, :product_type, :brand, :manufacturer
+  attr_accessor :name, :product_type, :brand, :manufacturer, :description, :avatar
+
   before_save :ensure_product_existence
   after_initialize :set_product_vars
 
@@ -26,6 +27,14 @@ class StoreProduct < ActiveRecord::Base
 
   def get_variants
     variants
+  end
+
+  def get_description
+    product.description
+  end
+
+  def get_avatar
+    product.avatar
   end
 
   private

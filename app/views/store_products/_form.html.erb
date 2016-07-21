@@ -16,6 +16,17 @@
         </div>
     <% end %>
 
+    <% if @store_product.product%>
+        <%= image_tag @store_product.get_avatar.url, size: "200x200" %>
+    <%else%>
+        <%= image_tag "/assets/product.jpg", size: "200x200" %>
+    <%end%>
+    <div class="form-group">
+      <div class="col-lg-10">
+        <%= f.file_field :avatar, :class => 'form-control' %>
+      </div>
+      <%= f.error_span(:avatar) %>
+    </div>
     <div class="form-group">
       <%#= f.label :name, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
@@ -63,6 +74,12 @@
       <%= f.error_span(:stock) %>
     </div>
     <%= f.hidden_field :store_id, :value => params[:store_id] %>
+    <div class="form-group">
+      <div class="col-lg-10">
+        <%= f.text_field :description, placeholder: :description, :class => 'form-control' %>
+      </div>
+      <%= f.error_span(:description) %>
+    </div>
 
     <!--<div id="skillSet">-->
     <div id="addVariant">

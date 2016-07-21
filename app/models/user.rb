@@ -10,4 +10,7 @@ class User < ActiveRecord::Base
     stores
   end
 
+  def is_owner?
+    user_type == 'Store Owner'
+  end
 end

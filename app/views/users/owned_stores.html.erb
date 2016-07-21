@@ -70,6 +70,8 @@
 
             <p class="lead">
               <strong><%= model_class.human_attribute_name(:facebook_page) %>: </strong><%= store.facebook_page %></p>
+            <p class="lead">
+              <strong><%= model_class.human_attribute_name(:average_sales) %>: </strong><%= store.average_sales ? store.average_sales : 0.00 %></p>
 
             <p>Products: </p>
             <% if !store.get_store_products.empty?  %>
@@ -82,6 +84,8 @@
             <br>
 
             <%= link_to 'Add Product',  new_store_product_path(:store_id => store.id), :class => 'btn btn-default btn-xs'%>
+            <%= link_to t('.show', :default => t("helpers.links.show")),
+                        store_path(store), :class => 'btn btn-default btn-xs' %>
             <%= link_to t('.edit', :default => t("helpers.links.edit")),
                         edit_store_path(store), :class => 'btn btn-default btn-xs' %>
             <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
@@ -113,6 +117,8 @@
 
             <p class="lead">
               <strong><%= model_class.human_attribute_name(:facebook_page) %>: </strong><%= store.facebook_page %></p>
+            <p class="lead">
+              <strong><%= model_class.human_attribute_name(:average_sales) %>: </strong><%= store.average_sales ? store.average_sales : 0.00 %></p>
 
             <p>Products: </p>
             <% if !store.get_store_products.empty?  %>
@@ -124,7 +130,9 @@
             <% end  %>
             <br>
 
-            <%= link_to 'Add Product',  new_store_product_path(:store_id => store.id), :class => 'btn btn-default btn-xs'%>
+            <%= link_to 'Add Product', new_store_product_path(:store_id => store.id), :class => 'btn btn-default btn-xs' %>
+            <%= link_to t('.show', :default => t("helpers.links.show")),
+                        store_path(store), :class => 'btn btn-default btn-xs' %>
             <%= link_to t('.edit', :default => t("helpers.links.edit")),
                         edit_store_path(store), :class => 'btn btn-default btn-xs' %>
             <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

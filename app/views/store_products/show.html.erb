@@ -2,7 +2,7 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
-
+<%= image_tag @store_product.get_avatar.url, size: "100x100" %>
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
   <dd><%= @store_product.get_name %></dd>
@@ -16,6 +16,8 @@
   <dd><%= @store_product.price %></dd>
   <dt><strong><%= model_class.human_attribute_name(:stock) %>:</strong></dt>
   <dd><%= @store_product.stock %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:description) %></strong></dt>
+  <dd><%= @store_product.get_description %></dd>
 </dl>
 <div>
   <h3>Variants:</h3>

@@ -1,11 +1,12 @@
 class StoreProduct < ActiveRecord::Base
   belongs_to :store
   belongs_to :product
+  has_many :product_variants
   has_many :variants, :through => :product_variants
 
   attr_accessor :name, :product_type, :brand, :manufacturer, :description, :avatar
-
   before_save :ensure_product_existence
+  after_initialize :set_product_vars
 
   def get_name
     product.name
@@ -31,15 +32,32 @@ class StoreProduct < ActiveRecord::Base
     product.avatar
   end
 
+  def get_variants
+    variants
+  end
+
   private
   def ensure_product_existence
-    params = {name: name, product_type: product_type, brand: brand, manufacturer: manufacturer, description: description   }
-    products = Product.where(params)
-    if !products.empty?
-      self.product_id = products.first.id
+    params = {name: name, product_type: product_type, brand: brand, manufacturer: manufacturer, description: description}
+    if product_id
+      self.product.update(params)
     else
-      params[:avatar] = avatar
-      self.product_id = Product.create(params).id
+      products = Product.where(params)
+      if !products.empty?
+        self.product_id = products.first.id
+      else
+        self.product_id = Product.create(params).id
+      end
+    end
   end
+
+  def set_product_vars
+    if product
+      self.name = get_name
+      self.product_type = get_type
+      self.brand = get_brand
+      self.manufacturer = get_manufacturer
+    end
   end
+
 end

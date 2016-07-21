@@ -41,8 +41,8 @@ class Store < ActiveRecord::Base
     }
   end
 
-  def get_products
-    self.products
+  def get_store_products
+    self.store_products
   end
 
 end

@@ -39,14 +39,14 @@
 
 <!-- Start Recent Products Carousel -->
 <br><br><br><br>
-<% if !@store.get_products.empty? %>
+<% if !@store.get_store_products.empty? %>
 <%- model_class = StoreProduct -%>
 <div class="page-header">
   <h1><%= t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 
 <ul id="portfolio-list" data-animated="fadeIn">
-  <% @store.get_products.each do |product| %>
+  <% @store.get_store_products.each do |product| %>
       <li>
         <%= image_tag(product.avatar) %>
         <!--<img src="images/portfolio-1/1.png" alt=""/>-->

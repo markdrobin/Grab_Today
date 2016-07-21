@@ -5,7 +5,6 @@ class StoreProduct < ActiveRecord::Base
   has_many :variants, :through => :product_variants
 
   attr_accessor :name, :product_type, :brand, :manufacturer, :description, :avatar
-
   before_save :ensure_product_existence
   after_initialize :set_product_vars
 
@@ -39,7 +38,7 @@ class StoreProduct < ActiveRecord::Base
 
   private
   def ensure_product_existence
-    params = {name: name, product_type: product_type, brand: brand, manufacturer: manufacturer}
+    params = {name: name, product_type: product_type, brand: brand, manufacturer: manufacturer, description: description}
     if product_id
       self.product.update(params)
     else

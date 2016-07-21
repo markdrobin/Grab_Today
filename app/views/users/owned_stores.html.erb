@@ -83,7 +83,7 @@
             <% end  %>
             <br>
 
-            <%= link_to 'Add Product',  new_store_product_path(:store_id => store.id), :class => 'btn btn-default btn-xs'%>
+            <%= link_to 'Add Product', new_store_product_path(:store_id => store.id), :class => 'btn btn-default btn-xs' %>
             <%= link_to t('.show', :default => t("helpers.links.show")),
                         store_path(store), :class => 'btn btn-default btn-xs' %>
             <%= link_to t('.edit', :default => t("helpers.links.edit")),
@@ -126,7 +126,7 @@
                     <%= link_to store_product.get_name, store_product_path(store_product) %><br>
                 <% end %>
             <% else %>
-              <%= 'none' %><br>
+                <%= 'none' %><br>
             <% end  %>
             <br>
 

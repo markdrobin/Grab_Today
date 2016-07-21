@@ -72,14 +72,14 @@
               <strong><%= model_class.human_attribute_name(:facebook_page) %>: </strong><%= store.facebook_page %></p>
 
             <p>Products: </p>
-            <% if !store.get_products.empty?  %>
-                <% store.get_products.each do |product| %>
-                    <%= product.name %>
+            <% if !store.get_store_products.empty?  %>
+                <% store.get_store_products.each do |store_product| %>
+                    <%= link_to store_product.get_name, store_product_path(store_product) %><br>
                 <% end %>
             <% else %>
-                <%= 'none' %>
+                <%= 'none' %><br>
             <% end  %>
-            </br>
+            <br>
 
             <%= link_to 'Add Product',  new_store_product_path(:store_id => store.id), :class => 'btn btn-default btn-xs'%>
             <%= link_to t('.edit', :default => t("helpers.links.edit")),
@@ -115,14 +115,14 @@
               <strong><%= model_class.human_attribute_name(:facebook_page) %>: </strong><%= store.facebook_page %></p>
 
             <p>Products: </p>
-            <% if !store.get_products.empty?  %>
-              <% store.get_products.each do |product| %>
-                <%= product.name %>
-              <% end %>
+            <% if !store.get_store_products.empty?  %>
+                <% store.get_store_products.each do |store_product| %>
+                    <%= link_to store_product.get_name, store_product_path(store_product) %><br>
+                <% end %>
             <% else %>
-              <%= 'none' %>
+              <%= 'none' %><br>
             <% end  %>
-            </br>
+            <br>
 
             <%= link_to 'Add Product',  new_store_product_path(:store_id => store.id), :class => 'btn btn-default btn-xs'%>
             <%= link_to t('.edit', :default => t("helpers.links.edit")),
@@ -142,6 +142,6 @@
 <% end %>
 <!-- /END THE FEATURETTES -->
 
-<br><br><br><%= link_to t('.new', :default => t("helpers.links.new")),
+<br><%= link_to t('.new', :default => t("helpers.links.new")),
                         new_store_path,
                         :class => 'btn btn-primary' %>

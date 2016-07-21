@@ -1,0 +1,41 @@
+<%#= form_for @store_product, :html => {:class => "form-horizontal store_product"} do |f| %>
+
+    <%# if @store_product.errors.any? %>
+        <!--<div id="error_expl" class="panel panel-danger">-->
+          <!--<div class="panel-heading">-->
+            <!--<h3 class="panel-title"><%#= pluralize(@store_product.errors.count, "error") %> prohibited this store_product-->
+              <!--from being saved:</h3>-->
+          <!--</div>-->
+          <!--<div class="panel-body">-->
+            <!--<ul>-->
+              <%# @store_product.errors.full_messages.each do |msg| %>
+                  <!--<li><%#= msg %></li>-->
+              <!--<%# end %>-->
+            <!--</ul>-->
+          <!--</div>-->
+        <!--</div>-->
+    <!--<%# end %>-->
+
+    <!--<div class="skillsForm">-->
+      <!--<%#= label_tag 'tag' %>-->
+      <!--<%#= text_field_tag 'tags[]' %>-->
+      <!--<%#= label_tag 'weight' %>-->
+      <!--<%#= text_field_tag 'weights[]' %>-->
+    <!--</div>-->
+
+    <div class="form-group">
+      <%#= f.label :brand, :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <%= text_field_tag 'variant_names[]', nil, placeholder: 'Variant', :class => 'form-control' %>
+      </div>
+      <%#= error_span(:name) %>
+    </div>
+    <div class="form-group">
+      <%#= f.label :manufacturer, :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <%= text_field_tag 'variant_values[]', nil, placeholder: :value.capitalize, :class => 'form-control' %>
+      </div>
+      <%#= error_span(:value) %>
+    </div>
+
+<%# end %>

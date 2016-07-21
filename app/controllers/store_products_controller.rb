@@ -41,6 +41,8 @@ class StoreProductsController < ApplicationController
   # PATCH/PUT /store_products/1
   # PATCH/PUT /store_products/1.json
   def update
+    # @prod_params = {name: store_product_params[:name], product_type: store_product_params[:product_type], brand: store_product_params[:brand], manufacturer: store_product_params[:manufacturer]}
+    # @store_product.product.update(@prod_params)
     respond_to do |format|
       if @store_product.update(store_product_params)
         format.html { redirect_to @store_product, notice: 'Store product was successfully updated.' }

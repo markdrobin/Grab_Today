@@ -19,13 +19,15 @@
     <div class="form-group">
       <%#= f.label :name, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <%= f.text_field :name, placeholder: :name, :class => 'form-control' %>
+        <%# @this_name =  @store_product.product ? @store_product.get_name : nil %>
+        <%= f.text_field :name, placeholder: :name.capitalize, :class => 'form-control' %>
       </div>
       <%= f.error_span(:name) %>
     </div>
     <div class="form-group">
       <%#= f.label :product_type, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
+        <%# @this_type =  @store_product.product ? @store_product.get_type : nil %>
         <%= f.text_field :product_type, placeholder: 'Type', :class => 'form-control' %>
       </div>
       <%= f.error_span(:product_type) %>
@@ -33,32 +35,54 @@
     <div class="form-group">
       <%#= f.label :brand, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <%= f.text_field :brand, placeholder: :brand, :class => 'form-control' %>
+        <%# @this_brand =  @store_product.product ? @store_product.get_brand : nil %>
+        <%= f.text_field :brand, placeholder: :brand.capitalize, :class => 'form-control' %>
       </div>
       <%= f.error_span(:brand) %>
     </div>
     <div class="form-group">
       <%#= f.label :manufacturer, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <%= f.text_field :manufacturer, placeholder: :manufacturer, :class => 'form-control' %>
+        <%# @this_manuf =  @store_product.product ? @store_product.get_manufacturer : nil %>
+        <%= f.text_field :manufacturer, placeholder: :manufacturer.capitalize, :class => 'form-control' %>
       </div>
       <%= f.error_span(:manufacturer) %>
     </div>
     <div class="form-group">
       <%#= f.label :price, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <%= f.text_field :price, placeholder: :price, :class => 'form-control' %>
+        <%= f.text_field :price, placeholder: :price.capitalize, :class => 'form-control' %>
       </div>
       <%= f.error_span(:price) %>
     </div>
     <div class="form-group">
       <%#= f.label :stock, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <%= f.text_field :stock, placeholder: :stock, :class => 'form-control' %>
+        <%= f.text_field :stock, placeholder: :stock.capitalize, :class => 'form-control' %>
       </div>
       <%= f.error_span(:stock) %>
     </div>
     <%= f.hidden_field :store_id, :value => params[:store_id] %>
+
+    <!--<div id="skillSet">-->
+    <div id="addVariant">
+      <%= render partial: 'variant_form' %>
+    </div>
+    <a href="javascript:;" id="addNewVariant" class="btn btn-default">Add New Variant</a>
+    <!--<div class="actions">-->
+      <!--<%#= f.submit %>-->
+    <!--</div>-->
+    <div class="hide" id="new_variant_form">
+      <%= render partial: 'variant_form' %>
+    </div>
+
+    <script>
+      $(document).ready(function() {
+        $("#addNewVariant").click(function() {
+          $("#addVariant").append($("#new_variant_form").html());
+        });
+      });
+    </script>
 
     <div class="form-group">
       <div class="col-lg-offset-2 col-lg-10">
@@ -67,5 +91,4 @@
                     store_products_path, :class => 'btn btn-default' %>
       </div>
     </div>
-
 <% end %>

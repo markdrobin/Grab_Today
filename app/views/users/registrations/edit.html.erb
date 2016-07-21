@@ -49,8 +49,7 @@
 
     <div class="actions">
       <%= f.submit "Update" %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  :back, :class => 'btn btn-default'  %>
     </div>
 <% end %>
-
-
-<%= link_to "Back", :back %>

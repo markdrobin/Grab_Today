@@ -14,9 +14,14 @@
 ActiveRecord::Schema.define(version: 20160721031039) do
 
   create_table "product_variants", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "store_product_id", limit: 4
+    t.integer  "variant_id",       limit: 4
   end
+
+  add_index "product_variants", ["store_product_id"], name: "index_product_variants_on_store_product_id", using: :btree
+  add_index "product_variants", ["variant_id"], name: "index_product_variants_on_variant_id", using: :btree
 
   create_table "products", force: :cascade do |t|
     t.string   "name",                limit: 255
@@ -106,6 +111,8 @@ ActiveRecord::Schema.define(version: 20160721031039) do
     t.datetime "updated_at",             null: false
   end
 
+  add_foreign_key "product_variants", "store_products"
+  add_foreign_key "product_variants", "variants"
   add_foreign_key "store_products", "products"
   add_foreign_key "store_products", "stores"
   add_foreign_key "stores", "users"

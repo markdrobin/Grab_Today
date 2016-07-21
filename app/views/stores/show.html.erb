@@ -26,18 +26,19 @@
   <dd><%= @store.twitter_page %></dd>
 </dl>
 
-<!--<p>-->
-  <!--< %= "Store Products:" %>-->
-  <!--< % if !@store.get_products.empty? %>-->
-      <!--< % @store.get_products.each do |product| %>-->
-          <!--< %= link_to product.name, products_path %>-->
-      <!--< % end %>-->
-  <!--< % else %>-->
-      <!--< %= 'none' %>-->
-  <!--< % end %>-->
-<!--</p>-->
+<%= link_to 'Add Product', new_store_product_path(:store_id => @store.id), :class => 'btn btn-default' %>
+<%= link_to t('.back', :default => t("helpers.links.back")),
+            owned_stores_user_path(current_user), :class => 'btn btn-default' %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+            edit_store_path(@store), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+            store_path(@store),
+            :method => 'delete',
+            :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
+            :class => 'btn btn-danger' %>
 
 <!-- Start Recent Products Carousel -->
+<br><br><br><br>
 <%= "Store Products:" %>
 
 <ul id="portfolio-list" data-animated="fadeIn">
@@ -59,13 +60,4 @@
   <% end %>
 </ul>
 
-  <%= link_to 'Add Product', new_store_product_path(:store_id => @store.id), :class => 'btn btn-default' %>
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-              owned_stores_user_path(current_user), :class => 'btn btn-default' %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_store_path(@store), :class => 'btn btn-default' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              store_path(@store),
-              :method => 'delete',
-              :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
-              :class => 'btn btn-danger' %>
+

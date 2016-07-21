@@ -15,7 +15,7 @@
   <dt><strong><%= model_class.human_attribute_name(:store_hours) %>:</strong></dt>
   <dd><%= @store.store_hours %></dd>
   <dt><strong><%= model_class.human_attribute_name(:average_sales) %>:</strong></dt>
-  <dd><%= @store.average_sales %></dd>
+  <dd><%= @store.average_sales ? @store.average_sales : 0.0 %></dd>
   <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
   <dd><%= @store.description %></dd>
   <dt><strong><%= model_class.human_attribute_name(:website) %>:</strong></dt>
@@ -39,28 +39,26 @@
 
 <!-- Start Recent Products Carousel -->
 <br><br><br><br>
+<% if !@store.get_products.empty? %>
 <%- model_class = StoreProduct -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <h1><%= t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 
 <ul id="portfolio-list" data-animated="fadeIn">
-  <% if !@store.get_products.empty? %>
-      <% @store.get_products.each do |product| %>
-          <li>
-            <%= image_tag(product.avatar) %>
-            <!--<img src="images/portfolio-1/1.png" alt=""/>-->
-            <div class="portfolio-item-content">
-              <span class="header"><%= product.name %></span>
-              <p class="body"><%= product.product_type %></p>
-              <p class="body"><%= product.description %></p>
-            </div>
-            <a href=products_path><i class="more">+</i></a>
-          </li>
-      <% end %>
-  <% else %>
-      <%= 'none' %>
+  <% @store.get_products.each do |product| %>
+      <li>
+        <%= image_tag(product.avatar) %>
+        <!--<img src="images/portfolio-1/1.png" alt=""/>-->
+        <div class="portfolio-item-content">
+          <span class="header"><%= product.name %></span>
+
+          <p class="body"><%= product.product_type %></p>
+
+          <p class="body"><%= product.description %></p>
+        </div>
+        <a href=products_path><i class="more">+</i></a>
+      </li>
   <% end %>
 </ul>
-
-
+<% end %>

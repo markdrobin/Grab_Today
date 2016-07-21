@@ -39,7 +39,10 @@
 
 <!-- Start Recent Products Carousel -->
 <br><br><br><br>
-<%= "Store Products:" %>
+<%- model_class = StoreProduct -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
 
 <ul id="portfolio-list" data-animated="fadeIn">
   <% if !@store.get_products.empty? %>

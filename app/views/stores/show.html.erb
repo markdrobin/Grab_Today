@@ -1,6 +1,6 @@
 <%- model_class = Store -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <h1><%= t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 <center><%= image_tag @store.avatar.url, size: "200x200" %></center><br>
 <dl class="dl-horizontal">
@@ -26,24 +26,58 @@
   <dd><%= @store.twitter_page %></dd>
 </dl>
 
-<p>
-  <%= "Store Products:" %>
-  <% if !@store.get_products.empty? %>
-    <% @store.get_products.each do |product| %>
-      <%= link_to product.name, products_path %>
-    <% end %>
-  <% else %>
-      <%= 'none' %>
-  <%end  %>
-</p>
+<% if !@store.get_products.empty? %>
+    <%- model_class = StoreProduct -%>
+    <div class="page-header">
+      <h1><%= t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+    </div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th><%= model_class.human_attribute_name(:id) %></th>
+        <th><%= model_class.human_attribute_name(:name) %></th>
+        <th><%= model_class.human_attribute_name(:product_type) %></th>
+        <th><%= model_class.human_attribute_name(:brand) %></th>
+        <th><%= model_class.human_attribute_name(:manufacturer) %></th>
+        <th><%= model_class.human_attribute_name(:price) %></th>
+        <!--<th><%= model_class.human_attribute_name(:stock) %></th>-->
+        <!--<th><%= model_class.human_attribute_name(:description) %></th>-->
+        <th><%= t '.actions', :default => t("helpers.actions") %></th>
+      </tr>
+      </thead>
+      <tbody>
 
-<%= link_to 'Add Product', new_store_product_path(:store_id => @store.id), :class => 'btn btn-default'%>
+      <% @store.get_products.each do |product| %>
+          <tr>
+            <td><%= link_to product.id, product_path(product) %></td>
+            <td><%= product.name %></td>
+            <td><%= product.product_type %></td>
+            <td><%= product.brand %></td>
+            <td><%= product.manufacturer %></td>
+            <!--<td><#%= product.price %></td> -->
+            <!--<td><#%= product.stock %></td> -->
+            <td><%= product.description %></td>
+            <td>
+              <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                          edit_product_path(product), :class => 'btn btn-default btn-xs' %>
+              <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                          product_path(product),
+                          :method => :delete,
+                          :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
+                          :class => 'btn btn-xs btn-danger' %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+<% end %>
+<%= link_to 'Add Product', new_store_product_path(:store_id => @store.id), :class => 'btn btn-default' %>
 <%= link_to t('.back', :default => t("helpers.links.back")),
-              owned_stores_user_path(current_user), :class => 'btn btn-default'  %>
+            owned_stores_user_path(current_user), :class => 'btn btn-default' %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_store_path(@store), :class => 'btn btn-default' %>
+            edit_store_path(@store), :class => 'btn btn-default' %>
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              store_path(@store),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+            store_path(@store),
+            :method => 'delete',
+            :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
+            :class => 'btn btn-danger' %>

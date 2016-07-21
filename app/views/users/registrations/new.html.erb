@@ -41,12 +41,13 @@
     <div class="add_store_field <%= 'hidden' unless resource.is_owner? %>">
       <%= f.fields_for :stores do |store_form| %>
           <%= store_form.label "Add your store" %><br>
-          <%= store_form.text_field :name %><br>
+          <%= store_form.text_field :name, :class => 'checker' %><br>
+          <!--<#%= store_form.hinted_text_field_tag :name, :name, "Enter name of your Store!", :size => 30   %>-->
       <% end %>
     </div>
 
     <div class="actions">
-      <%= f.submit "Sign Up" %>
+      <%= f.submit "Sign Up", class: 'submit-reg' %>
     </div>
 <% end %>
 

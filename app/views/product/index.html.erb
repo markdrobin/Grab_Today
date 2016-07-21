@@ -7,7 +7,7 @@
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:product_type) %></th>
+      <th><%= model_class.human_attribute_name(:type) %></th>
       <th><%= model_class.human_attribute_name(:brand) %></th>
       <th><%= model_class.human_attribute_name(:manufacturer) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
@@ -19,7 +19,7 @@
       <tr>
         <td><%= link_to product.id, product_path(product) %></td>
         <td><%= product.name %></td>
-        <td><%= product.product_type %></td>
+        <td><%= product.type %></td>
         <td><%= product.brand %></td>
         <td><%= product.manufacturer %></td>
         <td><%=l product.created_at %></td>

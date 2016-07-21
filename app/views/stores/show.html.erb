@@ -26,6 +26,18 @@
   <dd><%= @store.twitter_page %></dd>
 </dl>
 
+<p>
+  <%= "Store Products:" %>
+  <% if !@store.get_products.empty? %>
+    <% @store.get_products.each do |product| %>
+      <%= link_to product.name, products_path %>
+    <% end %>
+  <% else %>
+      <%= 'none' %>
+  <%end  %>
+</p>
+
+<%= link_to 'Add Product', new_store_product_path(:store_id => @store.id), :class => 'btn btn-default'%>
 <%= link_to t('.back', :default => t("helpers.links.back")),
               owned_stores_user_path(current_user), :class => 'btn btn-default'  %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160720081127) do
+ActiveRecord::Schema.define(version: 20160720095347) do
 
   create_table "product_variants", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20160720081127) do
 
   create_table "products", force: :cascade do |t|
     t.string   "name",         limit: 255
-    t.string   "type",         limit: 255
+    t.string   "product_type", limit: 255
     t.string   "brand",        limit: 255
     t.string   "manufacturer", limit: 255
     t.datetime "created_at",               null: false
@@ -32,7 +32,12 @@ ActiveRecord::Schema.define(version: 20160720081127) do
     t.integer  "stock",      limit: 4
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "store_id",   limit: 4
+    t.integer  "product_id", limit: 4
   end
+
+  add_index "store_products", ["product_id"], name: "index_store_products_on_product_id", using: :btree
+  add_index "store_products", ["store_id"], name: "index_store_products_on_store_id", using: :btree
 
   create_table "stores", force: :cascade do |t|
     t.string   "name",                limit: 255
@@ -96,5 +101,7 @@ ActiveRecord::Schema.define(version: 20160720081127) do
     t.datetime "updated_at",             null: false
   end
 
+  add_foreign_key "store_products", "products"
+  add_foreign_key "store_products", "stores"
   add_foreign_key "stores", "users"
 end

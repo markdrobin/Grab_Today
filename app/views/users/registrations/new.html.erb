@@ -33,7 +33,6 @@
 
     <div class="field">
       <%= f.label :user_type %><em> (leave unchecked if Customer)</em><br>
-      <!--<#%= f.select :user_type, options_for_select([['Customer', 'Customer'], ['Store Owner', 'Store Owner']]), {include_blank: 'Select user type'}, class: 'user-type' %>-->
       <%= f.check_box :user_type, {class: 'user-type', checked: resource.is_owner?}, "Store Owner", "Customer" %>
       I am a Store Owner
       <br>

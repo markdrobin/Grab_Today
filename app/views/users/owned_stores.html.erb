@@ -70,6 +70,18 @@
 
             <p class="lead">
               <strong><%= model_class.human_attribute_name(:facebook_page) %>: </strong><%= store.facebook_page %></p>
+
+            <p>Products: </p>
+            <% if !store.get_products.empty?  %>
+                <% store.get_products.each do |product| %>
+                    <%= product.name %>
+                <% end %>
+            <% else %>
+                <%= 'none' %>
+            <% end  %>
+            </br>
+
+            <%= link_to 'Add Product',  new_store_product_path(:store_id => store.id), :class => 'btn btn-default btn-xs'%>
             <%= link_to t('.edit', :default => t("helpers.links.edit")),
                         edit_store_path(store), :class => 'btn btn-default btn-xs' %>
             <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
@@ -101,6 +113,18 @@
 
             <p class="lead">
               <strong><%= model_class.human_attribute_name(:facebook_page) %>: </strong><%= store.facebook_page %></p>
+
+            <p>Products: </p>
+            <% if !store.get_products.empty?  %>
+              <% store.get_products.each do |product| %>
+                <%= product.name %>
+              <% end %>
+            <% else %>
+              <%= 'none' %>
+            <% end  %>
+            </br>
+
+            <%= link_to 'Add Product',  new_store_product_path(:store_id => store.id), :class => 'btn btn-default btn-xs'%>
             <%= link_to t('.edit', :default => t("helpers.links.edit")),
                         edit_store_path(store), :class => 'btn btn-default btn-xs' %>
             <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

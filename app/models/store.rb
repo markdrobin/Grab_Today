@@ -1,6 +1,8 @@
 class Store < ActiveRecord::Base
   acts_as_paranoid
   belongs_to :user
+  has_many :store_products
+  has_many :products, :through => :store_products
   has_attached_file :avatar, default_url: "/assets/default-logo.jpg"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
@@ -36,4 +38,9 @@ class Store < ActiveRecord::Base
         28 => "Site Store",
     }
   end
+
+  def get_products
+    self.products
+  end
+
 end

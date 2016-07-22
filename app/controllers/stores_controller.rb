@@ -10,6 +10,7 @@ class StoresController < ApplicationController
   # GET /stores/1
   # GET /stores/1.json
   def show
+    @store.get_store_products = StoreProduct.paginate(:page => params[:page], :per_page => 5)
   end
 
   # GET /stores/new

@@ -4,9 +4,12 @@ class StoreProduct < ActiveRecord::Base
   has_many :product_variants
   has_many :variants, :through => :product_variants
 
-  attr_accessor :name, :product_type, :brand, :manufacturer, :description, :avatar
+  attr_accessor :name, :product_type, :brand, :manufacturer
   before_save :ensure_product_existence
   after_initialize :set_product_vars
+
+  has_attached_file :avatar, default_url: "/assets/product.jpg"
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   def get_name
     product.name
@@ -24,21 +27,13 @@ class StoreProduct < ActiveRecord::Base
     product.manufacturer
   end
 
-  def get_description
-    product.description
-  end
-
-  def get_avatar
-    product.avatar
-  end
-
   def get_variants
     variants
   end
 
   private
   def ensure_product_existence
-    params = {name: name, product_type: product_type, brand: brand, manufacturer: manufacturer, description: description}
+    params = {name: name, product_type: product_type, brand: brand, manufacturer: manufacturer}
     if product_id
       self.product.update(params)
     else

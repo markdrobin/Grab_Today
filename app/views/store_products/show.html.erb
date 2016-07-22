@@ -2,7 +2,7 @@
 <div class="page-header">
   <h1><%= t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
-<%= image_tag @store_product.get_avatar.url, size: "100x100" %>
+<%= image_tag @store_product.avatar.url, size: "200x200" %>
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
   <dd><%= @store_product.get_name %></dd>
@@ -17,7 +17,7 @@
   <dt><strong><%= model_class.human_attribute_name(:stock) %>:</strong></dt>
   <dd><%= @store_product.stock %></dd>
   <dt><strong><%= model_class.human_attribute_name(:description) %></strong></dt>
-  <dd><%= @store_product.get_description %></dd>
+  <dd><%= @store_product.description %></dd>
 </dl>
 <div>
   <h3>Variants:</h3>
@@ -40,7 +40,7 @@
 </br>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
-            store_products_path, :class => 'btn btn-default' %>
+            :back, :class => 'btn btn-default' %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
             edit_store_product_path(@store_product, :store_id => @store_product.store_id), :class => 'btn btn-default' %>
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

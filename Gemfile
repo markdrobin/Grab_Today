@@ -53,3 +53,6 @@ gem "twitter-bootstrap-rails"
 gem "paranoia", "~> 2.0"
 
 gem 'rqrcode'
+
+gem 'will_paginate', '~> 3.1.0'
+

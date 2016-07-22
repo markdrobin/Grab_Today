@@ -1,6 +1,6 @@
 <%- model_class = StoreProduct -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <h1><%= t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 <%= image_tag @store_product.get_avatar.url, size: "100x100" %>
 <dl class="dl-horizontal">
@@ -22,24 +22,29 @@
 <div>
   <h3>Variants:</h3>
   <% if !@store_product.get_variants.empty? %>
-    <dl class="dl-horizontal">
-      <% @store_product.get_variants.each do |variant| %>
-          <dt><strong><%= model_class.human_attribute_name(variant.name) %>:</strong></dt>
-          <dd><%= variant.value %></dd>
-      <% end %>
-    </dl>
+      <dl class="dl-horizontal">
+        <% @store_product.get_variants.each do |variant| %>
+            <dt><strong><%= model_class.human_attribute_name(variant.name) %>:</strong></dt>
+            <dd><%= variant.value %></dd>
+        <% end %>
+      </dl>
   <% else %>
       <%= "None" %>
   <% end %>
 </div>
+<br><br>
+<div class="qr-view">
+  <h3>QR Code:</h3>
+  <%= raw @qr.as_html %>
+</div>
 </br>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
-              store_products_path, :class => 'btn btn-default'  %>
+            store_products_path, :class => 'btn btn-default' %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_store_product_path(@store_product, :store_id => @store_product.store_id), :class => 'btn btn-default' %>
+            edit_store_product_path(@store_product, :store_id => @store_product.store_id), :class => 'btn btn-default' %>
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              store_product_path(@store_product),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+            store_product_path(@store_product),
+            :method => 'delete',
+            :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
+            :class => 'btn btn-danger' %>

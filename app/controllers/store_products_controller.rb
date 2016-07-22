@@ -1,6 +1,7 @@
 class StoreProductsController < ApplicationController
   before_action :set_store_product, only: [:show, :edit, :update, :destroy]
-
+  require 'rqrcode'
+  # dragonfly_accessor :qr_code
   # GET /store_products
   # GET /store_products.json
   def index
@@ -10,6 +11,7 @@ class StoreProductsController < ApplicationController
   # GET /store_products/1
   # GET /store_products/1.json
   def show
+    @qr = RQRCode::QRCode.new( @store_product.qr_code_path.to_s, :size => 4, :level => :h )
   end
 
   # GET /store_products/new
@@ -25,10 +27,11 @@ class StoreProductsController < ApplicationController
   # POST /store_products.json
   def create
     @store_product = StoreProduct.new(store_product_params)
-    # @store_product.store_id =
 
     respond_to do |format|
       if @store_product.save
+        code_path = "store_products/#{@store_product.id}"
+        @store_product.update_attribute :qr_code_path, code_path
         format.html { redirect_to @store_product, notice: 'Store product was successfully created.' }
         format.json { render :show, status: :created, location: @store_product }
       else
@@ -72,6 +75,6 @@ class StoreProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def store_product_params
-      params.require(:store_product).permit(:price, :stock, :name, :product_type, :brand, :manufacturer, :description, :avatar, :store_id)
+      params.require(:store_product).permit(:price, :stock, :name, :product_type, :brand, :manufacturer, :description, :avatar, :store_id, :name, :value)
     end
 end

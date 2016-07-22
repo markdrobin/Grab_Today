@@ -57,7 +57,9 @@
 
           <p class="body"><%= product.description %></p>
         </div>
-        <a href=products_path><i class="more">+</i></a>
+        <%= link_to store_product_path(product) do %>
+            <i class="more">+</i>
+        <% end %>
       </li>
   <% end %>
 </ul>

@@ -40,11 +40,8 @@
         <th><%= model_class.human_attribute_name(:avatar) %></th>
         <th><%= model_class.human_attribute_name(:name) %></th>
         <th><%= model_class.human_attribute_name(:product_type) %></th>
-        <th><%= model_class.human_attribute_name(:brand) %></th>
-        <th><%= model_class.human_attribute_name(:manufacturer) %></th>
         <th><%= model_class.human_attribute_name(:price) %></th>
         <th><%= model_class.human_attribute_name(:stock) %></th>
-        <th><%= model_class.human_attribute_name(:description) %></th>
         <th><%= t '.actions', :default => t("helpers.actions") %></th>
       </tr>
       </thead>
@@ -54,11 +51,8 @@
             <td><%= image_tag product.avatar, size: "50x50" %></td>
             <td><%= link_to product.get_name, store_product_path(product) %></td>
             <td><%= product.get_type %></td>
-            <td><%= product.get_brand %></td>
-            <td><%= product.get_manufacturer %></td>
-            <td><%= product.price %></td>
+            <td><%= "$" + product.price.to_s %></td>
             <td><%= product.stock %></td>
-            <td><%= product.description %></td>
             <td>
               <%= link_to t('.edit', :default => t("helpers.links.edit")),
                           edit_product_path(product), :class => 'btn btn-default btn-xs' %>

@@ -48,7 +48,7 @@
     <div class="form-group">
       <%= f.label :category, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <%= f.select :category, @store.store_types.values, {include_blank: 'select category'}, :class => 'form-control' %>
+        <%= f.select :category, Store.store_types.values, {include_blank: 'select category'}, :class => 'form-control' %>
       </div>
       <%= f.error_span(:category) %>
     </div>

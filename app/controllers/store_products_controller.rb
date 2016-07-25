@@ -30,8 +30,6 @@ class StoreProductsController < ApplicationController
 
     respond_to do |format|
       if @store_product.save
-        code_path = "store_products/#{@store_product.id}"
-        @store_product.update_attribute :qr_code_path, code_path
         format.html { redirect_to @store_product, notice: 'Store product was successfully created.' }
         format.json { render :show, status: :created, location: @store_product }
       else

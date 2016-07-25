@@ -8,8 +8,8 @@ class Store < ActiveRecord::Base
 
   validates :name, presence: true
 
-  def store_types
-    store_type = {
+  def self.store_types
+    {
         1 => "Functional Store",
         2 => "Physical Store",
         3 => "Raw Materials Store",

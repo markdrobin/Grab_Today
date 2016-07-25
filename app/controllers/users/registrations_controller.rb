@@ -10,21 +10,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     build_resource(sign_up_params)
 
     resource.stores.destroy_all unless resource.is_owner?
-
     resource.save
+
     yield resource if block_given?
     if resource.persisted?
       if resource.active_for_authentication?
-        # @user = User.new
-        # if @store
-        #   # @user = User.new(sign_up_params)
-        #   # @store.name = @store[:name]
-        #   # @store.update_attribute(:name, :store_attributes[:name])
-        #   @store.save
-        #
-        #   set_flash_message! :notice, :signed_up
-        #   sign_up(resource_name, resource)
-        #   respond_with resource, location: after_sign_up_path_for(resource)
       else
         set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
         expire_data_after_sign_in!

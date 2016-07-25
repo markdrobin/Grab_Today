@@ -1,4 +1,7 @@
 class StoreProduct < ActiveRecord::Base
+  # include PublicActivity::Model
+  # tracked except:
+
   belongs_to :store
   belongs_to :product
   has_many :product_variants, dependent: :destroy
@@ -8,7 +11,11 @@ class StoreProduct < ActiveRecord::Base
 
   attr_accessor :name, :product_type, :brand, :manufacturer, :description, :avatar, :name, :value
   before_save :ensure_product_existence, :ensure_variant_existence
+  after_create :save_qr_code_path
   after_initialize :set_product_vars
+
+  has_attached_file :avatar, default_url: "/assets/product.jpg"
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   def get_name
     product.name
@@ -34,9 +41,14 @@ class StoreProduct < ActiveRecord::Base
     product.avatar
   end
 
+  def save_qr_code_path
+    self.qr_code_path = "store_products/#{id}"
+    save
+  end
+
   private
   def ensure_product_existence
-    params = {name: name, product_type: product_type, brand: brand, manufacturer: manufacturer, description: description}
+    params = {name: name, product_type: product_type, brand: brand, manufacturer: manufacturer}
     if product_id
       self.product.update(params)
     else

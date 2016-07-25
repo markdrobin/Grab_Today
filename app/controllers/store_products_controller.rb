@@ -1,6 +1,7 @@
 class StoreProductsController < ApplicationController
   before_action :set_store_product, only: [:show, :edit, :update, :destroy]
-
+  require 'rqrcode'
+  # dragonfly_accessor :qr_code
   # GET /store_products
   # GET /store_products.json
   def index
@@ -10,6 +11,7 @@ class StoreProductsController < ApplicationController
   # GET /store_products/1
   # GET /store_products/1.json
   def show
+    @qr = RQRCode::QRCode.new( @store_product.qr_code_path.to_s, :size => 4, :level => :h )
   end
 
   # GET /store_products/new

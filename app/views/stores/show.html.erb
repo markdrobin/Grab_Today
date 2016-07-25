@@ -55,9 +55,9 @@
             <td><%= product.stock ? product.stock : 0 %></td>
             <td>
               <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                          edit_product_path(product), :class => 'btn btn-default btn-xs' %>
+                          edit_store_product_path(product, :store_id => product.store_id), :class => 'btn btn-default btn-xs' %>
               <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                          product_path(product),
+                          store_product_path(product),
                           :method => :delete,
                           :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
                           :class => 'btn btn-xs btn-danger' %>

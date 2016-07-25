@@ -4,7 +4,7 @@ class StoreProduct < ActiveRecord::Base
   acts_as_paranoid
 
   belongs_to :store
-  belongs_to :product
+  belongs_to :product, :dependent => :destroy
 
   has_many :product_variants
   has_many :variants, :through => :product_variants

@@ -1,4 +1,5 @@
 class StoreProductsController < ApplicationController
+  autocomplete :product, :name
   before_action :set_store_product, only: [:show, :edit, :update, :destroy]
   require 'rqrcode'
   # dragonfly_accessor :qr_code

@@ -28,7 +28,7 @@
 
 <!-- Start Recent Products Carousel -->
 <br><br><br><br>
-<% if !@store.get_store_products.empty? %>
+<% if !@store.store_products.empty? %>
     <%- model_class = Product -%>
     <div class="page-header">
       <h1><%= t '.title', :default => model_class.model_name.human.titleize + "s" %></h1>
@@ -80,7 +80,6 @@
             :method => 'delete',
             :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
             :class => 'btn btn-danger' %>
-<<<<<<< HEAD
 
 <!-- Start Recent Products Carousel -->
 <br><br><br><br>
@@ -109,5 +108,3 @@
   <% end %>
 </ul>
 <% end %>
-=======
->>>>>>> staging

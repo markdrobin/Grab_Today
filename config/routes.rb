@@ -24,6 +24,10 @@ Rails.application.routes.draw do
     get 'users/:id/reset_pass' => 'users/passwords#edit'
   end
 
+  resources :store_products do
+    get :autocomplete_product_brand, :on => :collection
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

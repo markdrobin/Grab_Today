@@ -9,7 +9,7 @@ class StoreProduct < ActiveRecord::Base
   accepts_nested_attributes_for :variants
   accepts_nested_attributes_for :product_variants
 
-  attr_accessor :name, :product_type, :brand, :manufacturer, :description, :avatar, :name, :value
+  attr_accessor :name, :product_type, :brand, :manufacturer, :name, :value
   before_save :ensure_product_existence, :ensure_variant_existence
   after_create :save_qr_code_path
   after_initialize :set_product_vars
@@ -31,14 +31,6 @@ class StoreProduct < ActiveRecord::Base
 
   def get_manufacturer
     product.manufacturer
-  end
-
-  def get_description
-    product.description
-  end
-
-  def get_avatar
-    product.avatar
   end
 
   def save_qr_code_path

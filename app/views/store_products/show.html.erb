@@ -42,7 +42,7 @@
 </br>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
-            :back, :class => 'btn btn-default' %>
+            store_path(@store_product.store_id), :class => 'btn btn-default' %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
             edit_store_product_path(@store_product, :store_id => @store_product.store_id), :class => 'btn btn-default' %>
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

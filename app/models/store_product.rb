@@ -1,9 +1,10 @@
 class StoreProduct < ActiveRecord::Base
   # include PublicActivity::Model
   # tracked except:
+  acts_as_paranoid
 
   belongs_to :store
-  belongs_to :product
+  belongs_to :product, dependent: :destroy
   has_many :product_variants, dependent: :destroy
   has_many :variants, :through => :product_variants
   accepts_nested_attributes_for :variants

@@ -16,7 +16,7 @@
         </div>
     <% end %>
 
-    <%= image_tag @store_product.avatar.url, size: "200x200" %>
+    <%= image_tag @store_product.avatar.url, size: "200x200" %><br><br>
 
     <div class="form-group">
       <div class="col-lg-10">
@@ -103,6 +103,7 @@
       });
     </script>
 
+    <br><br>
     <div class="form-group">
       <div class="col-lg-offset-2 col-lg-10">
         <%= f.submit nil, :class => 'btn btn-primary' %>

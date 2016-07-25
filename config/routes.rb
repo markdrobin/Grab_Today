@@ -21,9 +21,6 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   as :user do
-    # get '/sign_in' => 'devise/sessions#new'
-    # get '/sign_up' => 'devise/registrations#new'
-    # delete ':id/sign_out' => 'devise/sessions#destroy'
     get 'users/:id/reset_pass' => 'users/passwords#edit'
   end
 

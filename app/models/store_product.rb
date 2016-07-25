@@ -1,11 +1,17 @@
 class StoreProduct < ActiveRecord::Base
+  # include PublicActivity::Model
+  # tracked except:
+
   belongs_to :store
   belongs_to :product
+
   has_many :product_variants
   has_many :variants, :through => :product_variants
 
   attr_accessor :name, :product_type, :brand, :manufacturer
+
   before_save :ensure_product_existence
+  after_create :save_qr_code_path
   after_initialize :set_product_vars
 
   has_attached_file :avatar, default_url: "/assets/product.jpg"
@@ -29,6 +35,11 @@ class StoreProduct < ActiveRecord::Base
 
   def get_variants
     variants
+  end
+
+  def save_qr_code_path
+    self.qr_code_path = "store_products/#{id}"
+    save
   end
 
   private

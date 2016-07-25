@@ -15,18 +15,19 @@ class StoreProductsController < ApplicationController
   # GET /store_products/new
   def new
     @store_product = StoreProduct.new
+    @store_product.variants.build
   end
 
   # GET /store_products/1/edit
   def edit
+    @store_product.variants.build
   end
 
   # POST /store_products
   # POST /store_products.json
   def create
     @store_product = StoreProduct.new(store_product_params)
-    # @store_product.store_id =
-
+    @store_product.variants.last.delete
     respond_to do |format|
       if @store_product.save
         format.html { redirect_to @store_product, notice: 'Store product was successfully created.' }
@@ -72,6 +73,6 @@ class StoreProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def store_product_params
-      params.require(:store_product).permit(:price, :stock, :name, :product_type, :brand, :manufacturer, :description, :avatar, :store_id)
+      params.require(:store_product).permit(:price, :stock, :description, :avatar, :store_id, :name, :product_type, :brand, :manufacturer, variants_attributes: [:name, :value])
     end
 end

@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160721031039) do
+ActiveRecord::Schema.define(version: 20160725020257) do
+
+  create_table "product_types", force: :cascade do |t|
+    t.string   "category",   limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "product_variants", force: :cascade do |t|
     t.datetime "created_at",                 null: false

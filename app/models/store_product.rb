@@ -1,11 +1,13 @@
 class StoreProduct < ActiveRecord::Base
   belongs_to :store
   belongs_to :product
-  has_many :product_variants
+  has_many :product_variants, dependent: :destroy
   has_many :variants, :through => :product_variants
+  accepts_nested_attributes_for :variants
+  accepts_nested_attributes_for :product_variants
 
-  attr_accessor :name, :product_type, :brand, :manufacturer, :description, :avatar
-  before_save :ensure_product_existence
+  attr_accessor :name, :product_type, :brand, :manufacturer, :description, :avatar, :name, :value
+  before_save :ensure_product_existence, :ensure_variant_existence
   after_initialize :set_product_vars
 
   def get_name
@@ -22,10 +24,6 @@ class StoreProduct < ActiveRecord::Base
 
   def get_manufacturer
     product.manufacturer
-  end
-
-  def get_variants
-    variants
   end
 
   def get_description
@@ -49,6 +47,20 @@ class StoreProduct < ActiveRecord::Base
         self.product_id = Product.create(params).id
       end
     end
+  end
+
+  def ensure_variant_existence
+    print 'TRACE ' + product.name + ' ' + product.brand + ' ' + product_variants[0].to_s + ' END'
+    v_params = {name: name, value: value}
+    variants = Variant.where(v_params)
+    # prod_variant = ProductVariant.new
+    # if !variants.empty?
+    #   product_variants.build_variant(variants.first)
+    #   # prod_variant.variant_id = variants.first.id
+    # else
+    #   product_variants.build_variant(Variant.create(v_params))
+    #   # prod_variant.variant_id = Variant.create(v_params).id
+    # end
   end
 
   def set_product_vars

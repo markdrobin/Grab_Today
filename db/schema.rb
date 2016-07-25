@@ -61,12 +61,12 @@ ActiveRecord::Schema.define(version: 20160725022440) do
     t.datetime "updated_at",                                     null: false
     t.integer  "store_id",            limit: 4
     t.integer  "product_id",          limit: 4
-    t.string   "qr_code_path",        limit: 255
     t.string   "description",         limit: 255
     t.string   "avatar_file_name",    limit: 255
     t.string   "avatar_content_type", limit: 255
     t.integer  "avatar_file_size",    limit: 4
     t.datetime "avatar_updated_at"
+    t.string   "qr_code_path",        limit: 255
   end
 
   add_index "store_products", ["product_id"], name: "index_store_products_on_product_id", using: :btree

@@ -10,7 +10,7 @@ class StoresController < ApplicationController
   # GET /stores/1
   # GET /stores/1.json
   def show
-    #@store.get_store_products = StoreProduct.paginate(:page => params[:page], :per_page => 5)
+    @store_products = @store.store_products.paginate(:page => params[:page], :per_page => 5)
   end
 
   # GET /stores/new
@@ -27,7 +27,6 @@ class StoresController < ApplicationController
   def create
     @store = Store.new(store_params)
     @store.user_id = current_user.id
-    @store.save
 
     respond_to do |format|
       if @store.save

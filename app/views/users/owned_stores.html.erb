@@ -73,6 +73,15 @@
             <p class="lead">
               <strong><%= model_class.human_attribute_name(:average_sales) %>: </strong><%= store.average_sales ? store.average_sales : 0.00 %></p>
 
+            <!--<p>Products: </p>-->
+            <!--<%# if !store.store_products.empty?  %>-->
+                <!--<%# store.store_products.each do |store_product| %>-->
+                    <%#= link_to store_product.product.name, store_product_path(store_product) %>
+                <!--<%# end %>-->
+            <!--<%# else %>-->
+                <%#= 'none' %>
+            <!--<%# end  %>-->
+            <!--<br>-->
             <%= link_to 'Add Product', new_store_product_path(:store_id => store.id), :class => 'btn btn-default btn-xs' %>
             <%= link_to t('.show', :default => t("helpers.links.show")),
                         store_path(store), :class => 'btn btn-default btn-xs' %>
@@ -109,6 +118,16 @@
               <strong><%= model_class.human_attribute_name(:facebook_page) %>: </strong><%= store.facebook_page %></p>
             <p class="lead">
               <strong><%= model_class.human_attribute_name(:average_sales) %>: </strong><%= store.average_sales ? store.average_sales : 0.00 %></p>
+
+            <!--<p>Products: </p>-->
+            <!--<%# if !store.store_products.empty?  %>-->
+                <!--<%# store.store_products.each do |store_product| %>-->
+                    <%#= link_to store_product.product.name, store_product_path(store_product) %>
+                <!--<%# end %>-->
+            <!--<%# else %>-->
+                <%#= 'none' %>
+            <!--<%# end  %>-->
+            <!--<br>-->
 
             <%= link_to 'Add Product', new_store_product_path(:store_id => store.id), :class => 'btn btn-default btn-xs' %>
             <%= link_to t('.show', :default => t("helpers.links.show")),

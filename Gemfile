@@ -60,4 +60,6 @@ gem 'will_paginate-bootstrap'
 
 gem 'public_activity', github: 'pokonski/public_activity'
 
+gem 'jquery-ui-rails'
 
+gem 'rails-jquery-autocomplete'

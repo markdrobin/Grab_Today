@@ -16,7 +16,8 @@
         </div>
     <% end %>
 
-    <%= image_tag @store_product.avatar.url, size: "200x200" %>
+    <%= image_tag @store_product.avatar.url, size: "200x200" %><br><br>
+
     <div class="form-group">
       <div class="col-lg-10">
         <%= f.file_field :avatar, :class => 'form-control' %>
@@ -26,23 +27,28 @@
     <div class="form-group">
       <%#= f.label :name, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <%# @this_name =  @store_product.product ? @store_product.get_name : nil %>
         <%= f.text_field :name, placeholder: :name.capitalize, :class => 'form-control' %>
       </div>
       <%= f.error_span(:name) %>
     </div>
+
     <div class="form-group">
       <%#= f.label :product_type, :class => 'control-label col-lg-2' %>
-      <div class="col-lg-10">
-        <%# @this_type =  @store_product.product ? @store_product.get_type : nil %>
-        <%= f.text_field :product_type, placeholder: 'Type', :class => 'form-control' %>
+      <div class="col-lg-10" id="category-select">
+        <%= f.select :product_type, ProductType.all.order('category ASC').collect {|p| p.category} << ProductType.new(:category => 'New Category').category, {include_blank: 'Select Category'}, :class => 'form-control' %>
       </div>
       <%= f.error_span(:product_type) %>
     </div>
+
+    <!--<div class="form-group" <%#= 'hidden' unless params[:product_type].to_s == 'New Category' %>>-->
+      <!--<div class="col-lg-10" id="category-select">-->
+        <!--<%#= f.text_field :product_type, placeholder: 'Category', :class => 'form-control' %>-->
+      <!--</div>-->
+      <!--<%#= f.error_span(:product_type) %>-->
+    <!--</div>-->
     <div class="form-group">
       <%#= f.label :brand, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <%# @this_brand =  @store_product.product ? @store_product.get_brand : nil %>
         <%= f.text_field :brand, placeholder: :brand.capitalize, :class => 'form-control' %>
       </div>
       <%= f.error_span(:brand) %>
@@ -50,11 +56,11 @@
     <div class="form-group">
       <%#= f.label :manufacturer, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <%# @this_manuf =  @store_product.product ? @store_product.get_manufacturer : nil %>
         <%= f.text_field :manufacturer, placeholder: :manufacturer.capitalize, :class => 'form-control' %>
       </div>
       <%= f.error_span(:manufacturer) %>
     </div>
+
     <div class="form-group">
       <%#= f.label :price, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
@@ -79,24 +85,25 @@
 
     <!--<div id="skillSet">-->
     <div id="addVariant">
-      <%= render partial: 'variant_form' %>
+      <%= render 'variant_form', f: f %>
     </div>
     <a href="javascript:;" id="addNewVariant" class="btn btn-default">Add New Variant</a>
     <!--<div class="actions">-->
-      <!--<%#= f.submit %>-->
+    <!--<%#= f.submit %>-->
     <!--</div>-->
     <div class="hide" id="new_variant_form">
-      <%= render partial: 'variant_form' %>
+      <%= render 'variant_form', f: f %>
     </div>
 
     <script>
-      $(document).ready(function() {
-        $("#addNewVariant").click(function() {
+      $(document).ready(function () {
+        $("#addNewVariant").click(function () {
           $("#addVariant").append($("#new_variant_form").html());
         });
       });
     </script>
 
+    <br><br>
     <div class="form-group">
       <div class="col-lg-offset-2 col-lg-10">
         <%= f.submit nil, :class => 'btn btn-primary' %>

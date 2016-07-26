@@ -22,20 +22,18 @@
       <!--<%#= label_tag 'weight' %>-->
       <!--<%#= text_field_tag 'weights[]' %>-->
     <!--</div>-->
-
+<%= f.fields_for :variants do |v| %>
     <div class="form-group">
-      <%#= f.label :brand, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <%= text_field_tag 'variant_names[]', nil, placeholder: 'Variant', :class => 'form-control' %>
+        <%= v.text_field :name, placeholder: 'Variant', :class => 'form-control' %>
       </div>
       <%#= error_span(:name) %>
     </div>
     <div class="form-group">
-      <%#= f.label :manufacturer, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <%= text_field_tag 'variant_values[]', nil, placeholder: :value.capitalize, :class => 'form-control' %>
+        <%= v.text_field :value, placeholder: :value.capitalize, :class => 'form-control' %>
       </div>
       <%#= error_span(:value) %>
     </div>
-
+<% end %>
 <%# end %>

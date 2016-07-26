@@ -10,7 +10,14 @@ Rails.application.routes.draw do
     end
   end
   resources :variants
-  resources :store_products
+  resources :store_products do
+    collection do
+      # get '/'
+      get :new_variant_fields
+    end
+
+    post 'store_products/new_variant_fields'
+  end
   resources :products
   resources :stores do
     member do
@@ -24,9 +31,9 @@ Rails.application.routes.draw do
     get 'users/:id/reset_pass' => 'users/passwords#edit'
   end
 
-  resources :store_products do
-    get :autocomplete_product_brand, :on => :collection
-  end
+  # resources :store_products do
+  #   get :autocomplete_product_brand, :on => :collection
+  # end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

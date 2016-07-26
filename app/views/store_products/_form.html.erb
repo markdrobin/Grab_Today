@@ -75,7 +75,6 @@
       </div>
       <%= f.error_span(:stock) %>
     </div>
-    <%= f.hidden_field :store_id, :value => params[:store_id] %>
     <div class="form-group">
       <div class="col-lg-10">
         <%= f.text_field :description, placeholder: :description, :class => 'form-control' %>
@@ -83,30 +82,56 @@
       <%= f.error_span(:description) %>
     </div>
 
-    <!--<div id="skillSet">-->
     <div id="addVariant">
-      <%= render 'variant_form', f: f %>
+      <!--<%#= render 'variant_form', f: f %>-->
+      <% @store_product.variants.each do|v| %>
+          <%= render 'variant_form', variant: v, f: f %>
+      <% end %>
     </div>
     <a href="javascript:;" id="addNewVariant" class="btn btn-default">Add New Variant</a>
-    <!--<div class="actions">-->
-    <!--<%#= f.submit %>-->
-    <!--</div>-->
     <div class="hide" id="new_variant_form">
-      <%= render 'variant_form', f: f %>
+      <%= render 'variant_form', variant: Variant.new %>
     </div>
+    <%= f.hidden_field :store_id, :value => params[:store_id] %>
 
     <script>
       $(document).ready(function () {
         $("#addNewVariant").click(function () {
-          $("#addVariant").append($("#new_variant_form").html());
+          $.ajax({
+            url: "/store_products/new_variant_fields",
+            type: "GET",
+            success: function(data){
+              $("#addVariant").append(data).html();
+            }
+          })
         });
+
+        $('form').submit(function(e){
+          $("#new_variant_form").remove()
+        })
       });
+    </script>
+
+    <script>
+//      $(document).ready(function () {
+//        $("#category-select").change(function () {
+//          var selected_category = $(this).val();
+//          var products = $(".form-control");
+//          console.log("CATEGORY :: ");
+//          console.log(selected_category);
+//          if (selected_category != 'a') {
+//            console.log("HERE");
+//            $(this).textContent;
+//          }
+//          console.log("DONE");
+//        });
+//      });
     </script>
 
     <br><br>
     <div class="form-group">
       <div class="col-lg-offset-2 col-lg-10">
-        <%= f.submit nil, :class => 'btn btn-primary' %>
+        <%= f.submit :class => 'btn btn-primary' %>
         <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                     :back, :class => 'btn btn-default' %>
       </div>

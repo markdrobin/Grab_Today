@@ -1,6 +1,6 @@
 class ProductVariant < ActiveRecord::Base
-  belongs_to :store_product
-  belongs_to :variant
+  belongs_to :store_product, dependent: :destroy
+  belongs_to :variant, dependent: :destroy
 
   # def new(params)
   #   self = ProductVariant.create(params)

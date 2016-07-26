@@ -1,28 +1,5 @@
-<%#= form_for @store_product, :html => {:class => "form-horizontal store_product"} do |f| %>
-
-    <%# if @store_product.errors.any? %>
-        <!--<div id="error_expl" class="panel panel-danger">-->
-          <!--<div class="panel-heading">-->
-            <!--<h3 class="panel-title"><%#= pluralize(@store_product.errors.count, "error") %> prohibited this store_product-->
-              <!--from being saved:</h3>-->
-          <!--</div>-->
-          <!--<div class="panel-body">-->
-            <!--<ul>-->
-              <%# @store_product.errors.full_messages.each do |msg| %>
-                  <!--<li><%#= msg %></li>-->
-              <!--<%# end %>-->
-            <!--</ul>-->
-          <!--</div>-->
-        <!--</div>-->
-    <!--<%# end %>-->
-
-    <!--<div class="skillsForm">-->
-      <!--<%#= label_tag 'tag' %>-->
-      <!--<%#= text_field_tag 'tags[]' %>-->
-      <!--<%#= label_tag 'weight' %>-->
-      <!--<%#= text_field_tag 'weights[]' %>-->
-    <!--</div>-->
-<%= f.fields_for :variants do |v| %>
+<%= fields_for "store_product[variants_attributes][]", variant, index: (variant.new_record? ? variant.object_id : variant.id) do |v| %>
+    <%= v.hidden_field :id unless variant.new_record? %>
     <div class="form-group">
       <div class="col-lg-10">
         <%= v.text_field :name, placeholder: 'Variant', :class => 'form-control' %>
@@ -36,4 +13,3 @@
       <%#= error_span(:value) %>
     </div>
 <% end %>
-<%# end %>

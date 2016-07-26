@@ -4,7 +4,7 @@ class StoreProduct < ActiveRecord::Base
   acts_as_paranoid
 
   belongs_to :store
-  belongs_to :product, dependent: :destroy
+  belongs_to :product
   has_many :product_variants, dependent: :destroy
   has_many :variants, :through => :product_variants
   accepts_nested_attributes_for :variants
@@ -55,9 +55,15 @@ class StoreProduct < ActiveRecord::Base
   end
 
   def ensure_variant_existence
-    print 'TRACE ' + product.name + ' ' + product.brand + ' ' + product_variants[0].to_s + ' END'
-    v_params = {name: name, value: value}
-    variants = Variant.where(v_params)
+    # pv.delete unless pv[:name].present?
+    # product_variants.each do |pv|
+    #   print "WAAAAAAAAAAAAAIIIIIIIIIIIIIIIITTTTTTTTTT #{pv[:name[0]].to_s} ENDDDDD"
+    #   pv.name.each do |n|
+    #     print " YES :: #{n} \n"
+    #   end
+    # end
+    # v_params = {name: name, value: value}
+    # variants = Variant.where(v_params)
     # prod_variant = ProductVariant.new
     # if !variants.empty?
     #   product_variants.build_variant(variants.first)

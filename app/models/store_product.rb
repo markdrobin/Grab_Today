@@ -1,6 +1,6 @@
 class StoreProduct < ActiveRecord::Base
-  # include PublicActivity::Model
-  # tracked except:
+  include PublicActivity::Model
+  # tracked owner: :users, recipient: @store_products
 
   belongs_to :store
   belongs_to :product
@@ -35,6 +35,10 @@ class StoreProduct < ActiveRecord::Base
 
   def get_variants
     variants
+  end
+
+  def restock(additional_stocks)
+    update stock: stock + additional_stocks.to_i
   end
 
   def save_qr_code_path

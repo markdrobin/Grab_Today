@@ -1,0 +1,7 @@
+<% if activity.trackable %>
+    <small class="text-muted">Product was restocked
+      at <%= activity.created_at.strftime('%-I:%M %p') %> on <%= activity.created_at.strftime('%-d %B %Y') %></small>
+    <%#= link_to activity.trackable.name, store_product_path(activity.trackable) %>
+<% else %>
+    A product that is currently deleted was restocked.
+<% end %>

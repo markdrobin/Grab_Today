@@ -16,6 +16,11 @@
   <dd><%= @store_product.price %></dd>
   <dt><strong><%= model_class.human_attribute_name(:stock) %>:</strong></dt>
   <dd><%= @store_product.stock %></dd>
+  <dd>
+      <div class="activity">
+        <%= render_activities @activities %>
+      </div>
+  </dd>
   <dt><strong><%= model_class.human_attribute_name(:description) %></strong></dt>
   <dd><%= @store_product.description %></dd>
 </dl>
@@ -41,6 +46,8 @@
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
             :back, :class => 'btn btn-default' %>
+<%= link_to t('.restock', :default => t("helpers.links.restock")),
+            restock_store_product_path(@store_product, :store_id => @store_product.store_id), :class => 'btn btn-default' %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
             edit_store_product_path(@store_product, :store_id => @store_product.store_id), :class => 'btn btn-default' %>
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

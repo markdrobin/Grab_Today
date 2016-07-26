@@ -10,7 +10,12 @@ Rails.application.routes.draw do
     end
   end
   resources :variants
-  resources :store_products
+  resources :store_products do
+    member do
+      get :restock
+      post :process_restock
+    end
+  end
   resources :products
   resources :stores do
     member do

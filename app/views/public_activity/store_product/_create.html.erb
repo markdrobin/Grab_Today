@@ -1,0 +1,6 @@
+<% if activity.trackable %>
+    <small class="text-muted">Product added at <%= activity.created_at.strftime('%-I:%M %p') %>
+      on <%= activity.created_at.strftime('%-d %B %Y') %></small>
+<% else %>
+    A product that is currently deleted was added.
+<% end %>

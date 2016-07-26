@@ -70,12 +70,12 @@ ActiveRecord::Schema.define(version: 20160725082538) do
     t.datetime "updated_at",                                     null: false
     t.integer  "store_id",            limit: 4
     t.integer  "product_id",          limit: 4
+    t.string   "qr_code_path",        limit: 255
     t.string   "description",         limit: 255
     t.string   "avatar_file_name",    limit: 255
     t.string   "avatar_content_type", limit: 255
     t.integer  "avatar_file_size",    limit: 4
     t.datetime "avatar_updated_at"
-    t.string   "qr_code_path",        limit: 255
     t.datetime "deleted_at"
   end
 
@@ -124,14 +124,14 @@ ActiveRecord::Schema.define(version: 20160725082538) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
-    t.string   "confirmation_token",     limit: 255
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email",      limit: 255
     t.string   "avatar_file_name",       limit: 255
     t.string   "avatar_content_type",    limit: 255
     t.integer  "avatar_file_size",       limit: 4
     t.datetime "avatar_updated_at"
+    t.string   "confirmation_token",     limit: 255
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email",      limit: 255
     t.string   "user_type",              limit: 255
   end
 

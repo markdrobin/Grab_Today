@@ -1,6 +1,5 @@
 class StoreProduct < ActiveRecord::Base
-  # include PublicActivity::Model
-  # tracked except:
+  include PublicActivity::Model
   acts_as_paranoid
 
   belongs_to :store
@@ -32,6 +31,14 @@ class StoreProduct < ActiveRecord::Base
 
   def get_manufacturer
     product.manufacturer
+  end
+
+  def get_variants
+    variants
+  end
+
+  def restock(additional_stocks)
+    update stock: stock + additional_stocks.to_i
   end
 
   def save_qr_code_path

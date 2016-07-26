@@ -1,0 +1,11 @@
+<h1>Restock</h1>
+
+<%= form_tag(process_restock_store_product_path(@store_product), method: :post)do %>
+    <div class="field">
+      <%= label_tag :stock %><br>
+      <%= text_field_tag :additional_stock %>
+      <%= submit_tag("Submit") %>
+    </div>
+<% end %>
+
+<%= link_to 'Back', store_product_path %>

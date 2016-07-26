@@ -12,11 +12,12 @@ Rails.application.routes.draw do
   resources :variants
   resources :store_products do
     collection do
-      # get '/'
       get :new_variant_fields
     end
-
-    post 'store_products/new_variant_fields'
+    member do
+      get :restock
+      post :process_restock
+    end
   end
   resources :products
   resources :stores do

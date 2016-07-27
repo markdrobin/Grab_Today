@@ -9,8 +9,8 @@ class StoreProduct < ActiveRecord::Base
   accepts_nested_attributes_for :variants
   accepts_nested_attributes_for :product_variants
 
-  attr_accessor :name, :product_type, :brand, :manufacturer, :name, :value
-  before_save :ensure_product_existence, :ensure_variant_existence
+  attr_accessor :name, :product_type, :brand, :manufacturer
+  before_save :ensure_product_existence#, :ensure_variant_existence
   after_create :save_qr_code_path
   after_initialize :set_product_vars
 
@@ -62,22 +62,46 @@ class StoreProduct < ActiveRecord::Base
   end
 
   def ensure_variant_existence
+    # product_variants.
+    prod_variants = []
+    variants.each do |v|
+      # print "WAAAAAAAAAAAAAIIIIIIIIIIIIIIIITTTTTTTTTT #{v.name} ENDDDDD"
+      v_params = {name: v.name, value: v.value}
+      variants = Variant.where(v_params)
+      prod_variant = ProductVariant.new
+      if variants.empty?
+        # product_variants.build_variant(Variant.create(v_params))
+        prod_variant.variant_id = Variant.create(v_params).id
+      else
+        # product_variants.build_variant(variants.first)
+        prod_variant.variant_id = variants.first.id
+      end
+      prod_variants.insert(prod_variant)
+    end
+
+    # if prod_variants.empty?
+    #   self.product_variants = nil
+    # else
+    #   self.product_variants = prod_variants
+    # end
+
+    # v_params = {name: name, value: value}
+    # variants = Variant.where(v_params)
+    # prod_variant = ProductVariant.new
+    # if !variants.empty?
+    #   product_variants.build_variant(variants.first)
+    #   prod_variant.variant_id = variants.first.id
+    # else
+    #   product_variants.build_variant(Variant.create(v_params))
+    #   prod_variant.variant_id = Variant.create(v_params).id
+    # end
+
     # pv.delete unless pv[:name].present?
     # product_variants.each do |pv|
     #   print "WAAAAAAAAAAAAAIIIIIIIIIIIIIIIITTTTTTTTTT #{pv[:name[0]].to_s} ENDDDDD"
     #   pv.name.each do |n|
     #     print " YES :: #{n} \n"
     #   end
-    # end
-    # v_params = {name: name, value: value}
-    # variants = Variant.where(v_params)
-    # prod_variant = ProductVariant.new
-    # if !variants.empty?
-    #   product_variants.build_variant(variants.first)
-    #   # prod_variant.variant_id = variants.first.id
-    # else
-    #   product_variants.build_variant(Variant.create(v_params))
-    #   # prod_variant.variant_id = Variant.create(v_params).id
     # end
   end
 

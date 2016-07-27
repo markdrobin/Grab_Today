@@ -27,12 +27,13 @@
 <div>
   <h3>Variants:</h3>
   <% if !@store_product.product_variants.empty? %>
-      <%= print "WOWOWOWOWOW #{@store_product.product_variants[0].variant.name} :: #{@store_product.product_variants[0].variant.value}" %>
+      <%#= print "WOWOWOWOWOW #{@store_product.product_variants[0].variant.name} :: #{@store_product.product_variants[0].variant.value}" %>
       <dl class="dl-horizontal">
         <% @store_product.product_variants.each do |variant| %>
+            <!--<dt><strong><%#= model_class.human_attribute_name("ONE VAR") %>:</strong></dt>-->
+            <!--<dd><%#= 'ONE VAL' %></dd>-->
             <dt><strong><%= model_class.human_attribute_name(variant.variant.name) %>:</strong></dt>
             <dd><%= variant.variant.value %></dd>
-            <%= print "#{variant.variant.name}" %>
         <% end %>
       </dl>
   <% else %>

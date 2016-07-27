@@ -1,5 +1,6 @@
+require 'rqrcode'
+
 class StoreProductsController < ApplicationController
-  require 'rqrcode'
   before_action :set_store_product, :load_activities, only: [:show, :edit, :update, :destroy, :restock, :process_restock]
 
 

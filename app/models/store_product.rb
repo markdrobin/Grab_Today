@@ -9,14 +9,20 @@ class StoreProduct < ActiveRecord::Base
   accepts_nested_attributes_for :variants
   accepts_nested_attributes_for :product_variants
 
-  attr_accessor :name, :product_type, :brand, :manufacturer
-  before_save :ensure_product_existence#, :ensure_variant_existence
+  attr_accessor :name, :product_type, :brand, :manufacturer, :variant_tokens
+  attr_reader :variant_tokens
+
+  before_save :ensure_product_existence
   after_save :remove_blank_variants
   after_create :save_qr_code_path
   after_initialize :set_product_vars
 
   has_attached_file :avatar, default_url: "/assets/product.jpg"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+
+  def variant_tokens=(ids)
+    self.variant_ids = ids.split(",")
+  end
 
   def get_name
     product.name
@@ -39,12 +45,11 @@ class StoreProduct < ActiveRecord::Base
   end
 
   def restock(additional_stocks)
-    if stock.eql?(nil)
+    if stock.nil?
       update stock: additional_stocks.to_i
     else
       update stock: stock + additional_stocks.to_i
     end
-
   end
 
   def save_qr_code_path

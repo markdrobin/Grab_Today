@@ -82,6 +82,11 @@
       <%= f.error_span(:description) %>
     </div>
 
+    <div>
+      <%= f.label :variant_tokens, "Variance Tokens" %><br>
+      <%= f.text_field :variant_tokens, "data-pre" => @store_product.variants.map(&:attributes).to_json %><br><br>
+    </div>
+
     <div id="addVariant">
       <!--<%#= render 'variant_form', f: f %>-->
       <% @store_product.variants.each do |v| %>
@@ -115,7 +120,6 @@
         $("#addVariant").on('click', '#cancel_variant', function () {
           $(this).parent().remove();
         });
-
         $('form').submit(function (e) {
           $("#new_variant_form").remove()
 

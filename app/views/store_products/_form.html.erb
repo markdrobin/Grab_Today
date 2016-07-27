@@ -35,16 +35,16 @@
     <div class="form-group">
       <%#= f.label :product_type, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10" id="category-select">
-        <%= f.select :product_type, ProductType.all.order('category ASC').collect {|p| p.category} << ProductType.new(:category => 'New Category').category, {include_blank: 'Select Category'}, :class => 'form-control' %>
+        <%= f.select :product_type, ProductType.all.order('category ASC').collect { |p| p.category } << ProductType.new(:category => 'New Category').category, {include_blank: 'Select Category'}, :class => 'form-control' %>
       </div>
       <%= f.error_span(:product_type) %>
     </div>
 
     <!--<div class="form-group" <%#= 'hidden' unless params[:product_type].to_s == 'New Category' %>>-->
-      <!--<div class="col-lg-10" id="category-select">-->
-        <!--<%#= f.text_field :product_type, placeholder: 'Category', :class => 'form-control' %>-->
-      <!--</div>-->
-      <!--<%#= f.error_span(:product_type) %>-->
+    <!--<div class="col-lg-10" id="category-select">-->
+    <!--<%#= f.text_field :product_type, placeholder: 'Category', :class => 'form-control' %>-->
+    <!--</div>-->
+    <!--<%#= f.error_span(:product_type) %>-->
     <!--</div>-->
     <div class="form-group">
       <%#= f.label :brand, :class => 'control-label col-lg-2' %>
@@ -84,8 +84,11 @@
 
     <div id="addVariant">
       <!--<%#= render 'variant_form', f: f %>-->
-      <% @store_product.variants.each do|v| %>
-          <%= render 'variant_form', variant: v, f: f %>
+      <% @store_product.variants.each do |v| %>
+          <li>
+            <%= render 'variant_form', variant: v, f: f %>
+            <a href="#" id="cancel_variant">X</a>
+          </li>
       <% end %>
     </div>
     <a href="javascript:;" id="addNewVariant" class="btn btn-default">Add New Variant</a>
@@ -100,32 +103,47 @@
           $.ajax({
             url: "/store_products/new_variant_fields",
             type: "GET",
-            success: function(data){
-              $("#addVariant").append(data).html();
+            success: function (data) {
+              $("#addVariant").append('<li>'
+                  + data
+                  + '<a href="#" id="cancel_variant">X</a>'
+                  + '</li>').html();
             }
           })
         });
 
-        $('form').submit(function(e){
+        $("#addVariant").on('click', '#cancel_variant', function () {
+          $(this).parent().remove();
+        });
+
+        $('form').submit(function (e) {
           $("#new_variant_form").remove()
+
+//          $("li").each(function () {
+////            console.log($(this))
+//            var empties = $(this).getElementById("#variant-name");
+//            if (empties.value == "") {
+//              empties.parent().remove()
+//            }
+//          });
         })
       });
     </script>
 
     <script>
-//      $(document).ready(function () {
-//        $("#category-select").change(function () {
-//          var selected_category = $(this).val();
-//          var products = $(".form-control");
-//          console.log("CATEGORY :: ");
-//          console.log(selected_category);
-//          if (selected_category != 'a') {
-//            console.log("HERE");
-//            $(this).textContent;
-//          }
-//          console.log("DONE");
-//        });
-//      });
+      //      $(document).ready(function () {
+      //        $("#category-select").change(function () {
+      //          var selected_category = $(this).val();
+      //          var products = $(".form-control");
+      //          console.log("CATEGORY :: ");
+      //          console.log(selected_category);
+      //          if (selected_category != 'a') {
+      //            console.log("HERE");
+      //            $(this).textContent;
+      //          }
+      //          console.log("DONE");
+      //        });
+      //      });
     </script>
 
     <br><br>

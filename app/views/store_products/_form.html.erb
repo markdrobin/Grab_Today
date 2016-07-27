@@ -87,11 +87,11 @@
       <% @store_product.variants.each do |v| %>
           <li>
             <%= render 'variant_form', variant: v, f: f %>
-            <a href="#" id="cancel_variant">X</a>
+            <a href="#" id="cancel_variant" class="btn btn-default">Cancel Variant</a>
           </li>
       <% end %>
     </div>
-    <a href="javascript:;" id="addNewVariant" class="btn btn-default">Add New Variant</a>
+    <br><a href="javascript:;" id="addNewVariant" class="btn btn-default">Add New Variant</a>
     <div class="hide" id="new_variant_form">
       <%= render 'variant_form', variant: Variant.new %>
     </div>
@@ -106,7 +106,7 @@
             success: function (data) {
               $("#addVariant").append('<li>'
                   + data
-                  + '<a href="#" id="cancel_variant">X</a>'
+                  + '<a href="#" id="cancel_variant" class="btn btn-default">Cancel Variant</a>'
                   + '</li>').html();
             }
           })

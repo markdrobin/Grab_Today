@@ -10,12 +10,8 @@ class StoreProduct < ActiveRecord::Base
   accepts_nested_attributes_for :product_variants
 
   attr_accessor :name, :product_type, :brand, :manufacturer
-<<<<<<< HEAD
-  before_save :ensure_product_existence #, :ensure_variant_existence
-=======
   before_save :ensure_product_existence#, :ensure_variant_existence
   after_save :remove_blank_variants
->>>>>>> staging
   after_create :save_qr_code_path
   after_initialize :set_product_vars
 

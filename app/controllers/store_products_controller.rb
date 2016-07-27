@@ -68,7 +68,6 @@ class StoreProductsController < ApplicationController
   # PATCH/PUT /store_products/1
   # PATCH/PUT /store_products/1.json
   def update
-    # throw @store_product.variants
     respond_to do |format|
       if @store_product.update(store_product_params)
         format.html { redirect_to @store_product, notice: 'Store product was successfully updated.' }

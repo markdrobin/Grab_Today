@@ -39,7 +39,12 @@ class StoreProduct < ActiveRecord::Base
   end
 
   def restock(additional_stocks)
-    update stock: stock + additional_stocks.to_i
+    if stock.eql?(nil)
+      update stock: additional_stocks.to_i
+    else
+      update stock: stock + additional_stocks.to_i
+    end
+
   end
 
   def save_qr_code_path

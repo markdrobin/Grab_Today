@@ -6,7 +6,7 @@ class StoreProduct < ActiveRecord::Base
   belongs_to :product
   has_many :product_variants, dependent: :destroy
   has_many :variants, :through => :product_variants
-  accepts_nested_attributes_for :variants
+  accepts_nested_attributes_for :variants, allow_destroy: true
   accepts_nested_attributes_for :product_variants
 
   attr_accessor :name, :product_type, :brand, :manufacturer
@@ -86,15 +86,15 @@ class StoreProduct < ActiveRecord::Base
     # end
     #
     variants.each do |v|
-      print "VAAAAAAAARRRRRRRRRR #{v[:id]} :: #{v[:name]} :: #{v[:value]}"
+      print "\n##### #{v[:id]} :: #{v[:name]} :: #{v[:value]} #####\n"
       v_params = {id: v[:id], name: v[:name], value: v[:value]}
       variant = Variant.where({id: v[:id]})
       if !variant.empty?
         # self.product_id = products.first.id
-        print "----NOT EMPTY---- #{v[:name]} :: #{v[:value]}"
+        print "\n----NOT EMPTY---- #{v[:name]} :: #{v[:value]}\n"
         # variant.update(v_params)
       else
-        print "----EMPTY---- #{v[:name]} :: #{v[:value]}"
+        print "\n----EMPTY---- #{v[:name]} :: #{v[:value]}\n"
         # new_prod_var = ProductVariant.create({store_product_id: self.id, variant_id: Variant.create({name: v[:name], value: v[:value]}).id})
         # product_variants.push(new_var.id)
         # self.variants
@@ -144,27 +144,4 @@ class StoreProduct < ActiveRecord::Base
       self.manufacturer = get_manufacturer
     end
   end
-
-  def reset_variants
-    print '------======START RESET====------'
-    product_variants.each do |pv|
-      pv.variant[:name] = ''
-      pv.variant[:value] = ''
-      print "***** #{pv.variant[:name]} :: #{pv.variant[:value]} *****"
-    end
-    print '------======END RESET====------'
-  end
-
-  def finalize_variants
-    print '------======START FINALIZE====------'
-    product_variants.each do |pv|
-      print "######### #{pv.variant[:name]} :: #{pv.variant[:value]} :: #{pv.variant[:updated_at]} #######"
-      if pv.variant[:name] == '' || pv.variant[:value] == ''
-        pv.delete
-      end
-    end
-    print '------======END FINALIZE====------'
-  end
-
-
 end

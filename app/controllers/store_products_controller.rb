@@ -101,6 +101,6 @@ class StoreProductsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def store_product_params
-    params.require(:store_product).permit(:price, :stock, :description, :avatar, :store_id, :name, :product_type, :brand, :manufacturer, variants_attributes: [:id, :name, :value])
+    params.require(:store_product).permit(:price, :stock, :description, :avatar, :store_id, :name, :product_type, :brand, :manufacturer, variants_attributes: [:id, :name, :value, :_destroy])
   end
 end

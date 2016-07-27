@@ -11,6 +11,7 @@ class StoreProduct < ActiveRecord::Base
 
   attr_accessor :name, :product_type, :brand, :manufacturer
   before_save :ensure_product_existence#, :ensure_variant_existence
+  after_save :remove_blank_variants
   after_create :save_qr_code_path
   after_initialize :set_product_vars
 
@@ -63,20 +64,37 @@ class StoreProduct < ActiveRecord::Base
 
   def ensure_variant_existence
     # product_variants.
-    prod_variants = []
+    # prod_variants = []
+    # variants.each do |v|
+    #   # print "WAAAAAAAAAAAAAIIIIIIIIIIIIIIIITTTTTTTTTT #{v.name} ENDDDDD"
+    #   v_params = {name: v.name, value: v.value}
+    #   variants = Variant.where(v_params)
+    #   prod_variant = ProductVariant.new
+    #   if variants.empty?
+    #     # product_variants.build_variant(Variant.create(v_params))
+    #     prod_variant.variant_id = Variant.create(v_params).id
+    #   else
+    #     # product_variants.build_variant(variants.first)
+    #     prod_variant.variant_id = variants.first.id
+    #   end
+    #   prod_variants.insert(prod_variant)
+    # end
+    #
     variants.each do |v|
-      # print "WAAAAAAAAAAAAAIIIIIIIIIIIIIIIITTTTTTTTTT #{v.name} ENDDDDD"
-      v_params = {name: v.name, value: v.value}
-      variants = Variant.where(v_params)
-      prod_variant = ProductVariant.new
-      if variants.empty?
-        # product_variants.build_variant(Variant.create(v_params))
-        prod_variant.variant_id = Variant.create(v_params).id
+      print "VAAAAAAAARRRRRRRRRR #{v[:id]} :: #{v[:name]} :: #{v[:value]}"
+      v_params = {id: v[:id], name: v[:name], value: v[:value]}
+      variant = Variant.where({id: v[:id]})
+      if !variant.empty?
+        # self.product_id = products.first.id
+        print "----NOT EMPTY---- #{v[:name]} :: #{v[:value]}"
+        # variant.update(v_params)
       else
-        # product_variants.build_variant(variants.first)
-        prod_variant.variant_id = variants.first.id
+        print "----EMPTY---- #{v[:name]} :: #{v[:value]}"
+        # new_prod_var = ProductVariant.create({store_product_id: self.id, variant_id: Variant.create({name: v[:name], value: v[:value]}).id})
+        # product_variants.push(new_var.id)
+        # self.variants
+        # self.product_id = Product.create(params).id
       end
-      prod_variants.insert(prod_variant)
     end
 
     # if prod_variants.empty?
@@ -105,6 +123,14 @@ class StoreProduct < ActiveRecord::Base
     # end
   end
 
+  def remove_blank_variants
+    product_variants.each do |pv|
+      if pv.variant[:name.to_s] == '' || pv.variant[:value.to_s] == ''
+        pv.delete
+      end
+    end
+  end
+
   def set_product_vars
     if product
       self.name = get_name
@@ -113,5 +139,27 @@ class StoreProduct < ActiveRecord::Base
       self.manufacturer = get_manufacturer
     end
   end
+
+  def reset_variants
+    print '------======START RESET====------'
+    product_variants.each do |pv|
+      pv.variant[:name] = ''
+      pv.variant[:value] = ''
+      print "***** #{pv.variant[:name]} :: #{pv.variant[:value]} *****"
+    end
+    print '------======END RESET====------'
+  end
+
+  def finalize_variants
+    print '------======START FINALIZE====------'
+    product_variants.each do |pv|
+      print "######### #{pv.variant[:name]} :: #{pv.variant[:value]} :: #{pv.variant[:updated_at]} #######"
+      if pv.variant[:name] == '' || pv.variant[:value] == ''
+        pv.delete
+      end
+    end
+    print '------======END FINALIZE====------'
+  end
+
 
 end

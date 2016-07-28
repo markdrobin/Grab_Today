@@ -1,5 +1,6 @@
 <%= fields_for 'store_product[variants_attributes][]', variant, index: (variant.new_record? ? variant.object_id : variant.id) do |v| %>
     <%= v.hidden_field :id unless variant.new_record?%>
+    <%= v.hidden_field :_destroy, value: false, class: 'destroy-flag' %>
     <div class="form-group">
       <div class="col-lg-10" id="variant-name">
         <%= v.text_field :name, placeholder: 'Variant', :class => 'form-control' %>

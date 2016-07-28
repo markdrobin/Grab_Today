@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160725082538) do
+ActiveRecord::Schema.define(version: 20160728033524) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "trackable_id",   limit: 4
@@ -70,12 +70,12 @@ ActiveRecord::Schema.define(version: 20160725082538) do
     t.datetime "updated_at",                                     null: false
     t.integer  "store_id",            limit: 4
     t.integer  "product_id",          limit: 4
+    t.string   "qr_code_path",        limit: 255
     t.string   "description",         limit: 255
     t.string   "avatar_file_name",    limit: 255
     t.string   "avatar_content_type", limit: 255
     t.integer  "avatar_file_size",    limit: 4
     t.datetime "avatar_updated_at"
-    t.string   "qr_code_path",        limit: 255
     t.datetime "deleted_at"
   end
 
@@ -139,10 +139,11 @@ ActiveRecord::Schema.define(version: 20160725082538) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "variants", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "value",      limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "name",             limit: 255
+    t.string   "value",            limit: 255
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "store_product_id", limit: 4
   end
 
   add_foreign_key "product_variants", "store_products"

@@ -10,7 +10,7 @@ class StoreProduct < ActiveRecord::Base
   attr_accessor :name, :product_type, :brand, :manufacturer, :variant_tokens
   attr_reader :variant_tokens
 
-  before_save :ensure_product_existence
+  before_save :ensure_product_existence, :valid?
   after_save :remove_blank_variants
   after_create :save_qr_code_path
   after_initialize :set_product_vars
@@ -57,17 +57,9 @@ class StoreProduct < ActiveRecord::Base
   end
 
   def is_not_unique?
-    print "############IS IN###############"
-    params = {product_id: product_id, store_id: store_id}
-    print "############ #{params} ###############"
-    sp = StoreProduct.where(params)
-    print "############ #{sp.length > 1} ###############"
-    if sp.length > 1
-      print "############### hello ################"
-      errors.add(params.to_s, "Store product is already taken.")
-      print "############### hi ##################"
+    if StoreProduct.exists?({:product_id => product_id, :store_id => store_id})
+      errors.add(:product_id, "Store Product already taken.")
     end
-    print "############OUT###############"
   end
 
   private

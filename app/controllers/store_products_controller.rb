@@ -52,22 +52,13 @@ class StoreProductsController < ApplicationController
   def create
     @store_product = StoreProduct.new(store_product_params)
     respond_to do |format|
-      #print "############START###############"
-      #print "############ #{@store_product.is_not_unique?} hello ############"
-      #if @store_product.is_not_unique?
-        #print "##############IN###############"
-        #@store_product.destroy
-        #format.html { redirect_to @store_product, notice: 'Store product is already in the table.' }
-      #print "############END###############"
-      #else
-        if @store_product.save
+      if @store_product.save
         format.html { redirect_to @store_product, notice: 'Store product was successfully created.' }
         format.json { render :show, status: :created, location: @store_product }
-        else
+      else
         format.html { render :new }
         format.json { render json: @store_product.errors, status: :unprocessable_entity }
-        end
-      #end
+      end
     end
   end
 

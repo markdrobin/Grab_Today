@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160728033524) do
+ActiveRecord::Schema.define(version: 20160728100118) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "trackable_id",   limit: 4
@@ -29,6 +29,18 @@ ActiveRecord::Schema.define(version: 20160728033524) do
   add_index "activities", ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
   add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
   add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
+
+  create_table "pictures", force: :cascade do |t|
+    t.integer  "store_product_id",   limit: 4
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
+    t.integer  "image_file_size",    limit: 4
+    t.datetime "image_updated_at"
+  end
+
+  add_index "pictures", ["store_product_id"], name: "index_pictures_on_store_product_id", using: :btree
 
   create_table "product_types", force: :cascade do |t|
     t.string   "category",   limit: 255
@@ -146,6 +158,7 @@ ActiveRecord::Schema.define(version: 20160728033524) do
     t.integer  "store_product_id", limit: 4
   end
 
+  add_foreign_key "pictures", "store_products"
   add_foreign_key "product_variants", "store_products"
   add_foreign_key "product_variants", "variants"
   add_foreign_key "store_products", "products"

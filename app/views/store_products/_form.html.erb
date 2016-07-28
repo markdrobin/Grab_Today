@@ -1,4 +1,4 @@
-<%= form_for @store_product, :html => {:class => "form-horizontal store_product"} do |f| %>
+<%= form_for @store_product, :html => {:multipart => true, :class => "form-horizontal store_product"} do |f| %>
 
     <% if @store_product.errors.any? %>
         <div id="error_expl" class="panel panel-danger">
@@ -16,14 +16,24 @@
         </div>
     <% end %>
 
-    <%= image_tag @store_product.avatar.url, size: "200x200" %><br><br>
+    <%= f.fields_for :pictures do |picture_fields| %>
+        <% if picture_fields.object.new_record? %>
+            <div class="form-group">
+              <div class="col-lg-10">
+                <%= picture_fields.file_field :image %>
+              </div>
+              <%= f.error_span(:image) %>
+            </div>
+        <% end %>
+    <% end %>
 
-    <div class="form-group">
-      <div class="col-lg-10">
-        <%= f.file_field :avatar, :class => 'form-control' %>
-      </div>
-      <%= f.error_span(:avatar) %>
-    </div>
+    <h4>Product images</h4>
+    <%= f.fields_for :pictures do |picture_fields| %>
+        <% unless picture_fields.object.new_record? %>
+            <%= link_to image_tag(picture_fields.image.url), picture_fields.image.url %>
+        <% end %>
+    <% end %>
+
     <div class="form-group">
       <%#= f.label :name, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
@@ -96,53 +106,55 @@
       <% end %>
     </div>
     <br><a href="javascript:;" id="addNewVariant" class="btn btn-default">Add New Variant</a>
+
     <div class="hide" id="new_variant_form">
       <%= render 'variant_form', variant: Variant.new %>
     </div>
     <%= f.hidden_field :store_id, :value => params[:store_id] %>
 
     <script>
-      $(document).ready(function () {
-        $("#addNewVariant").click(function () {
-          $.ajax({
-            url: "/store_products/new_variant_fields",
-            type: "GET",
-            success: function (data) {
-              $("#addVariant").append('<li>'
-                  + data
-                  + '<a href="#" id="cancel_variant" class="btn btn-default">Cancel Variant</a>'
-                  + '</li>').html();
-            }
-          })
-        });
+        $(document).ready(function () {
+            $("#addNewVariant").click(function () {
+                $.ajax({
+                    url: "/store_products/new_variant_fields",
+                    type: "GET",
+                    success: function (data) {
+                        $("#addVariant").append('<li>'
+                        + data
+                        + '<a href="#" id="cancel_variant" class="btn btn-default">Cancel Variant</a>'
+                        + '</li>').html();
+                    }
+                })
+            });
 
-        $("#addVariant").on('click', '#cancel_variant', function () {
-          $(this).parent().find('.destroy-flag').val('true')
-          $(this).parent().hide()
+            $("#addVariant").on('click', '#cancel_variant', function () {
+                $(this).parent().find('.destroy-flag').val('true')
+                $(this).parent().hide()
+            });
+            $('form').submit(function (e) {
+                $("#new_variant_form").remove()
+            })
         });
-        $('form').submit(function (e) {
-          $("#new_variant_form").remove()
-        })
-      });
     </script>
 
     <script>
-      //      $(document).ready(function () {
-      //        $("#category-select").change(function () {
-      //          var selected_category = $(this).val();
-      //          var products = $(".form-control");
-      //          console.log("CATEGORY :: ");
-      //          console.log(selected_category);
-      //          if (selected_category != 'a') {
-      //            console.log("HERE");
-      //            $(this).textContent;
-      //          }
-      //          console.log("DONE");
-      //        });
-      //      });
+        //      $(document).ready(function () {
+        //        $("#category-select").change(function () {
+        //          var selected_category = $(this).val();
+        //          var products = $(".form-control");
+        //          console.log("CATEGORY :: ");
+        //          console.log(selected_category);
+        //          if (selected_category != 'a') {
+        //            console.log("HERE");
+        //            $(this).textContent;
+        //          }
+        //          console.log("DONE");
+        //        });
+        //      });
     </script>
 
     <br><br>
+
     <div class="form-group">
       <div class="col-lg-offset-2 col-lg-10">
         <%= f.submit :class => 'btn btn-primary' %>

@@ -18,10 +18,12 @@ class StoreProductsController < ApplicationController
   # GET /store_products/new
   def new
     @store_product = StoreProduct.new
+    5.times {@store_product.pictures.build}
   end
 
   # GET /store_products/1/edit
   def edit
+    5.times {@store_product.pictures.build}
   end
 
   def load_activities

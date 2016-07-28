@@ -7,7 +7,7 @@ class StoreProduct < ActiveRecord::Base
   has_many :variants, dependent: :destroy
   accepts_nested_attributes_for :variants, allow_destroy: true
 
-  attr_accessor :name, :product_type, :brand, :manufacturer, :variant_tokens
+  attr_accessor :name, :product_type, :brand, :manufacturer, :variant_tokens, :pictures_attributes
   attr_reader :variant_tokens
 
   before_save :ensure_product_existence, :valid?
@@ -16,8 +16,8 @@ class StoreProduct < ActiveRecord::Base
   after_initialize :set_product_vars
   validate :is_not_unique?
 
-  has_attached_file :avatar, default_url: "/assets/product.jpg"
-  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+  has_many :pictures
+  accepts_nested_attributes_for :pictures, :allow_destroy => true
 
   def variant_tokens=(ids)
     self.variant_ids = ids.split(",")
@@ -58,7 +58,7 @@ class StoreProduct < ActiveRecord::Base
 
   def is_not_unique?
     if StoreProduct.exists?({:product_id => product_id, :store_id => store_id})
-      errors.add(:product_id, "Store Product already taken.")
+      errors.add(:product, "already taken in this store.")
     end
   end
 

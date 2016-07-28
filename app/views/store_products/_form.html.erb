@@ -83,7 +83,6 @@
     </div>
 
     <div id="addVariant">
-      <!--<%#= render 'variant_form', f: f %>-->
       <% @store_product.variants.each do |v| %>
           <li>
             <%= render 'variant_form', variant: v, f: f %>

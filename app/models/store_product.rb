@@ -4,13 +4,11 @@ class StoreProduct < ActiveRecord::Base
 
   belongs_to :store
   belongs_to :product
-  has_many :product_variants, dependent: :destroy
-  has_many :variants, :through => :product_variants
+  has_many :variants, dependent: :destroy
   accepts_nested_attributes_for :variants, allow_destroy: true
-  accepts_nested_attributes_for :product_variants
 
   attr_accessor :name, :product_type, :brand, :manufacturer
-  before_save :ensure_product_existence#, :ensure_variant_existence
+  before_save :ensure_product_existence
   after_save :remove_blank_variants
   after_create :save_qr_code_path
   after_initialize :set_product_vars
@@ -67,71 +65,10 @@ class StoreProduct < ActiveRecord::Base
     end
   end
 
-  def ensure_variant_existence
-    # product_variants.
-    # prod_variants = []
-    # variants.each do |v|
-    #   # print "WAAAAAAAAAAAAAIIIIIIIIIIIIIIIITTTTTTTTTT #{v.name} ENDDDDD"
-    #   v_params = {name: v.name, value: v.value}
-    #   variants = Variant.where(v_params)
-    #   prod_variant = ProductVariant.new
-    #   if variants.empty?
-    #     # product_variants.build_variant(Variant.create(v_params))
-    #     prod_variant.variant_id = Variant.create(v_params).id
-    #   else
-    #     # product_variants.build_variant(variants.first)
-    #     prod_variant.variant_id = variants.first.id
-    #   end
-    #   prod_variants.insert(prod_variant)
-    # end
-    #
-    variants.each do |v|
-      print "\n##### #{v[:id]} :: #{v[:name]} :: #{v[:value]} #####\n"
-      v_params = {id: v[:id], name: v[:name], value: v[:value]}
-      variant = Variant.where({id: v[:id]})
-      if !variant.empty?
-        # self.product_id = products.first.id
-        print "\n----NOT EMPTY---- #{v[:name]} :: #{v[:value]}\n"
-        # variant.update(v_params)
-      else
-        print "\n----EMPTY---- #{v[:name]} :: #{v[:value]}\n"
-        # new_prod_var = ProductVariant.create({store_product_id: self.id, variant_id: Variant.create({name: v[:name], value: v[:value]}).id})
-        # product_variants.push(new_var.id)
-        # self.variants
-        # self.product_id = Product.create(params).id
-      end
-    end
-
-    # if prod_variants.empty?
-    #   self.product_variants = nil
-    # else
-    #   self.product_variants = prod_variants
-    # end
-
-    # v_params = {name: name, value: value}
-    # variants = Variant.where(v_params)
-    # prod_variant = ProductVariant.new
-    # if !variants.empty?
-    #   product_variants.build_variant(variants.first)
-    #   prod_variant.variant_id = variants.first.id
-    # else
-    #   product_variants.build_variant(Variant.create(v_params))
-    #   prod_variant.variant_id = Variant.create(v_params).id
-    # end
-
-    # pv.delete unless pv[:name].present?
-    # product_variants.each do |pv|
-    #   print "WAAAAAAAAAAAAAIIIIIIIIIIIIIIIITTTTTTTTTT #{pv[:name[0]].to_s} ENDDDDD"
-    #   pv.name.each do |n|
-    #     print " YES :: #{n} \n"
-    #   end
-    # end
-  end
-
   def remove_blank_variants
-    product_variants.each do |pv|
-      if pv.variant[:name.to_s] == '' || pv.variant[:value.to_s] == ''
-        pv.delete
+    variants.each do |v|
+      if v[:name.to_s] == '' || v[:value.to_s] == ''
+        v.delete
       end
     end
   end

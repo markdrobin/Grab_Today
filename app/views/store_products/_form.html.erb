@@ -82,8 +82,12 @@
       <%= f.error_span(:description) %>
     </div>
 
+    <div>
+      <%= f.label :variant_tokens, "Variance Tokens" %><br>
+      <%= f.text_field :variant_tokens, "data-pre" => @store_product.variants.map(&:attributes).to_json %><br><br>
+    </div>
+
     <div id="addVariant">
-      <!--<%#= render 'variant_form', f: f %>-->
       <% @store_product.variants.each do |v| %>
           <li>
             <%= render 'variant_form', variant: v, f: f %>
@@ -113,19 +117,11 @@
         });
 
         $("#addVariant").on('click', '#cancel_variant', function () {
-          $(this).parent().remove();
+          $(this).parent().find('.destroy-flag').val('true')
+          $(this).parent().hide()
         });
-
         $('form').submit(function (e) {
           $("#new_variant_form").remove()
-
-//          $("li").each(function () {
-////            console.log($(this))
-//            var empties = $(this).getElementById("#variant-name");
-//            if (empties.value == "") {
-//              empties.parent().remove()
-//            }
-//          });
         })
       });
     </script>

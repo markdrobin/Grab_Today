@@ -4,7 +4,11 @@ class VariantsController < ApplicationController
   # GET /variants
   # GET /variants.json
   def index
-    @variants = Variant.all
+    @variants = Variant.where("name like ?", "%#{params[:q]}%")
+    respond_to do |format|
+      format.html
+      format.json { render :json => @variants}
+    end
   end
 
   # GET /variants/1
@@ -62,13 +66,13 @@ class VariantsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_variant
-      @variant = Variant.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_variant
+    @variant = Variant.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def variant_params
-      params.require(:variant).permit(:name, :value)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def variant_params
+    params.require(:variant).permit(:name, :value)
+  end
 end

@@ -3,7 +3,6 @@ require 'rqrcode'
 class StoreProductsController < ApplicationController
   before_action :set_store_product, :load_activities, only: [:show, :edit, :update, :destroy, :restock, :process_restock]
 
-
   # GET /store_products
   # GET /store_products.json
   def index
@@ -30,16 +29,14 @@ class StoreProductsController < ApplicationController
   end
 
   def restock
-    if @store_product.previous_changes.key?('stock')
-      @post.create_activity(:restock, owner: current_user)
-    end
   end
 
   def process_restock
     new_stock = params[:additional_stock]
+    previous_stock = @store_product.stock
     respond_to do |format|
       if @store_product.restock(new_stock)
-        @store_product.create_activity(:restock, owner: current_user, recipient: @store_product)
+        @store_product.create_activity(:restock, owner: current_user, recipient: @store_product, parameters: {previous_stock: previous_stock, latest_stock: @store_product.stock.to_s})
         format.html { redirect_to @store_product, notice: 'Product was successfully restocked.' }
         format.json { render :show, status: :ok, location: @store_product }
       else

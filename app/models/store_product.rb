@@ -14,9 +14,11 @@ class StoreProduct < ActiveRecord::Base
   after_save :remove_blank_variants
   after_create :save_qr_code_path
   after_initialize :set_product_vars
+  validate :is_not_unique?
 
   has_attached_file :avatar, default_url: "/assets/product.jpg"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+
 
   def get_name
     product.name
@@ -50,6 +52,20 @@ class StoreProduct < ActiveRecord::Base
   def save_qr_code_path
     self.qr_code_path = "store_products/#{id}"
     save
+  end
+
+  def is_not_unique?
+    print "############IS IN###############"
+    params = {product_id: product_id, store_id: store_id}
+    print "############ #{params} ###############"
+    sp = StoreProduct.where(params)
+    print "############ #{sp.length > 1} ###############"
+    if sp.length > 1
+      print "############### hello ################"
+      errors.add(params.to_s, "Store product is already taken.")
+      print "############### hi ##################"
+    end
+    print "############OUT###############"
   end
 
   private

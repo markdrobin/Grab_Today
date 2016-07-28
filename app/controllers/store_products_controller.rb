@@ -55,13 +55,22 @@ class StoreProductsController < ApplicationController
   def create
     @store_product = StoreProduct.new(store_product_params)
     respond_to do |format|
-      if @store_product.save
+      #print "############START###############"
+      #print "############ #{@store_product.is_not_unique?} hello ############"
+      #if @store_product.is_not_unique?
+        #print "##############IN###############"
+        #@store_product.destroy
+        #format.html { redirect_to @store_product, notice: 'Store product is already in the table.' }
+      #print "############END###############"
+      #else
+        if @store_product.save
         format.html { redirect_to @store_product, notice: 'Store product was successfully created.' }
         format.json { render :show, status: :created, location: @store_product }
-      else
+        else
         format.html { render :new }
         format.json { render json: @store_product.errors, status: :unprocessable_entity }
-      end
+        end
+      #end
     end
   end
 
@@ -101,6 +110,6 @@ class StoreProductsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def store_product_params
-    params.require(:store_product).permit(:price, :stock, :description, :avatar, :store_id, :name, :product_type, :brand, :manufacturer, variants_attributes: [:id, :name, :value])
+    params.require(:store_product).permit(:price, :stock, :description, :avatar, :store_id, :name, :product_type, :brand, :manufacturer, variants_attributes: [:id, :name, :value, :_destroy])
   end
 end

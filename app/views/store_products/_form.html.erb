@@ -82,9 +82,17 @@
       <%= f.error_span(:description) %>
     </div>
 
+    <div class="form-group">
+      <div class="col-lg-10">
+        <%= f.label :variant_category, "Variance Category" %><br>
+        <%= f.text_field :variant_category, placeholder: :variant_category, :class => 'form-control' %>
+      </div>
+      <%= f.error_span(:description) %>
+    </div>
+
     <div>
-      <%= f.label :variant_tokens, "Variance Tokens" %><br>
-      <%= f.text_field :variant_tokens, "data-pre" => @store_product.variants.map(&:attributes).to_json %><br><br>
+      <%= f.label :variant_tokens, "Variance Value" %><br>
+      <%= f.text_field :variant_tokens, "data-pre" => @store_product.variants.map{|e|{name: e.value}}.to_json %><br>
     </div>
 
     <div id="addVariant">

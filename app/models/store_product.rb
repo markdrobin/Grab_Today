@@ -7,8 +7,8 @@ class StoreProduct < ActiveRecord::Base
   has_many :variants, dependent: :destroy
   accepts_nested_attributes_for :variants, allow_destroy: true
 
-  attr_accessor :name, :product_type, :brand, :manufacturer, :variant_tokens
-  attr_reader :variant_tokens
+  attr_accessor :name, :product_type, :brand, :manufacturer, :variant_tokens, :variant_category
+  attr_reader :variant_tokens, :variant_category
 
   before_save :ensure_product_existence
   after_save :remove_blank_variants
@@ -18,8 +18,19 @@ class StoreProduct < ActiveRecord::Base
   has_attached_file :avatar, default_url: "/assets/product.jpg"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
-  def variant_tokens=(ids)
-    self.variant_ids = ids.split(",")
+  def variant_tokens=(value)
+    # self.variant_ids = ids.split(",")
+    ids = []
+    value.split(',').each do |val|
+      if val[0..4] == '-new-'
+        fav = Variant.create!(:name => params[:variant_category], :value => val.gsub(/-new-/,''))
+        ids += [fav.id]
+      else
+        ids += [val.to_i]
+      end
+    end
+    # var_ids = self.favorites.for_type('brands').map(&:id)
+    # self.favorite_ids = self.favorite_ids - brand_ids + ids
   end
 
   def get_name

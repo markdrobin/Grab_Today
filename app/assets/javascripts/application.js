@@ -55,9 +55,11 @@ $(".closebtn").ready(function () {
 });
 
 $(function () {
-    $("#store_product_variant_tokens").tokenInput("/variants.json", {
+    // var input = $("<input>", { type: "hidden", name: "mydata", value: "bla" }); $('#form1').append($(input));
+    $("#store_product_variant_tokens").tokenInput("/variants.json?variant_category='color'", {
         crossDomain: false,
-        prePopulate: $("#store_product_variant_tokens").data("load"),
+        // propertyToSearch: "variant_category",
         theme: "facebook"
+
     });
 });

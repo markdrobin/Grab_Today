@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grab.Today</title>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <!-- <link rel="stylesheet" type="text/css" href="assets/stylesheets/custom.scss"> -->
+  <%= javascript_include_tag 'application' %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--<link href='http://fonts.googleapis.com/css?family=Oswald:400,700|Open+Sans:400italic,600italic,700italic,400,600,700' rel='stylesheet' type='text/css'>-->
+  <%= csrf_meta_tags %>
+</head>
+
+<body class="mockups">
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Grab.today</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#about">Stores</a></li>
+        <li><a href="#contact">Products</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <!--<li><a href="../navbar/">Default</a></li>-->
+        <!--<li><a href="../navbar-static-top/">Static top</a></li>-->
+        <!--<li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>-->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User
+            Name
+            <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">My Profile</a></li>
+            <li><a href="#">Sign Out</a></li>
+            <!--<li><a href="#">Something else here</a></li>-->
+            <!--<li role="separator" class="divider"></li>-->
+            <!--<li class="dropdown-header">Nav header</li>-->
+            <!--<li><a href="#">Separated link</a></li>-->
+            <!--<li><a href="#">One more separated link</a></li>-->
+          </ul>
+        </li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
+
+<!--<div class="container">-->
+
+<!-- Main component for a primary marketing message or call to action -->
+<!--<div class="jumbotron">-->
+<!--<h1>Navbar example</h1>-->
+<!--<p>This example is a quick exercise to illustrate how the default, static and fixed to top navbar work. It includes-->
+<!--the responsive CSS and HTML, so it also adapts to your viewport and device.</p>-->
+<!--<p>To see the difference between static and fixed top navbars, just scroll.</p>-->
+<!--<p>-->
+<!--<a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>-->
+<!--</p>-->
+<!--</div>-->
+
+<%= yield %>
+
+<!--</div>-->
+
+<div class="container">
+  <footer>
+    <p class="pull-right"><a href="#">Back to top</a></p>
+    <p>&copy; 2016 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+  </footer>
+</div>
+</body>
+</html>

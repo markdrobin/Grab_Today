@@ -72,7 +72,7 @@
       <% end %>
       </tbody>
     </table>
-    <%= will_paginate @store_products, renderer: BootstrapPagination::Rails %><br><br>
+    <%= will_paginate @store_products, renderer: BootstrapPagination::Rails, inner_window: 1, outer_window: 0 %><br><br>
 
 <% end %>
 

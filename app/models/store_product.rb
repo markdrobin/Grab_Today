@@ -7,7 +7,7 @@ class StoreProduct < ActiveRecord::Base
   has_many :variants, dependent: :destroy
   accepts_nested_attributes_for :variants, allow_destroy: true
 
-  attr_accessor :name, :product_type, :brand, :manufacturer, :variant_tokens, :pictures_attributes
+  attr_accessor :name, :product_type, :brand, :manufacturer, :variant_tokens
   attr_reader :variant_tokens
 
   before_save :ensure_product_existence, :valid?
@@ -17,7 +17,7 @@ class StoreProduct < ActiveRecord::Base
   validate :is_not_unique?, :on => :create
 
   has_many :pictures, :dependent => :destroy
-  accepts_nested_attributes_for :pictures, :allow_destroy => true
+  accepts_nested_attributes_for :pictures, allow_destroy: true
 
   def variant_tokens=(ids)
     self.variant_ids = ids.split(",")
@@ -57,12 +57,9 @@ class StoreProduct < ActiveRecord::Base
   end
 
   def is_not_unique?
-    print "############# hello ###############"
     if StoreProduct.exists?({:product_id => product_id, :store_id => store_id})
-      print "############### inside ###############"
       errors.add(:product, "already taken in this store.")
     end
-    print "############### out ###############"
   end
 
   private
@@ -96,4 +93,8 @@ class StoreProduct < ActiveRecord::Base
       self.manufacturer = get_manufacturer
     end
   end
+
+  #def destroy_image?
+  #self.pictures.clear if @
+  #end
 end

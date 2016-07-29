@@ -16,8 +16,32 @@
         </div>
     <% end %>
 
+    <div class="row">
+      <ul class="thumbnails files">
+        <% unless @store_product.pictures.empty? %>
+            <% @store_product.pictures.each do |pic| %>
+                <%= f.fields_for 'pictures_attributes[]', pic do |fp| %>
+                    <%= fp.hidden_field :id %>
+                    <li class="span3">
+                      <div class="thumbnail">
+                        <%= image_tag pic.image.url, size: '200x200' %>
+                        <div class="caption">
+                          <p style="text-align: center;">
+                            <%= fp.check_box :_destroy, value: true %>
+                            <%= fp.label 'delete' %>
+                          </p>
+                        </div>
+                      </div>
+                    </li>
+                <% end %>
+            <% end %>
+        <% end %>
+      </ul>
+    </div>
+
     <div class="control-group">
       <%= f.label :pictures, :class => 'control-label' %><br>
+
       <div class="controls">
         <%= file_field_tag "images[]", type: :file, multiple: true %><br>
       </div>

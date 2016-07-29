@@ -137,11 +137,23 @@
       <% end %>
     </div>
     <a href="javascript:;" id="addNewVariant" class="btn btn-default">Add New Variant</a>
-    <!--<div class="hide" id="new_variant_form">-->
-    <!--<%#= render 'variant_form', variant: Variant.new %>-->
-    <!--</div>-->
     <%= f.hidden_field :store_id, :value => params[:store_id] %>
     <br><br>
+
+    <script>
+      function use_awesomplete() {
+        new Awesomplete(document.getElementById("f-name"), {list: "#namelist", minChars: 1, autoFirst: true});
+        new Awesomplete(document.getElementById("f-brand"), {list: "#brandlist", minChars: 1, autoFirst: true});
+        new Awesomplete(document.getElementById("f-manufacturer"), {list: "#manuflist", minChars: 1, autoFirst: true});
+        new Awesomplete(document.getElementById("f-product_type"), {
+          list: "#producttypelist",
+          minChars: 1,
+          autoFirst: true
+        });
+        // new Awesomplete(document.getElementById("f-variant"), {list: "#variantnamelist", minChars: 1, autoFirst: true});
+      }
+      window.onload = use_awesomplete;
+    </script>
 
     <div class="form-group">
       <div class="col-lg-offset-2 col-lg-10">

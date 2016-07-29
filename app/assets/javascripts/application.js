@@ -103,7 +103,7 @@ $(document).ready(function () {
                 {
                     if (data != null) {
                         if (data.product_type != null) {
-                            $('#f-category-select').val(data.product_type);
+                            $('#f-product_type').val(data.product_type);
                         }
                         if (data.brand != null) {
                             $('#f-brand').val(data.brand);
@@ -124,7 +124,7 @@ $(document).ready(function () {
     new Awesomplete(document.getElementById("f-brand"), {list: "#brandlist", minChars: 1, autoFirst: true});
     new Awesomplete(document.getElementById("f-manufacturer"), {list: "#manuflist", minChars: 1, autoFirst: true});
     new Awesomplete(document.getElementById("f-product_type"), {list: "#producttypelist", minChars: 1, autoFirst: true});
-    new Awesomplete(document.getElementById("f-variant"), {list: "#variantnamelist", minChars: 1, autoFirst: true});
+    // new Awesomplete(document.getElementById("f-variant"), {list: "#variantnamelist", minChars: 1, autoFirst: true});
 });
 
 $(function () {

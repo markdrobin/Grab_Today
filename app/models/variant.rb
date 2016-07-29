@@ -29,6 +29,14 @@ class Variant < ActiveRecord::Base
     end
   end
 
+  def to_token
+    values = []
+    unless !value
+      values = value.split(',')
+    end
+    values
+  end
+
   private
   def ensure_value_duplicate
     self.value = merge_values(value, '')

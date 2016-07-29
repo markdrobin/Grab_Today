@@ -2,7 +2,21 @@
 <div class="page-header">
   <h1><%= t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
-<%= image_tag @store_product.avatar.url, size: "200x200" %>
+
+<center><h2><%= @store_product.get_name %></h2></center>
+<div class="row">
+  <ul class="thumbnails files">
+    <% unless @store_product.pictures.empty? %>
+        <% @store_product.pictures.each do |pic| %>
+            <li class="span3" id="picture_<%= pic.id %>">
+              <div class="thumbnail">
+                <%= image_tag pic.image.url, size: '200x200' %>
+              </div>
+        <% end %>
+    <% end %>
+  </ul>
+</div>
+
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
   <dd><%= @store_product.get_name %></dd>
@@ -21,11 +35,8 @@
       <%= render_activities @activities %>
     </div>
   </dd>
-  <dt><strong><%= model_class.human_attribute_name(:description) %></strong></dt>
+  <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
   <dd><%= @store_product.description %></dd>
-</dl>
-<div>
-  <h3>Variants:</h3>
   <% if !@store_product.variants.empty? %>
       <dl class="dl-horizontal">
         <% @store_product.variants.each do |variant| %>
@@ -33,16 +44,10 @@
             <dd><%= variant.value %></dd>
         <% end %>
       </dl>
-  <% else %>
-      <%= "None" %>
   <% end %>
-</div>
-<br><br>
-<div class="qr-view">
-  <h3>QR Code:</h3>
-  <%= raw @qr.as_html %>
-</div>
-</br>
+  <dt><strong><%= model_class.human_attribute_name(:qr_code) %>:</strong></dt>
+  <dd><div class="qr-view"><%= raw @qr.as_html %></div></dd>
+</dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
             store_path(@store_product.store_id), :class => 'btn btn-default' %>

@@ -49,7 +49,11 @@
       <tbody>
       <% @store_products.each do |product| %>
           <tr>
-            <td><%= image_tag product.avatar, size: "50x50" %></td>
+            <% unless product.pictures.empty? %>
+                <td><%= image_tag product.pictures.first.image.url, size: '50x50' %></td>
+            <% else %>
+                <td><%= image_tag '/assets/product.jpg', size: '50x50' %></td>
+            <% end %>
             <td><%= link_to product.get_name, store_product_path(product) %></td>
             <td><%= product.get_type %></td>
             <td><%= product.get_brand %></td>
@@ -68,7 +72,7 @@
       <% end %>
       </tbody>
     </table>
-    <%= will_paginate @store_products, renderer: BootstrapPagination::Rails %><br><br>
+    <%= will_paginate @store_products, renderer: BootstrapPagination::Rails, inner_window: 1, outer_window: 0 %><br><br>
 
 <% end %>
 

@@ -127,16 +127,20 @@ $(document).ready(function () {
     new Awesomplete(document.getElementById("f-variant"), {list: "#variantnamelist", minChars: 1, autoFirst: true});
 });
 
+$(function () {
+    function newUrl(e) {
+        return function () {
+            return '/variants.json?name=' + e.closest('.form-group').find('.variant-name').val();
+        }
+    }
 
-// var countries = [
-//     { value: 'Andorra', data: 'AD' },
-//     // ...
-//     { value: 'Zimbabwe', data: 'ZZ' }
-// ];
+    $(".variant-value").each(function () {
+        $(this).tokenInput(newUrl($(this)), {
+            queryParam: 'q',
+            crossDomain: false,
+            // propertyToSearch: "value",
+            theme: "facebook",
+        });
+    })
 
-// $('#autocomplete').autocomplete({
-//     lookup: ProductType.all,
-//     onSelect: function (suggestion) {
-//         alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
-//     }
-// });
+});

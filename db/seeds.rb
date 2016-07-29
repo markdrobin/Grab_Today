@@ -32,3 +32,13 @@ ProductType.create(category: 'Clothes')
 ProductType.create(category: 'Kitchenware')
 ProductType.create(category: 'Office Supplies')
 ProductType.create(category: 'Food')
+
+variant_list = [
+    [ 'Material', 'Wood, Metal, Plastic' ],
+    [ 'Color', 'Black, White' ],
+    [ 'Size', 'Small, Medium, Large']
+]
+
+variant_list.each do |name, value, store_id|
+  Variant.create( name: name, value: value, store_id: store_id )
+end

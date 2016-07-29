@@ -1,14 +1,34 @@
 class VariantsController < ApplicationController
   before_action :set_variant, only: [:show, :edit, :update, :destroy]
+  after_action only: [:index]
 
   # GET /variants
   # GET /variants.json
   def index
-    @variants = Variant.where("name like ?", "%#{params[:q]}%")
-    respond_to do |format|
-      format.html
-      format.json { render :json => @variants}
-    end
+    # @variants = Variant.where("value like ? ", "%#{params[:q]}%")
+    # respond_to do |format|
+    #   format.html
+    #   format.json { render :json => @variants}
+    # end
+    # token_list = []
+    # Variant.where("value like '%#{params[:q]}%' and name = #{params[:variant_category]}").each do |var|
+    #   token_list << {"id" => var.id, "name" => var.name, "value" => var.value}
+    # end
+    # token_list << {"name" => params[:variant_category], "value" => "-new-#{params[:q]}"}
+    # render :json => token_list.to_json
+
+    # val = []
+    # Variant.where("value like '%#{params[:q]}%' and name = #{params[:variant_category]}").each do |e|
+    #   e.value.split(',').each do |v|
+    #     val << {name: v}
+    #   end
+    #   # val = val +
+    # end
+    # render json: val
+
+    type = VariantType.where(name: params[:name]).first()
+    values = VariantValue.where("value like '%#{params[:q]}%' and variant_type_id = #{type.id}")
+    render json: values.map { |e| {name: e.value} }
   end
 
   # GET /variants/1

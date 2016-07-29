@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160728033524) do
+ActiveRecord::Schema.define(version: 20160729083503) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "trackable_id",   limit: 4
@@ -35,16 +35,6 @@ ActiveRecord::Schema.define(version: 20160728033524) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
-
-  create_table "product_variants", force: :cascade do |t|
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.integer  "store_product_id", limit: 4
-    t.integer  "variant_id",       limit: 4
-  end
-
-  add_index "product_variants", ["store_product_id"], name: "index_product_variants_on_store_product_id", using: :btree
-  add_index "product_variants", ["variant_id"], name: "index_product_variants_on_variant_id", using: :btree
 
   create_table "products", force: :cascade do |t|
     t.string   "name",                limit: 255
@@ -138,6 +128,21 @@ ActiveRecord::Schema.define(version: 20160728033524) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  create_table "variant_types", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "variant_values", force: :cascade do |t|
+    t.string   "value",           limit: 255
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "variant_type_id", limit: 4
+  end
+
+  add_index "variant_values", ["variant_type_id"], name: "index_variant_values_on_variant_type_id", using: :btree
+
   create_table "variants", force: :cascade do |t|
     t.string   "name",             limit: 255
     t.string   "value",            limit: 255
@@ -146,9 +151,8 @@ ActiveRecord::Schema.define(version: 20160728033524) do
     t.integer  "store_product_id", limit: 4
   end
 
-  add_foreign_key "product_variants", "store_products"
-  add_foreign_key "product_variants", "variants"
   add_foreign_key "store_products", "products"
   add_foreign_key "store_products", "stores"
   add_foreign_key "stores", "users"
+  add_foreign_key "variant_values", "variant_types"
 end

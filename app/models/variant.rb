@@ -1,6 +1,14 @@
 class Variant < ActiveRecord::Base
   after_save :ensure_variant
 
+  def to_token
+    values = []
+    unless !value
+      values = value.split(',')
+    end
+    values
+  end
+
   private
   def ensure_variant
     params = {name: name, store_product_id: store_product_id}

@@ -16,14 +16,19 @@ class VariantsController < ApplicationController
     # end
     # token_list << {"name" => params[:variant_category], "value" => "-new-#{params[:q]}"}
     # render :json => token_list.to_json
-    val = []
-    Variant.where("value like '%#{params[:q]}%' and name = #{params[:variant_category]}").each do |e|
-      e.value.split(',').each do |v|
-        val << {name: v}
-      end
-      # val = val +
-    end
-    render json: val
+
+    # val = []
+    # Variant.where("value like '%#{params[:q]}%' and name = #{params[:variant_category]}").each do |e|
+    #   e.value.split(',').each do |v|
+    #     val << {name: v}
+    #   end
+    #   # val = val +
+    # end
+    # render json: val
+
+    type = VariantType.where(name: params[:name]).first()
+    values = VariantValue.where("value like '%#{params[:q]}%' and variant_type_id = #{type.id}")
+    render json: values.map { |e| {name: e.value} }
   end
 
   # GET /variants/1

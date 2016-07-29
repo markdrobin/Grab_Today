@@ -1,15 +1,30 @@
 <%= fields_for 'store_product[variants_attributes][]', variant, index: (variant.new_record? ? variant.object_id : variant.id) do |v| %>
-    <%= v.hidden_field :id unless variant.new_record?%>
+    <%= v.hidden_field :id unless variant.new_record? %>
     <%= v.hidden_field :_destroy, value: false, class: 'destroy-flag' %>
+    <!--<div class="form-group">-->
+    <!--<div class="col-lg-10" id="variant-name">-->
+    <!--<%#= v.text_field :name, placeholder: 'Variant', :class => 'form-control' %>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="form-group">-->
+    <!--<div class="col-lg-10" id="variant-value">-->
+    <!--<%#= v.text_field :value, placeholder: :value.capitalize, :class => 'form-control' %>-->
+    <!--</div>-->
+    <!--</div>-->
+
     <div class="form-group">
-      <div class="col-lg-10" id="variant-name">
-        <%= v.text_field :name, placeholder: 'Variant', :class => 'form-control' %>
+      <div class="col-lg-10">
+        <%= v.label :name, "Variant Category" %><br>
+        <%= v.text_field :name, placeholder: "Variant Category", :class => 'variant-name' %><br>
       </div>
-    </div>
-    <div class="form-group">
-      <div class="col-lg-10" id="variant-value">
-        <%= v.text_field :value, placeholder: :value.capitalize, :class => 'form-control' %>
+      <div class="col-lg-10">
+        <%= v.label :variant_category, "Variant Value" %><br>
+        <!--<%#= v.text_field :value, placeholder: 'Variant value', :class => 'variant-value', "data-pre" => @store_product.variants.map { |e| {name: e.value} }.to_json %>-->
+        <%= v.text_field :value, placeholder: 'Variant value'.capitalize, :class => 'variant-value form-control tokens', 'data-pre' => variant.to_token.map{|val| {name: val}}.to_json %>
+        <br>
       </div>
+      <%= v.error_span(:description) %>
     </div>
 
 <% end %>

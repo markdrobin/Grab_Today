@@ -55,11 +55,34 @@ $(".closebtn").ready(function () {
 });
 
 $(function () {
-    // var input = $("<input>", { type: "hidden", name: "mydata", value: "bla" }); $('#form1').append($(input));
-    $("#store_product_variant_tokens").tokenInput("/variants.json?variant_category='color'", {
-        crossDomain: false,
-        // propertyToSearch: "variant_category",
-        theme: "facebook"
+    function newUrl(e) {
+        return function () {
+            return '/variants.json?name=' + e.closest('.form-group').find('.variant-name').val();
+        }
+    }
 
-    });
+    $(".variant-value").each(function () {
+        $(this).tokenInput(newUrl($(this)), {
+            queryParam: 'q',
+            crossDomain: false,
+            // propertyToSearch: "value",
+            theme: "facebook",
+        });
+    })
+
 });
+//
+// $(function () {
+//     tokenize($(".tokens"))
+// });
+//
+// $(function () {
+//     tokenize($(".tokens"))
+// });
+//
+// function tokenize(element){
+//     element.tokenInput("/variants.json", {
+//         crossDomain: false,
+//         theme: "facebook"
+//     });
+// }

@@ -1,0 +1,143 @@
+<div class="with-banner store">
+  <div class="banner">
+    <img src="<%= image_path 'times-square.jpg' %>" alt="First slide">
+    <div class="callout">
+      <div class="callout-content">
+        <h1>Keppel Center</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci consequatur corporis magnam neque optio
+          sequi sit temporibus! Aperiam at inventore labore maiores minus omnis veritatis vero? Facere illum
+          perspiciatis qui!</p>
+      </div>
+    </div>
+    <div class="actions">
+      <div class="container">
+        <div class="pull-left">
+          <div class="btn-group">
+            <div class="btn-group">
+              <button class="btn btn-default">
+                <%= fa_icon 'facebook' %>
+                Facebook
+              </button>
+            </div>
+            <div class="btn-group">
+              <button class="btn btn-default">
+                <%= fa_icon 'twitter' %>
+                Twitter
+              </button>
+            </div>
+            <div class="btn-group">
+              <button class="btn btn-default">
+                <%= fa_icon 'globe' %>
+                Website
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="pull-right main-actions">
+          <div class="btn-group">
+            <div class="btn-group">
+              <button class="btn btn-primary">
+                <i class="fa fa-pencil"></i>
+                Edit
+              </button>
+            </div>
+            <div class="btn-group">
+              <button class="btn btn-danger">
+                <i class="fa fa-trash"></i>
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+          <p>Owner</p>
+          <h5>James Euangel E. Limpiado</h5>
+        </div>
+        <div class="col-sm-4">
+          <p>Type</p>
+          <h5>Corporate Mall</h5>
+        </div>
+        <div class="col-sm-4">
+          <p>Location</p>
+          <h5>Samar Loop, Cebu City 6000</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="page-header">
+      <h3>Products</h3>
+      <div class="pull-right">
+        <a href="#" class="btn btn-primary"><%= fa_icon 'plus' %> Product</a>
+        <input type="search" class="form-control" placeholder="Search">
+      </div>
+    </div>
+
+    <div class="bootcards-list">
+      <div class="panel panel-default">
+        <div class="list-group">
+          <% (1..3).each do |i| %>
+              <a class="list-group-item" href="#">
+                <div class="row">
+                  <div class="col-sm-5">
+                    <img src="<%= image_url 'user3.jpg' %>" alt="" class="pull-left">
+                    <h4 class="list-group-item-heading">Onesimus Casual Coat</h4>
+                    <p class="list-group-item-text">A coat that lasts a lifetime</p>
+                  </div>
+                  <div class="col-sm-3">
+                    <p class="list-group-item-text">$2,900</p>
+                    <p class="list-group-item-text"><b>25</b> stocks</p>
+                  </div>
+                  <div class="col-sm-3">
+                    <p class="list-group-item-text">Restocked on Jul 5, 2015</p>
+                    <!--<p class="list-group-item-text">Last updated on Aug 15, 2016</p>-->
+                  </div>
+                </div>
+              </a>
+              <a class="list-group-item" href="#">
+                <div class="row">
+                  <div class="col-sm-5">
+                    <img src="<%= image_url 'user2.jpg' %>" alt="" class="pull-left">
+                    <h4 class="list-group-item-heading">Camion Corp</h4>
+                    <p class="list-group-item-text">Tokyo, Japan</p>
+                  </div>
+                  <div class="col-sm-3">
+                    <p class="list-group-item-text">$350</p>
+                    <p class="list-group-item-text"><b>1000</b> stocks</p>
+                  </div>
+                  <div class="col-sm-3">
+                    <p class="list-group-item-text">Restocked on Jul 5, 2015</p>
+                    <!--<p class="list-group-item-text">Last updated on Aug 15, 2016</p>-->
+                  </div>
+                </div>
+              </a>
+              <a class="list-group-item" href="#">
+                <div class="row">
+                  <div class="col-sm-5">
+                    <img src="<%= image_url 'user1.jpg' %>" alt="" class="pull-left">
+                    <h4 class="list-group-item-heading">Derenden Systems</h4>
+                    <p class="list-group-item-text">Albuquerque, USA</p>
+                  </div>
+                  <div class="col-sm-3">
+                    <p class="list-group-item-text">$350</p>
+                    <p class="list-group-item-text"><b>1000</b> stocks</p>
+                  </div>
+                  <div class="col-sm-3">
+                    <p class="list-group-item-text">Restocked on Jul 5, 2015</p>
+                    <!--<p class="list-group-item-text">Last updated on Aug 15, 2016</p>-->
+                  </div>
+                </div>
+              </a>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

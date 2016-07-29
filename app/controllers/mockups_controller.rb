@@ -12,4 +12,10 @@ class MockupsController < ApplicationController
 
   def stores
   end
+
+  def store
+  end
+
+  def store_form
+  end
 end

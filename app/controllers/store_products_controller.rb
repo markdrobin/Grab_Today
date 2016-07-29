@@ -61,7 +61,7 @@ class StoreProductsController < ApplicationController
         format.html { redirect_to @store_product, notice: 'Store product was successfully created.' }
         format.json { render :show, status: :created, location: @store_product }
       else
-        format.html { render :new }
+        format.html { redirect_to :back, alert: 'Store Product is already taken.'}
         format.json { render json: @store_product.errors, status: :unprocessable_entity }
       end
     end

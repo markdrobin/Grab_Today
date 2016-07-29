@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       post :process_restock
     end
   end
+
   resources :products
   resources :stores do
     member do

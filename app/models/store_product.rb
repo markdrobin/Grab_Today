@@ -14,7 +14,7 @@ class StoreProduct < ActiveRecord::Base
   after_save :remove_blank_variants
   after_create :save_qr_code_path
   after_initialize :set_product_vars
-  validate :is_not_unique?
+  validate :is_not_unique?, :on => :create
 
   has_many :pictures, :dependent => :destroy
   accepts_nested_attributes_for :pictures, :allow_destroy => true
@@ -57,9 +57,12 @@ class StoreProduct < ActiveRecord::Base
   end
 
   def is_not_unique?
+    print "############# hello ###############"
     if StoreProduct.exists?({:product_id => product_id, :store_id => store_id})
+      print "############### inside ###############"
       errors.add(:product, "already taken in this store.")
     end
+    print "############### out ###############"
   end
 
   private

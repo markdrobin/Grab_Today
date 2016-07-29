@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :store_products do
     collection do
       get :new_variant_fields
+      post :get_attributes
     end
     member do
       get :restock

@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+//= require awesomplete
 //= require_tree .
 
 $(document).ready(function () {
@@ -55,9 +56,87 @@ $(".closebtn").ready(function () {
 });
 
 $(function () {
-    $("#store_product_variant_tokens").tokenInput("/variants.json", {
+    tokenize($(".tokens"))
+});
+
+function tokenize(element){
+    element.tokenInput("/variants.json", {
         crossDomain: false,
-        prePopulate: $("#store_product_variant_tokens").data("load"),
         theme: "facebook"
     });
+}
+
+$(document).ready(function () {
+    $("#addNewVariant").click(function () {
+        $.ajax({
+            url: "/store_products/new_variant_fields",
+            type: "GET",
+            success: function (data) {
+                $("#addVariant").append('<li>'
+                    + data
+                    + '<a href="#" id="cancel_variant">X</a>'
+                    + '</li>').html();
+            }
+        })
+    });
+
+    $("#addVariant").on('click', '#cancel_variant', function () {
+        $(this).parent().find('.destroy-flag').val('true')
+        $(this).parent().hide()
+    });
+
+    $('form').submit(function (e) {
+        $("#new_variant_form").remove()
+    })
+
+    $(function () {
+        $('#f-name').change(function () {
+            var field_name = $(this).val();
+            $.ajax({
+                type: 'POST',
+                url: '/store_products/get_attributes',
+                data: {
+                    name: $(this).val()
+                },
+                dataType: 'json',
+                success: function (data)
+                {
+                    if (data != null) {
+                        if (data.product_type != null) {
+                            $('#f-category-select').val(data.product_type);
+                        }
+                        if (data.brand != null) {
+                            $('#f-brand').val(data.brand);
+                        }
+                        if (data.manufacturer != null) {
+                            $('#f-manufacturer').val(data.manufacturer);
+                        }
+                    }
+                },
+                error: function () {
+
+                }
+            });
+        });
+    });
+
+    new Awesomplete(document.getElementById("f-name"), {list: "#namelist", minChars: 1, autoFirst: true});
+    new Awesomplete(document.getElementById("f-brand"), {list: "#brandlist", minChars: 1, autoFirst: true});
+    new Awesomplete(document.getElementById("f-manufacturer"), {list: "#manuflist", minChars: 1, autoFirst: true});
+    new Awesomplete(document.getElementById("f-product_type"), {list: "#producttypelist", minChars: 1, autoFirst: true});
+    new Awesomplete(document.getElementById("f-variant"), {list: "#variantnamelist", minChars: 1, autoFirst: true});
 });
+
+
+// var countries = [
+//     { value: 'Andorra', data: 'AD' },
+//     // ...
+//     { value: 'Zimbabwe', data: 'ZZ' }
+// ];
+
+// $('#autocomplete').autocomplete({
+//     lookup: ProductType.all,
+//     onSelect: function (suggestion) {
+//         alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+//     }
+// });

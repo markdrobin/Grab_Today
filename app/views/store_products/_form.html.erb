@@ -27,37 +27,56 @@
     <div class="form-group">
       <%#= f.label :name, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <%= f.text_field :name, placeholder: :name.capitalize, :required => true, :class => 'form-control' %>
+        <%= f.text_field :name, placeholder: :name.capitalize, :required => true, :class => 'form-control awesomplete', :id => 'f-name', autocomplete: 'off' %>
       </div>
+      <ul id="namelist" class="hidden">
+        <%# Product.all.order('name ASC').each do |p| %>
+        <% Product.new.all_unique('name').each do |n| %>
+            <li> <%= n %> </li>
+        <% end %>
+      </ul>
       <%= f.error_span(:name) %>
     </div>
 
     <div class="form-group">
       <%#= f.label :product_type, :class => 'control-label col-lg-2' %>
-      <div class="col-lg-10" id="category-select">
-        <%= f.select :product_type, ProductType.all.order('category ASC').collect { |p| p.category } << ProductType.new(:category => 'New Category').category, {include_blank: 'Select Category'}, :class => 'form-control' %>
+      <div class="col-lg-10">
+        <%= f.text_field :product_type, placeholder: :product_type.capitalize, :class => 'form-control awesomplete', :id => 'f-product_type', autocomplete: 'off' %>
+        <%#= f.select :product_type, ProductType.all.order('category ASC').collect { |p| p.category } << ProductType.new(:category => 'New Category').category, {include_blank: 'Select Category'}, :class => 'form-control', :id => 'f-category-select' %>
       </div>
+      <ul id="producttypelist" class="hidden">
+        <%# Product.all.order('product_type ASC').each do |p| %>
+        <% Product.new.all_unique('product_type').each do |p| %>
+            <li> <%= p %> </li>
+        <% end %>
+      </ul>
       <%= f.error_span(:product_type) %>
     </div>
 
-    <!--<div class="form-group" <%#= 'hidden' unless params[:product_type].to_s == 'New Category' %>>-->
-    <!--<div class="col-lg-10" id="category-select">-->
-    <!--<%#= f.text_field :product_type, placeholder: 'Category', :class => 'form-control' %>-->
-    <!--</div>-->
-    <!--<%#= f.error_span(:product_type) %>-->
-    <!--</div>-->
     <div class="form-group">
       <%#= f.label :brand, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <%= f.text_field :brand, placeholder: :brand.capitalize, :class => 'form-control' %>
+        <%= f.text_field :brand, placeholder: :brand.capitalize, :class => 'form-control', :id => 'f-brand', autocomplete: 'off' %>
       </div>
+      <ul id="brandlist" class="hidden">
+        <%# Product.all.order('brand ASC').each do |p| %>
+        <% Product.new.all_unique('brand').each do |b| %>
+            <li> <%= b %> </li>
+        <% end %>
+      </ul>
       <%= f.error_span(:brand) %>
     </div>
     <div class="form-group">
       <%#= f.label :manufacturer, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <%= f.text_field :manufacturer, placeholder: :manufacturer.capitalize, :class => 'form-control' %>
+        <%= f.text_field :manufacturer, placeholder: :manufacturer.capitalize, :class => 'form-control', :id => 'f-manufacturer', autocomplete: 'off' %>
       </div>
+      <ul id="manuflist" class="hidden">
+        <%# Product.all.order('manufacturer ASC').each do |p| %>
+        <% Product.new.all_unique('manufacturer').each do |m| %>
+            <li> <%= m %> </li>
+        <% end %>
+      </ul>
       <%= f.error_span(:manufacturer) %>
     </div>
 
@@ -82,12 +101,12 @@
       <%= f.error_span(:description) %>
     </div>
 
-    <div>
-      <%= f.label :variant_tokens, "Variance Tokens" %><br>
-      <%= f.text_field :variant_tokens, "data-pre" => @store_product.variants.map(&:attributes).to_json %><br><br>
-    </div>
-
     <div id="addVariant">
+      <ul id="variantnamelist" class="hidden">
+        <% Variant.new.all_unique.each do |v| %>
+            <li> <%= v %> </li>
+        <% end %>
+      </ul>
       <% @store_product.variants.each do |v| %>
           <li>
             <%= render 'variant_form', variant: v, f: f %>
@@ -96,51 +115,10 @@
       <% end %>
     </div>
     <a href="javascript:;" id="addNewVariant" class="btn btn-default">Add New Variant</a>
-    <div class="hide" id="new_variant_form">
-      <%= render 'variant_form', variant: Variant.new %>
-    </div>
+    <!--<div class="hide" id="new_variant_form">-->
+    <!--<%#= render 'variant_form', variant: Variant.new %>-->
+    <!--</div>-->
     <%= f.hidden_field :store_id, :value => params[:store_id] %>
-
-    <script>
-      $(document).ready(function () {
-        $("#addNewVariant").click(function () {
-          $.ajax({
-            url: "/store_products/new_variant_fields",
-            type: "GET",
-            success: function (data) {
-              $("#addVariant").append('<li>'
-                  + data
-                  + '<a href="#" id="cancel_variant">X</a>'
-                  + '</li>').html();
-            }
-          })
-        });
-
-        $("#addVariant").on('click', '#cancel_variant', function () {
-          $(this).parent().find('.destroy-flag').val('true')
-          $(this).parent().hide()
-        });
-        $('form').submit(function (e) {
-          $("#new_variant_form").remove()
-        })
-      });
-    </script>
-
-    <script>
-      //      $(document).ready(function () {
-      //        $("#category-select").change(function () {
-      //          var selected_category = $(this).val();
-      //          var products = $(".form-control");
-      //          console.log("CATEGORY :: ");
-      //          console.log(selected_category);
-      //          if (selected_category != 'a') {
-      //            console.log("HERE");
-      //            $(this).textContent;
-      //          }
-      //          console.log("DONE");
-      //        });
-      //      });
-    </script>
 
     <br><br>
     <div class="form-group">

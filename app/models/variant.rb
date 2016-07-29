@@ -1,5 +1,33 @@
 class Variant < ActiveRecord::Base
+
+  attr_accessor :variant_tokens
   after_save :ensure_variant
+
+  def variant_tokens=(ids)
+    self.variant_ids = ids.split(",")
+  end
+
+  def to_token
+    values = []
+    unless !value
+      values = value.split(',')
+    end
+    values
+  end
+
+  def all_unique
+    variants = []
+    if !Variant.all
+      variants
+    else
+      variants = Variant.all.order('name ASC')
+      names = []
+      variants.each do |v|
+        names << v.name
+      end
+      names.uniq
+    end
+  end
 
   private
   def ensure_variant
@@ -18,7 +46,6 @@ class Variant < ActiveRecord::Base
   end
 
   def merge_values(value1, value2)
-    #.lstrip
     values1 = value1.split(',').map(&:strip)
     values2 = value2.split(',').map(&:strip)
     values = values1 | values2

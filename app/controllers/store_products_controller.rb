@@ -44,7 +44,6 @@ class StoreProductsController < ApplicationController
         format.json { render json: @store_product.errors, status: :unprocessable_entity }
       end
     end
-
   end
 
   # POST /store_products
@@ -88,6 +87,11 @@ class StoreProductsController < ApplicationController
 
   def new_variant_fields
     render :partial => 'variant_form', locals: {variant: Variant.new}
+  end
+
+  def get_attributes
+    product= Product.where(name: params[:name]).first
+    render json: product
   end
 
   private

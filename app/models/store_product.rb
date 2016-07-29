@@ -7,20 +7,20 @@ class StoreProduct < ActiveRecord::Base
   has_many :variants, dependent: :destroy
   accepts_nested_attributes_for :variants, allow_destroy: true
 
-  attr_accessor :name, :product_type, :brand, :manufacturer, :variant_tokens
-  attr_reader :variant_tokens
+  attr_accessor :name, :product_type, :brand, :manufacturer#, :variant_tokens
+  # attr_reader :variant_tokens
 
   before_save :ensure_product_existence
-  after_save :remove_blank_variants
+  after_save :ensure_category_existence, :remove_blank_variants
   after_create :save_qr_code_path
   after_initialize :set_product_vars
 
   has_attached_file :avatar, default_url: "/assets/product.jpg"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
-  def variant_tokens=(ids)
-    self.variant_ids = ids.split(",")
-  end
+  # def variant_tokens=(ids)
+  #   self.variant_ids = ids.split(",")
+  # end
 
   def get_name
     product.name
@@ -56,6 +56,7 @@ class StoreProduct < ActiveRecord::Base
   end
 
   private
+
   def ensure_product_existence
     params = {name: name, product_type: product_type, brand: brand, manufacturer: manufacturer}
     if product_id
@@ -68,6 +69,11 @@ class StoreProduct < ActiveRecord::Base
         self.product_id = Product.create(params).id
       end
     end
+  end
+
+  def ensure_category_existence
+    categories = ProductType.where({category: product_type})
+    ProductType.create({category: product_type}) if categories.empty?
   end
 
   def remove_blank_variants

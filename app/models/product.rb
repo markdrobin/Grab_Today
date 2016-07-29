@@ -14,10 +14,6 @@ class Product < ActiveRecord::Base
         products.each do |p|
           attrs << p.name
         end
-      elsif attr == 'product_type'
-        products.each do |p|
-          attrs << p.product_type
-        end
       elsif attr == 'brand'
         products.each do |p|
           attrs << p.brand

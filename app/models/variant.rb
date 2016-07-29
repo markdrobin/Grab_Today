@@ -1,7 +1,7 @@
 class Variant < ActiveRecord::Base
 
   attr_accessor :variant_tokens
-  after_save :ensure_variant
+  after_save :ensure_value_duplicate, :ensure_variant
 
   def variant_tokens=(ids)
     self.variant_ids = ids.split(",")
@@ -16,13 +16,13 @@ class Variant < ActiveRecord::Base
   end
 
   def all_unique
-    variants = []
+    vars = []
     if !Variant.all
-      variants
+      vars
     else
-      variants = Variant.all.order('name ASC')
+      vars = Variant.all.order('name ASC')
       names = []
-      variants.each do |v|
+      vars.each do |v|
         names << v.name
       end
       names.uniq
@@ -30,6 +30,10 @@ class Variant < ActiveRecord::Base
   end
 
   private
+  def ensure_value_duplicate
+    self.value = merge_values(value, '')
+  end
+
   def ensure_variant
     params = {name: name, store_product_id: store_product_id}
     variants = Variant.where(params)
@@ -48,7 +52,7 @@ class Variant < ActiveRecord::Base
   def merge_values(value1, value2)
     values1 = value1.split(',').map(&:strip)
     values2 = value2.split(',').map(&:strip)
-    values = values1 | values2
+    values = values1.uniq | values2.uniq
     merged_value = ''
     values.each do |v|
       merged_value << "#{v.capitalize}, "

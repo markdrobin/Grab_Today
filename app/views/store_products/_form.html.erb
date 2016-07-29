@@ -46,7 +46,7 @@
       </div>
       <ul id="producttypelist" class="hidden">
         <%# Product.all.order('product_type ASC').each do |p| %>
-        <% Product.new.all_unique('product_type').each do |p| %>
+        <% ProductType.new.all_unique.each do |p| %>
             <li> <%= p %> </li>
         <% end %>
       </ul>

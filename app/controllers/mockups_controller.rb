@@ -4,9 +4,12 @@ class MockupsController < ApplicationController
   def dashboard
   end
 
-  def login
+  def sign_in
   end
 
-  def signup
+  def sign_up
+  end
+
+  def stores
   end
 end

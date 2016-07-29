@@ -27,6 +27,7 @@ body.mockups {
     .navbar-brand, .navbar-collapse > ul > li > a {
       padding-top: 20px;
       padding-bottom: 20px;
+      display: inline-block;
     }
 
     li {
@@ -60,6 +61,10 @@ body.mockups {
         }
       }
     }
+  }
+
+  footer {
+    margin-top: 50px;
   }
 
   .dashboard {
@@ -149,16 +154,51 @@ body.mockups {
   .login {
     min-height: 100%;
     form {
-      padding-top: 100px;
-      padding-bottom: 100px;
+      padding-top: 80px;
+      padding-bottom: 50px;
     }
     @include login-signup;
   }
   .signup {
     form {
       padding-top: 30px;
-      padding-bottom: 50px;
     }
     @include login-signup;
+  }
+
+  .bootcards-media {
+    border: none;
+    img {
+      //height: 150px;
+      width: 100%;
+      object-fit: cover;
+    }
+    .panel-heading, .panel-footer {
+      color: $text-color;
+      background: #222;
+      border-bottom: none;
+    }
+    .panel-footer {
+      border: none;
+      padding: 2px;
+    }
+    .panel-body, .list-group {
+      color: $text-dark;
+    }
+  }
+
+  .page-header {
+    border-bottom: none;
+    display: inline-block;
+    width: 100%;
+    clear: both;
+    h1 {
+      float: left;
+      margin: 0px;
+    }
+    .pull-right {
+      margin-top: 4px;
+    }
+
   }
 }

@@ -1,4 +1,4 @@
-<%= form_for @store_product, :html => {:multipart => true, :class => "form-horizontal store_product"} do |f| %>
+<%= form_for @store_product, :html => {:class => "form-horizontal store_product", multipart: true} do |f| %>
 
     <% if @store_product.errors.any? %>
         <div id="error_expl" class="panel panel-danger">
@@ -16,23 +16,12 @@
         </div>
     <% end %>
 
-    <%= f.fields_for :pictures do |picture_fields| %>
-        <% if picture_fields.object.new_record? %>
-            <div class="form-group">
-              <div class="col-lg-10">
-                <%= picture_fields.file_field :image %>
-              </div>
-              <%= f.error_span(:image) %>
-            </div>
-        <% end %>
-    <% end %>
-
-    <h4>Product images</h4>
-    <%= f.fields_for :pictures do |picture_fields| %>
-        <% unless picture_fields.object.new_record? %>
-            <%= link_to image_tag(picture_fields.image.url), picture_fields.image.url %>
-        <% end %>
-    <% end %>
+    <div class="control-group">
+      <%= f.label :pictures, :class => 'control-label' %><br>
+      <div class="controls">
+        <%= file_field_tag "images[]", type: :file, multiple: true %><br>
+      </div>
+    </div>
 
     <div class="form-group">
       <%#= f.label :name, :class => 'control-label col-lg-2' %>

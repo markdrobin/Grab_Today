@@ -18,12 +18,10 @@ class StoreProductsController < ApplicationController
   # GET /store_products/new
   def new
     @store_product = StoreProduct.new
-    5.times {@store_product.pictures.build}
   end
 
   # GET /store_products/1/edit
   def edit
-    5.times {@store_product.pictures.build}
   end
 
   def load_activities
@@ -55,6 +53,11 @@ class StoreProductsController < ApplicationController
     @store_product = StoreProduct.new(store_product_params)
     respond_to do |format|
       if @store_product.save
+        if params[:images]
+          params[:images].each { |image|
+            @store_product.pictures.create(image: image)
+          }
+        end
         format.html { redirect_to @store_product, notice: 'Store product was successfully created.' }
         format.json { render :show, status: :created, location: @store_product }
       else
@@ -68,6 +71,11 @@ class StoreProductsController < ApplicationController
   # PATCH/PUT /store_products/1.json
   def update
     respond_to do |format|
+      if params[:images]
+        params[:images].each { |image|
+          @store_product.pictures.create(image: image)
+        }
+      end
       if @store_product.update(store_product_params)
         format.html { redirect_to @store_product, notice: 'Store product was successfully updated.' }
         format.json { render :show, status: :ok, location: @store_product }

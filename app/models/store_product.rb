@@ -16,7 +16,7 @@ class StoreProduct < ActiveRecord::Base
   after_initialize :set_product_vars
   validate :is_not_unique?
 
-  has_many :pictures
+  has_many :pictures, :dependent => :destroy
   accepts_nested_attributes_for :pictures, :allow_destroy => true
 
   def variant_tokens=(ids)

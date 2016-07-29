@@ -10,13 +10,14 @@ class StoreProduct < ActiveRecord::Base
   attr_accessor :name, :product_type, :brand, :manufacturer, :variant_tokens, :variant_category
   attr_reader :variant_tokens, :variant_category
 
-  before_save :ensure_product_existence
+  before_save :ensure_product_existence, :valid?
   after_save :remove_blank_variants
   after_create :save_qr_code_path
   after_initialize :set_product_vars
+  validate :is_not_unique?, :on => :create
 
-  has_attached_file :avatar, default_url: "/assets/product.jpg"
-  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+  has_many :pictures, :dependent => :destroy
+  accepts_nested_attributes_for :pictures, allow_destroy: true
 
   def variant_tokens=(value)
     # self.variant_ids = ids.split(",")
@@ -66,6 +67,12 @@ class StoreProduct < ActiveRecord::Base
     save
   end
 
+  def is_not_unique?
+    if StoreProduct.exists?({:product_id => product_id, :store_id => store_id})
+      errors.add(:product, "already taken in this store.")
+    end
+  end
+
   private
   def ensure_product_existence
     params = {name: name, product_type: product_type, brand: brand, manufacturer: manufacturer}
@@ -97,4 +104,8 @@ class StoreProduct < ActiveRecord::Base
       self.manufacturer = get_manufacturer
     end
   end
+
+  #def destroy_image?
+  #self.pictures.clear if @
+  #end
 end

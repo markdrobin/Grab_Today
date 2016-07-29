@@ -53,10 +53,15 @@ class StoreProductsController < ApplicationController
     @store_product = StoreProduct.new(store_product_params)
     respond_to do |format|
       if @store_product.save
+        if params[:images]
+          params[:images].each { |image|
+            @store_product.pictures.create(image: image)
+          }
+        end
         format.html { redirect_to @store_product, notice: 'Store product was successfully created.' }
         format.json { render :show, status: :created, location: @store_product }
       else
-        format.html { render :new }
+        format.html { redirect_to :back, alert: 'Store Product is already taken.'}
         format.json { render json: @store_product.errors, status: :unprocessable_entity }
       end
     end
@@ -66,6 +71,11 @@ class StoreProductsController < ApplicationController
   # PATCH/PUT /store_products/1.json
   def update
     respond_to do |format|
+      if params[:images]
+        params[:images].each { |image|
+          @store_product.pictures.create(image: image)
+        }
+      end
       if @store_product.update(store_product_params)
         format.html { redirect_to @store_product, notice: 'Store product was successfully updated.' }
         format.json { render :show, status: :ok, location: @store_product }
@@ -98,6 +108,6 @@ class StoreProductsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def store_product_params
-    params.require(:store_product).permit(:price, :stock, :description, :avatar, :store_id, :name, :product_type, :brand, :manufacturer, variants_attributes: [:id, :name, :value, :_destroy])
+    params.require(:store_product).permit(:price, :stock, :description, :avatar, :store_id, :name, :product_type, :brand, :manufacturer, {pictures_attributes: [:id, :_destroy]}, {variants_attributes: [:id, :name, :value, :_destroy]})
   end
 end

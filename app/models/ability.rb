@@ -6,8 +6,8 @@ class Ability
 
     if user.user_type == 'Store Owner'
       can :manage, :all
-      cannot :index, :all
-      cannot :read, [Product, Variant]
+      # cannot :index, :all
+      cannot :read, [Product]
     elsif user.user_type == 'Customer'
       can :read, :all
       cannot :index, :all

@@ -66,6 +66,7 @@ $(document).ready(function () {
                     + data
                     + '<a href="#" id="cancel_variant" class="btn btn-default">Cancel Variant</a><br><br>'
                     + '</li>').html();
+                addTokenBehavior($('#addVariant .variant-value').last())
             }
         })
     });
@@ -108,23 +109,6 @@ $(document).ready(function () {
             });
         });
     });
-});
-
-$(function () {
-    function newUrl(e) {
-        return function () {
-            return '/variants.json?name=' + e.closest('.form-group').find('.variant-name').val();
-        }
-    }
-
-    $(".variant-value").each(function () {
-        $(this).tokenInput(newUrl($(this)), {
-            queryParam: 'q',
-            crossDomain: false,
-            prePopulate: $(this).data('load'),
-            theme: "facebook",
-        });
-    })
 
     $('form').submit(function (e) {
         $(this).find('.variant-value').each(function () {
@@ -138,4 +122,22 @@ $(function () {
         })
     })
 
+    $(".variant-value").each(function () {
+        addTokenBehavior($(this))
+    })
 });
+
+function newUrl(e) {
+    return function () {
+        return '/variants.json?name=' + e.closest('.form-group').find('.variant-name').val();
+    }
+}
+
+function addTokenBehavior(element) {
+    element.tokenInput(newUrl(element), {
+        queryParam: 'q',
+        crossDomain: false,
+        prePopulate: element.data('load'),
+        theme: "facebook",
+    });
+}

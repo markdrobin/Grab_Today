@@ -4,7 +4,7 @@ class Variant < ActiveRecord::Base
 
   def ensure_value_existence
     types = VariantType.where({name: name})
-    if types
+    if types.length != 0
       values = VariantValue.where({variant_type_id: types.first.id})
       current = self.value.split(",")
       vals = []

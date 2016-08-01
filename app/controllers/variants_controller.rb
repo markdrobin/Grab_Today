@@ -7,7 +7,13 @@ class VariantsController < ApplicationController
   # GET /variants.json
   def index
     type = VariantType.where(name: params[:name]).first
-    values = VariantValue.where("value like '%#{params[:q]}%' and variant_type_id = #{type.id}")
+    if type
+      print "### IF :: #{type.name} ###"
+      values = VariantValue.where("value like '%#{params[:q]}%' and variant_type_id = #{type.id}")
+    else
+      print "### ELSE ###"
+      values = VariantValue.where("value like '%#{params[:q]}%'").limit(5)
+    end
     values << VariantValue.new(:value => params[:q].capitalize)
     respond_to do |format|
       format.json { render json: values.map { |e| {name: e.value} } }

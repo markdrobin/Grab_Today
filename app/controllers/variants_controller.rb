@@ -1,5 +1,4 @@
 class VariantsController < ApplicationController
-  load_and_authorize_resource
   before_action :set_variant, only: [:show, :edit, :update, :destroy]
   after_action only: [:index]
 
@@ -26,10 +25,10 @@ class VariantsController < ApplicationController
     #   # val = val +
     # end
     # render json: val
-
     type = VariantType.where(name: params[:name]).first()
     values = VariantValue.where("value like '%#{params[:q]}%' and variant_type_id = #{type.id}")
     render json: values.map { |e| {name: e.value} }
+    authorize! :index, @variant
   end
 
   # GET /variants/1

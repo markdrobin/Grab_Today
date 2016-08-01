@@ -39,6 +39,6 @@ variant_list = [
     [ 'Size', 'Small, Medium, Large']
 ]
 
-variant_list.each do |name, value, store_id|
+variant_list.each do |name, value, store_product_id|
   Variant.create( name: name, value: value, store_product_id: store_product_id )
 end

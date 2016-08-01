@@ -402,4 +402,29 @@ body.mockups {
       }
     }
   }
+
+  .profile {
+    background: none;
+    margin-top: 30px;
+    margin-bottom: 0;
+    img {
+      width: 200px;
+      height: 200px;
+      border: solid 3px #fff;
+    }
+    h1 {
+      margin-bottom: 0;
+    }
+    h4 {
+      font-weight: 100;
+      margin-top: 0;
+    }
+    h5 {
+      text-transform: uppercase;
+      color: #777;
+    }
+    .btn-group {
+      margin-top: 10px;
+    }
+  }
 }

@@ -1,0 +1,26 @@
+<div class="profile container jumbotron">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="head-wrapper text-center">
+        <img class="img-circle" src="<%= image_path 'user1.jpg' %>">
+        <h1>John H. Doe</h1>
+        <h4>johndoe@chromedia.com</h4>
+        <h5>Store Owner</h5>
+        <div class="btn-group">
+          <div class="btn-group">
+            <a class="btn btn-default" href="<%= profile_update_mockups_path %>">
+            <%= fa_icon 'pencil' %>
+              Update information
+            </a>
+          </div>
+          <div class="btn-group">
+            <a class="btn btn-default" href="<%= profile_password_mockups_path %>">
+              <%= fa_icon 'key' %>
+              Change password
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

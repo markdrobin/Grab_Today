@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
   resources :mockups do
     collection do
-      get :dashboard, :sign_in, :sign_up, :stores, :store, :store_form, :product, :product_form
+      get :dashboard, :sign_in, :sign_up, :stores, :store, :store_form, :product, :product_form, :profile, :profile_update, :profile_password
     end
   end
 

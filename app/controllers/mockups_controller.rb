@@ -25,4 +25,13 @@ class MockupsController < ApplicationController
 
   def product_form
   end
+
+  def profile
+  end
+
+  def profile_update
+  end
+
+  def profile_password
+  end
 end

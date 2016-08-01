@@ -16,28 +16,29 @@
  */
 
 div.awesomplete > ul > li:hover {
-    background: hsl(200, 40%, 80%);
+    /*background: hsl(200, 40%, 80%);*/
+    background: #f1cdcc;
     color: black;
 }
 
 div.awesomplete > ul > li[aria-selected="true"] {
     /*background: hsl(205, 40%, 40%);*/
-    background: red;
+    background: #b90504;
     color: white;
 }
 
 div.awesomplete mark {
     /*background: hsl(65, 100%, 50%);*/
-    background: blueviolet;
+    background: #999;
 }
 
 div.awesomplete li:hover mark {
     /*background: hsl(68, 100%, 41%);*/
-    background: salmon;
+    background:  #ccf0f1;
 }
 
 div.awesomplete li[aria-selected="true"] mark {
     /*background: hsl(86, 100%, 21%);*/
-    background: aquamarine;
+    background: #333333;
     color: inherit;
 }

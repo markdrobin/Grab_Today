@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160729031714) do
+ActiveRecord::Schema.define(version: 20160801053317) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "trackable_id",   limit: 4
@@ -66,10 +66,10 @@ ActiveRecord::Schema.define(version: 20160729031714) do
   add_index "products", ["deleted_at"], name: "index_products_on_deleted_at", using: :btree
 
   create_table "store_products", force: :cascade do |t|
-    t.decimal  "price",                           precision: 10
+    t.decimal  "price",                           precision: 16, scale: 2
     t.integer  "stock",               limit: 4
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
     t.integer  "store_id",            limit: 4
     t.integer  "product_id",          limit: 4
     t.string   "qr_code_path",        limit: 255

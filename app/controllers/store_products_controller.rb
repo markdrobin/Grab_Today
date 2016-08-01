@@ -1,6 +1,7 @@
 require 'rqrcode'
 
 class StoreProductsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_store_product, :load_activities, only: [:show, :edit, :update, :destroy, :restock, :process_restock]
 
   # GET /store_products
@@ -52,6 +53,7 @@ class StoreProductsController < ApplicationController
     @store_product = StoreProduct.new(store_product_params)
     respond_to do |format|
       if @store_product.save
+        print "############### #{@store_product.price} ###############"
         if params[:images]
           params[:images].each { |image|
             @store_product.pictures.create(image: image)
@@ -60,7 +62,7 @@ class StoreProductsController < ApplicationController
         format.html { redirect_to @store_product, notice: 'Store product was successfully created.' }
         format.json { render :show, status: :created, location: @store_product }
       else
-        format.html { redirect_to :back, alert: 'Store Product is already taken.'}
+        format.html { redirect_to :back, alert: 'Store Product is already taken.' }
         format.json { render json: @store_product.errors, status: :unprocessable_entity }
       end
     end

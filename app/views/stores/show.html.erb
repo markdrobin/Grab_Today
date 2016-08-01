@@ -57,7 +57,7 @@
             <td><%= link_to product.get_name, store_product_path(product) %></td>
             <td><%= product.get_type %></td>
             <td><%= product.get_brand %></td>
-            <td><%= product.price ? "P" + product.price.to_s + ".00" : '$0.00' %></td>
+            <td><%= product.price ? "P#{product.price}" : 'P0.00' %></td>
             <td><%= product.stock ? product.stock : 0 %></td>
             <td>
               <%= link_to t('.edit', :default => t("helpers.links.edit")),

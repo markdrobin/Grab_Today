@@ -1,7 +1,7 @@
 class MockupsController < ApplicationController
   layout 'mockups_layout'
 
-  def dashboard
+  def index
   end
 
   def sign_in
@@ -17,5 +17,9 @@ class MockupsController < ApplicationController
   end
 
   def store_form
+  end
+
+  def product
+    @qr = RQRCode::QRCode.new('Northface', :size => 2, :level => :h)
   end
 end

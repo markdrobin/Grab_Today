@@ -3,20 +3,20 @@
     <div class="page-header">
       <h1>My Stores</h1>
       <div class="pull-right">
-        <a href="#" class="btn btn-primary"><%= fa_icon 'plus' %> Store</a>
+        <a href="<%= store_form_mockups_path %>" class="btn btn-primary"><%= fa_icon 'plus' %> Store</a>
         <input type="search" class="form-control" placeholder="Search">
       </div>
     </div>
 
     <div class="row">
       <div class="col-lg-4">
-        <a class="panel panel-default bootcards-media" href="#">
+        <a class="panel panel-default bootcards-media" href="<%= store_mockups_path %>">
           <div class="panel-heading">
             <h3 class="panel-title">Keppel Shop</h3>
           </div>
           <div>
           </div>
-          <img src="http://www.teamstudio.com/Portals/218295/images/istock_000001242290small.jpg" class="img-responsive"/>
+          <img src="<%= image_path 'istock1.jpg' %>" class="img-responsive"/>
           <div class="list-group">
             <div class="list-group-item">
               <p class="list-group-item-text">Address</p>
@@ -42,7 +42,7 @@
         </a>
       </div>
       <div class="col-lg-4">
-        <a class="panel panel-default bootcards-media" href="#">
+        <a class="panel panel-default bootcards-media" href="<%= store_mockups_path %>">
           <div class="panel-heading">
             <h3 class="panel-title">Times Square</h3>
           </div>
@@ -73,7 +73,7 @@
         </a>
       </div>
       <div class="col-lg-4">
-        <a class="panel panel-default bootcards-media" href="#">
+        <a class="panel panel-default bootcards-media" href="<%= store_mockups_path %>">
           <div class="panel-heading">
             <h3 class="panel-title">Keppel Shop</h3>
           </div>

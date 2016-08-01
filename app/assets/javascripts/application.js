@@ -90,7 +90,7 @@ $(document).ready(function () {
     })
 
     $(function () {
-        $('#f-name').change(function () {
+        $('#f-name').on('change', function () {
             var field_name = $(this).val();
             $.ajax({
                 type: 'POST',

@@ -59,7 +59,7 @@ $(function () {
     tokenize($(".tokens"))
 });
 
-function tokenize(element){
+function tokenize(element) {
     element.tokenInput("/variants.json", {
         crossDomain: false,
         theme: "facebook"
@@ -99,16 +99,15 @@ $(document).ready(function () {
                     name: $(this).val()
                 },
                 dataType: 'json',
-                success: function (data)
-                {
+                success: function (data) {
                     if (data != null) {
-                        if (data.product_type != null) {
+                        if (data.product_type != "") {
                             $('#f-product_type').val(data.product_type);
                         }
-                        if (data.brand != null) {
+                        if (data.brand != "") {
                             $('#f-brand').val(data.brand);
                         }
-                        if (data.manufacturer != null) {
+                        if (data.manufacturer != "") {
                             $('#f-manufacturer').val(data.manufacturer);
                         }
                     }
@@ -119,12 +118,6 @@ $(document).ready(function () {
             });
         });
     });
-
-    new Awesomplete(document.getElementById("f-name"), {list: "#namelist", minChars: 1, autoFirst: true});
-    new Awesomplete(document.getElementById("f-brand"), {list: "#brandlist", minChars: 1, autoFirst: true});
-    new Awesomplete(document.getElementById("f-manufacturer"), {list: "#manuflist", minChars: 1, autoFirst: true});
-    new Awesomplete(document.getElementById("f-product_type"), {list: "#producttypelist", minChars: 1, autoFirst: true});
-    // new Awesomplete(document.getElementById("f-variant"), {list: "#variantnamelist", minChars: 1, autoFirst: true});
 });
 
 $(function () {

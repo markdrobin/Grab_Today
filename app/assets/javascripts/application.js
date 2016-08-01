@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.tokeninput
 //= require twitter/bootstrap
 //= require awesomplete
 //= require_tree .
@@ -55,17 +56,6 @@ $(".closebtn").ready(function () {
     }
 });
 
-$(function () {
-    tokenize($(".tokens"))
-});
-
-function tokenize(element){
-    element.tokenInput("/variants.json", {
-        crossDomain: false,
-        theme: "facebook"
-    });
-}
-
 $(document).ready(function () {
     $("#addNewVariant").click(function () {
         $.ajax({
@@ -99,8 +89,7 @@ $(document).ready(function () {
                     name: $(this).val()
                 },
                 dataType: 'json',
-                success: function (data)
-                {
+                success: function (data) {
                     if (data != null) {
                         if (data.product_type != null) {
                             $('#f-product_type').val(data.product_type);
@@ -123,7 +112,11 @@ $(document).ready(function () {
     new Awesomplete(document.getElementById("f-name"), {list: "#namelist", minChars: 1, autoFirst: true});
     new Awesomplete(document.getElementById("f-brand"), {list: "#brandlist", minChars: 1, autoFirst: true});
     new Awesomplete(document.getElementById("f-manufacturer"), {list: "#manuflist", minChars: 1, autoFirst: true});
-    new Awesomplete(document.getElementById("f-product_type"), {list: "#producttypelist", minChars: 1, autoFirst: true});
+    new Awesomplete(document.getElementById("f-product_type"), {
+        list: "#producttypelist",
+        minChars: 1,
+        autoFirst: true
+    });
     // new Awesomplete(document.getElementById("f-variant"), {list: "#variantnamelist", minChars: 1, autoFirst: true});
 });
 
@@ -138,9 +131,21 @@ $(function () {
         $(this).tokenInput(newUrl($(this)), {
             queryParam: 'q',
             crossDomain: false,
-            // propertyToSearch: "value",
+            prePopulate: $(this).data('load'),
             theme: "facebook",
         });
+    })
+
+    $('form').submit(function (e) {
+        $(this).find('.variant-value').each(function () {
+            var parent = $(this).closest('.form-group')
+            var input = parent.find('.variant-value')
+            var values = []
+            parent.find('li.token-input-token-facebook p').each(function () {
+                values.push($(this).text().trim())
+            })
+            input.val($.unique(values).join(","))
+        })
     })
 
 });

@@ -1,18 +1,28 @@
 class Variant < ActiveRecord::Base
 
-  attr_accessor :variant_tokens
-  after_save :ensure_value_duplicate, :ensure_variant
+  after_save :ensure_value_existence
 
-  def variant_tokens=(ids)
-    self.variant_ids = ids.split(",")
-  end
-
-  def to_token
-    values = []
-    unless !value
-      values = value.split(',')
+  def ensure_value_existence
+    types = VariantType.where({name: name})
+    if types
+      values = VariantValue.where({variant_type_id: types.first.id})
+      current = self.value.split(",")
+      vals = []
+      values.each do |v|
+        vals << v.value
+      end
+      current.each do |val|
+        if !vals.include? val
+          VariantValue.create({value: val, variant_type_id: types.first.id})
+        end
+      end
+    else
+      new_type = VariantType.create({name: name})
+      current = self.value.split(",")
+      current.each do |val|
+        VariantValue.create({value: val, variant_type_id: new_type.id})
+      end
     end
-    values
   end
 
   def all_unique
@@ -67,4 +77,5 @@ class Variant < ActiveRecord::Base
     end
     merged_value.chomp(', ')
   end
+
 end

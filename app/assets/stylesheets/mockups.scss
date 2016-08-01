@@ -150,11 +150,14 @@ body.mockups {
       margin-top: 10px;
     }
     .divider {
+      text-transform: capitalize;
       font-weight: bold;
       color: #aaa;
-      margin-top: 30px;
-      padding-top: 10px;
-      border-top: solid 1px #555;
+      &:not(.without-hr) {
+        margin-top: 30px;
+        padding-top: 10px;
+        border-top: solid 1px #555;
+      }
     }
   }
 
@@ -282,6 +285,34 @@ body.mockups {
     }
   }
 
+  .qr {
+    table {
+      border-width: 0;
+      border-style: none;
+      border-color: #0000ff;
+      border-collapse: collapse;
+
+      td {
+        border-width: 0;
+        border-style: none;
+        border-color: #0000ff;
+        border-collapse: collapse;
+        padding: 0;
+        margin: 0;
+        width: 3px;
+        height: 3px;
+      }
+
+      td.black {
+        background: #333;
+      }
+
+      td.white {
+        background: #fff;
+      }
+    }
+  }
+
   .product {
     background: none;
     padding-bottom: 0px;
@@ -330,30 +361,44 @@ body.mockups {
     }
   }
 
-  .qr {
-    table {
-      border-width: 0;
-      border-style: none;
-      border-color: #0000ff;
-      border-collapse: collapse;
-
-      td {
-        border-width: 0;
-        border-style: none;
-        border-color: #0000ff;
-        border-collapse: collapse;
-        padding: 0;
-        margin: 0;
-        width: 3px;
-        height: 3px;
-      }
-
-      td.black {
-        background: #333;
-      }
-
-      td.white {
-        background: #fff;
+  .product-form {
+    .thumbnail .close {
+      position: absolute;
+      top: 0px;
+      right: 20px;
+      text-shadow: 0 1px 3px #000;
+    }
+    .panel {
+      color: $text-dark;
+      border: none;
+      .panel-heading {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        background: #444;
+        border: none;
+        a {
+          color: $text-color;
+        }
+        input, input:focus, input:active {
+          padding: 0;
+          background: none;
+          border: none;
+          color: white;
+          -webkit-box-shadow: none;
+          -moz-box-shadow: none;
+          box-shadow: none;
+        }
+        h3 {
+          margin: 0;
+        }
+        .close {
+          margin-top: 3px;
+          opacity: .5;
+          text-shadow: none;
+          &:hover, &:focus {
+            opacity: 1;
+          }
+        }
       }
     }
   }

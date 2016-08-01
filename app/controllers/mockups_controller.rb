@@ -22,4 +22,7 @@ class MockupsController < ApplicationController
   def product
     @qr = RQRCode::QRCode.new('Northface', :size => 2, :level => :h)
   end
+
+  def product_form
+  end
 end

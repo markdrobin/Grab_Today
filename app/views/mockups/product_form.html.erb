@@ -1,0 +1,127 @@
+<div class="signup container product-form">
+  <div class="row form-wrapper">
+    <form class="form">
+      <div class="col-md-4 col-md-offset-2">
+        <h2>Add a product</h2>
+        <div class="form-group">
+          <label>Name*</label>
+          <input type="text" class="form-control" placeholder="Name">
+        </div>
+        <div class="form-group">
+          <label>Category*</label>
+          <select class="form-control">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Brand*</label>
+          <input type="text" class="form-control" placeholder="Brand">
+        </div>
+        <div class="form-group">
+          <label>Manufacturer*</label>
+          <input type="text" class="form-control" placeholder="Manufacturer">
+        </div>
+        <div class="form-group">
+          <label>Price</label>
+          <div class="input-group">
+          <span class="input-group-addon">
+            <%= fa_icon 'dollar' %>
+          </span>
+            <input type="text" class="form-control" placeholder="Price">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Stocks*</label>
+          <input type="text" class="form-control" placeholder="Stocks">
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea rows="2" placeholder="Description" class="form-control"></textarea>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <h2 class="">&nbsp;</h2>
+        <p class="divider without-hr">IMAGES</p>
+        <div class="row">
+          <div class="col-xs-3">
+            <div class="thumbnail">
+              <img src="<%= image_path 'router/router-1.jpg' %>">
+              <div class="close">&times;</div>
+            </div>
+          </div>
+          <div class="col-xs-3">
+            <div class="thumbnail">
+              <img src="<%= image_path 'router/router-2.jpg' %>">
+              <div class="close">&times;</div>
+            </div>
+          </div>
+          <div class="col-xs-3">
+            <div class="thumbnail">
+              <img src="<%= image_path 'router/router-3.jpg' %>">
+              <div class="close">&times;</div>
+            </div>
+          </div>
+          <div class="col-xs-3">
+            <div class="thumbnail">
+              <img src="<%= image_path 'router/router-4.jpg' %>">
+              <div class="close">&times;</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input type="file" placeholder="Select image">
+        </div>
+
+        <p class="divider">VARIANTS</p>
+        <div class="panel panel-default">
+          <div class="panel-heading clearfix">
+            <h3 class="panel-title pull-left"><input type="text" class="form-control" placeholder="Description" value="Color"></h3>
+            <div class="pull-right">
+              <a href="#" class="close"><span>&times;</span></a>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <!--<label>Values*</label>-->
+              <input type="text" class="form-control token-input" placeholder="Values" value="Red, Blue, Green">
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading clearfix">
+            <h3 class="panel-title pull-left"><input type="text" class="form-control" placeholder="Description"></h3>
+            <div class="pull-right">
+              <a href="#" class="close"><span>&times;</span></a>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <!--<label>Values*</label>-->
+              <input type="text" class="form-control token-input" placeholder="Values">
+            </div>
+          </div>
+        </div>
+        <a href="#"><%= fa_icon 'plus' %> Variant</a>
+        <!--<div class="panel panel-default">-->
+          <!--<div class="panel-heading clearfix">-->
+            <!--<a href="#">New Variant</a>-->
+            <!--&lt;!&ndash;<h3 class="panel-title pull-left"><input type="text" class="form-control" placeholder="Description"></h3>&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="pull-right">&ndash;&gt;-->
+              <!--&lt;!&ndash;<a href="#" class="close"><span>&times;</span></a>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--</div>-->
+        <!--</div>-->
+      </div>
+
+      <div class="col-md-8 col-md-offset-2">
+        <p class="help-block">Fields with <b>*</b> are required.</p>
+        <button type="submit" class="btn btn-lg btn-primary btn-block">Create product</button>
+      </div>
+    </form>
+  </div>
+</div>

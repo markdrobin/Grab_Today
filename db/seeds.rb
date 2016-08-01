@@ -40,5 +40,5 @@ variant_list = [
 ]
 
 variant_list.each do |name, value, store_id|
-  Variant.create( name: name, value: value, store_product_id: store_id )
+  Variant.create( name: name, value: value, store_product_id: store_product_id )
 end

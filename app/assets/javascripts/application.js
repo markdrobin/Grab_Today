@@ -74,7 +74,7 @@ $(document).ready(function () {
             success: function (data) {
                 $("#addVariant").append('<li>'
                     + data
-                    + '<a href="#" id="cancel_variant">X</a>'
+                    + '<a href="#" id="cancel_variant" class="btn btn-default">Cancel Variant</a><br><br>'
                     + '</li>').html();
             }
         })

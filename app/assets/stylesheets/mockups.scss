@@ -311,11 +311,13 @@ body.mockups {
     .header {
       .qr {
         position: absolute;
-        //top: 15px;
         right: 15px;
         table {
           width: 150px;
           height: 150px;
+        }
+        .white {
+          background: #ededed;
         }
       }
       .qr, h1 {
@@ -324,6 +326,7 @@ body.mockups {
     }
     .label {
       font-weight: 300;
+      background: #555;
     }
   }
 

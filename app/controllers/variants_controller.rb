@@ -1,5 +1,4 @@
 class VariantsController < ApplicationController
-  load_and_authorize_resource
   before_action :set_variant, only: [:show, :edit, :update, :destroy]
   after_action only: [:index]
 
@@ -28,6 +27,7 @@ class VariantsController < ApplicationController
   # GET /variants/1
   # GET /variants/1.json
   def show
+    authorize! :show, @variant
   end
 
   # GET /variants/new

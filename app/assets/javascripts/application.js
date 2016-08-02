@@ -130,6 +130,13 @@ $(document).ready(function () {
     $(".variant-name").each(function () {
         addOnChangeBehavior($(this))
     })
+
+    $('#autocomplete').autocomplete({
+        serviceUrl: '/autocomplete/countries',
+        onSelect: function (suggestion) {
+            alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+        }
+    });
 });
 
 function newValueUrl(e) {
@@ -172,4 +179,37 @@ function variant_complete_append() {
 
 function init_variant_awesomplete(element) {
     new Awesomplete(element, {list: "#variantnamelist", minChars: 1, autoFirst: true});
+}
+
+function auto_query(k, e) {
+    return function () {
+        return 'products.json?' + k + '=' + e;
+    }
+}
+
+function autocomplete_fields(e) {
+    auto_query('name', form)
+    $.ajax({
+        // type: 'POST',
+        // url: '/store_products/get_attributes',
+        type: 'POST',
+        url: auto_query(e),
+        data: {
+            name: $(this).val()
+        },
+        dataType: 'json',
+        success: function (data) {
+            if (data != null) {
+                if (data.product_type != "") {
+                    $('#f-product_type').val(data.product_type);
+                }
+                if (data.brand != "") {
+                    $('#f-brand').val(data.brand);
+                }
+                if (data.manufacturer != "") {
+                    $('#f-manufacturer').val(data.manufacturer);
+                }
+            }
+        }
+    });
 }

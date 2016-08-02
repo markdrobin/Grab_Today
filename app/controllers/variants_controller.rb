@@ -5,30 +5,19 @@ class VariantsController < ApplicationController
   # GET /variants
   # GET /variants.json
   def index
-    # @variants = Variant.where("value like ? ", "%#{params[:q]}%")
-    # respond_to do |format|
-    #   format.html
-    #   format.json { render :json => @variants}
-    # end
-    # token_list = []
-    # Variant.where("value like '%#{params[:q]}%' and name = #{params[:variant_category]}").each do |var|
-    #   token_list << {"id" => var.id, "name" => var.name, "value" => var.value}
-    # end
-    # token_list << {"name" => params[:variant_category], "value" => "-new-#{params[:q]}"}
-    # render :json => token_list.to_json
-
-    # val = []
-    # Variant.where("value like '%#{params[:q]}%' and name = #{params[:variant_category]}").each do |e|
-    #   e.value.split(',').each do |v|
-    #     val << {name: v}
-    #   end
-    #   # val = val +
-    # end
-    # render json: val
-    type = VariantType.where(name: params[:name]).first()
-    values = VariantValue.where("value like '%#{params[:q]}%' and variant_type_id = #{type.id}")
-    render json: values.map { |e| {name: e.value} }
-    authorize! :index, @variant
+    type = VariantType.where(name: params[:name]).first
+    if type
+      print "### IF :: #{type.name} ###"
+      values = VariantValue.where("value like '%#{params[:q]}%' and variant_type_id = #{type.id}")
+    else
+      print "### ELSE ###"
+      values = VariantValue.where("value like '%#{params[:q]}%'").limit(5)
+    end
+    values << VariantValue.new(:value => params[:q].capitalize)
+    respond_to do |format|
+      format.json { render json: values.map { |e| {name: e.value} } }
+      # format.json { render json: @variants.tokens(params[:q]) }
+    end
   end
 
   # GET /variants/1

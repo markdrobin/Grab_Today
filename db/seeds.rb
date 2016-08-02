@@ -34,8 +34,8 @@ ProductType.create(category: 'Office Supplies')
 ProductType.create(category: 'Food')
 
 variant_list = [
-    [ 'Material', 'Wood, Metal, Plastic' ],
-    [ 'Color', 'Black, White' ],
+    [ 'Material', 'Wood, Metal, Plastic'],
+    [ 'Color', 'Black, White'],
     [ 'Size', 'Small, Medium, Large']
 ]
 

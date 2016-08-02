@@ -96,7 +96,7 @@ class StoreProduct < ActiveRecord::Base
 
   def remove_blank_variants
     variants.each do |v|
-      if v[:name.to_s] == '' || v[:value.to_s] == ''
+      if v[:name.to_s] == '' #|| v[:value.to_s] == ''
         v.delete
       end
     end

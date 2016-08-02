@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.tokeninput
 //= require twitter/bootstrap
 //= require awesomplete
 //= require_tree .
@@ -55,17 +56,6 @@ $(".closebtn").ready(function () {
     }
 });
 
-$(function () {
-    tokenize($(".tokens"))
-});
-
-function tokenize(element) {
-    element.tokenInput("/variants.json", {
-        crossDomain: false,
-        theme: "facebook"
-    });
-}
-
 $(document).ready(function () {
     $("#addNewVariant").click(function () {
         $.ajax({
@@ -76,6 +66,7 @@ $(document).ready(function () {
                     + data
                     + '<a href="#" id="cancel_variant" class="btn btn-default">Cancel Variant</a><br><br>'
                     + '</li>').html();
+                addTokenBehavior($('#addVariant .variant-value').last())
             }
         })
     });
@@ -118,22 +109,35 @@ $(document).ready(function () {
             });
         });
     });
-});
 
-$(function () {
-    function newUrl(e) {
-        return function () {
-            return '/variants.json?name=' + e.closest('.form-group').find('.variant-name').val();
-        }
-    }
-
-    $(".variant-value").each(function () {
-        $(this).tokenInput(newUrl($(this)), {
-            queryParam: 'q',
-            crossDomain: false,
-            // propertyToSearch: "value",
-            theme: "facebook",
-        });
+    $('form').submit(function (e) {
+        $(this).find('.variant-value').each(function () {
+            var parent = $(this).closest('.form-group')
+            var input = parent.find('.variant-value')
+            var values = []
+            parent.find('li.token-input-token-facebook p').each(function () {
+                values.push($(this).text().trim())
+            })
+            input.val($.unique(values).join(","))
+        })
     })
 
+    $(".variant-value").each(function () {
+        addTokenBehavior($(this))
+    })
 });
+
+function newUrl(e) {
+    return function () {
+        return '/variants.json?name=' + e.closest('.form-group').find('.variant-name').val();
+    }
+}
+
+function addTokenBehavior(element) {
+    element.tokenInput(newUrl(element), {
+        queryParam: 'q',
+        crossDomain: false,
+        prePopulate: element.data('load'),
+        theme: "facebook",
+    });
+}

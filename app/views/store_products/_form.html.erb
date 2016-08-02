@@ -141,7 +141,7 @@
     <br><br>
 
     <script>
-      function use_awesomplete() {
+      function initialize_scripts() {
         new Awesomplete(document.getElementById("f-name"), {list: "#namelist", minChars: 1, autoFirst: true});
         new Awesomplete(document.getElementById("f-brand"), {list: "#brandlist", minChars: 1, autoFirst: true});
         new Awesomplete(document.getElementById("f-manufacturer"), {list: "#manuflist", minChars: 1, autoFirst: true});
@@ -152,7 +152,7 @@
         });
         // new Awesomplete(document.getElementById("f-variant"), {list: "#variantnamelist", minChars: 1, autoFirst: true});
       }
-      window.onload = use_awesomplete;
+      window.onload = initialize_scripts;
     </script>
 
     <div class="form-group">

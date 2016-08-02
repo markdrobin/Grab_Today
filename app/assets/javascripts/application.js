@@ -157,8 +157,6 @@ function addTokenBehavior(element) {
 function addOnChangeBehavior(element) {
     element.on('change', function () {
         var parent = $(this).closest('.form-group')
-        var input = parent.find('.variant-value')
-        var type = []
         parent.find('li.token-input-token-facebook').remove()
     })
 }

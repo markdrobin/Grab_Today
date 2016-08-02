@@ -64,7 +64,6 @@ $(document).ready(function () {
             success: function (data) {
                 $("#addVariant").append('<li>'
                     + data
-                    + '<a href="#" id="cancel_variant" class="btn btn-default">Cancel Variant</a><br><br>'
                     + '</li>').html();
                 addTokenBehavior($('#addVariant .variant-value').last())
             }
@@ -140,4 +139,16 @@ function addTokenBehavior(element) {
         prePopulate: element.data('load'),
         theme: "facebook",
     });
+}
+
+function variant_complete() {
+    var variant_names = document.getElementsByClassName('variant-name');
+    var i;
+    for (i = 0; i < variant_names.length; i++) {
+        init_variant_awesomplete(variant_names[i])
+    }
+}
+
+function init_variant_awesomplete(element) {
+    new Awesomplete(element, {list: "#variantnamelist", minChars: 1, autoFirst: true});
 }

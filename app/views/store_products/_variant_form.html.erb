@@ -9,9 +9,16 @@
       </div>
       <div class="col-lg-10">
         <%= v.label :variant_category, "Variant Value" %><br>
-        <%= v.text_field :value, placeholder: 'Variant value'.capitalize, :class => 'variant-value', data: {load: variant.to_token.map{|val| {name: val}}.to_json} %>
+        <%= v.text_field :value, placeholder: 'Variant value'.capitalize, :class => 'variant-value', data: {load: variant.to_token.map { |val| {name: val} }.to_json} %>
         <br>
       </div>
       <%= v.error_span(:description) %>
     </div>
+    <a href="#" id="cancel_variant" class="btn btn-default">Cancel Variant</a><br><br>
+
+    <script>
+      $(document).ready(function() {
+        variant_complete();
+      });
+    </script>
 <% end %>

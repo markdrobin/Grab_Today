@@ -132,7 +132,6 @@
       <% @store_product.variants.each do |v| %>
           <li>
             <%= render 'variant_form', variant: v, f: f %>
-            <a href="#" id="cancel_variant" class="btn btn-default">Cancel Variant</a>
           </li>
       <% end %>
     </div>
@@ -150,9 +149,9 @@
           minChars: 1,
           autoFirst: true
         });
-        // new Awesomplete(document.getElementById("f-variant"), {list: "#variantnamelist", minChars: 1, autoFirst: true});
       }
       window.onload = initialize_scripts;
+      variant_complete();
     </script>
 
     <div class="form-group">

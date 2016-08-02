@@ -5,7 +5,8 @@
     <div class="form-group">
       <div class="col-lg-10">
         <%= v.label :name, "Variant Category" %><br>
-        <%= v.text_field :name, placeholder: "Variant Category", :class => 'variant-name' %><br>
+        <%= v.text_field :name, placeholder: "Variant Category", :class => 'variant-name'%><br>
+        <!-, data: {load: variant.to_token.map{|n| {name: n.slice(",")}}} --->
       </div>
       <div class="col-lg-10">
         <%= v.label :variant_category, "Variant Value" %><br>

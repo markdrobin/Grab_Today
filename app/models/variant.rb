@@ -1,6 +1,17 @@
 class Variant < ActiveRecord::Base
 
-  after_save :ensure_value_existence
+  after_save :ensure_value_existence, :ensure_category_existence
+
+  def ensure_category_existence
+    types = VariantType.where({name: name})
+    if types.length != 0
+      new_type = VariantType.create({name: name})
+      current = self.value.split(",")
+      current.each do |val|
+        VariantValue.create({value: val, variant_type_id: new_type.id})
+      end
+    end
+  end
 
   def ensure_value_existence
     types = VariantType.where({name: name})

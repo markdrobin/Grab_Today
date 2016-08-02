@@ -66,6 +66,7 @@ $(document).ready(function () {
                     + data
                     + '</li>').html();
                 addOnChangeBehavior($('#addVariant .variant-name').last())
+                variant_complete_append()
                 addTokenBehavior($('#addVariant .variant-value').last())
             }
         })
@@ -149,8 +150,6 @@ function addTokenBehavior(element) {
 function addOnChangeBehavior(element) {
     element.on('change', function () {
         var parent = $(this).closest('.form-group')
-        var input = parent.find('.variant-value')
-        var type = []
         parent.find('li.token-input-token-facebook').remove()
     })
 }
@@ -161,6 +160,12 @@ function variant_complete() {
     for (i = 0; i < variant_names.length; i++) {
         init_variant_awesomplete(variant_names[i])
     }
+}
+
+function variant_complete_append() {
+    var variant_names = document.getElementsByClassName('variant-name');
+    var i = variant_names.length - 1;
+    init_variant_awesomplete(variant_names[i])
 }
 
 function init_variant_awesomplete(element) {

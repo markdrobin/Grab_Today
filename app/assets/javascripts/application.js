@@ -65,6 +65,7 @@ $(document).ready(function () {
                 $("#addVariant").append('<li>'
                     + data
                     + '</li>').html();
+                addOnChangeBehavior($('#addVariant .variant-name').last())
                 addTokenBehavior($('#addVariant .variant-value').last())
             }
         })
@@ -124,21 +125,34 @@ $(document).ready(function () {
     $(".variant-value").each(function () {
         addTokenBehavior($(this))
     })
+
+    $(".variant-name").each(function () {
+        addOnChangeBehavior($(this))
+    })
 });
 
-function newUrl(e) {
+function newValueUrl(e) {
     return function () {
         return '/variants.json?name=' + e.closest('.form-group').find('.variant-name').val();
     }
 }
 
 function addTokenBehavior(element) {
-    element.tokenInput(newUrl(element), {
+    element.tokenInput(newValueUrl(element), {
         queryParam: 'q',
         crossDomain: false,
         prePopulate: element.data('load'),
         theme: "facebook",
     });
+}
+
+function addOnChangeBehavior(element) {
+    element.on('change', function () {
+        var parent = $(this).closest('.form-group')
+        var input = parent.find('.variant-value')
+        var type = []
+        parent.find('li.token-input-token-facebook').remove()
+    })
 }
 
 function variant_complete() {

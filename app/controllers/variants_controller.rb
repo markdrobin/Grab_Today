@@ -1,29 +1,33 @@
 class VariantsController < ApplicationController
-  load_and_authorize_resource
   before_action :set_variant, only: [:show, :edit, :update, :destroy]
   after_action only: [:index]
 
   # GET /variants
   # GET /variants.json
   def index
-    type = VariantType.where(name: params[:name]).first
-    if type
-      print "### IF :: #{type.name} ###"
-      values = VariantValue.where("value like '%#{params[:q]}%' and variant_type_id = #{type.id}")
+    if params[:q]
+      type = VariantType.where(name: params[:name]).first
+      if type
+        values = VariantValue.where("value like '%#{params[:q]}%' and variant_type_id = #{type.id}")
+      else
+        values = VariantValue.where("value like '%#{params[:q]}%'").limit(5)
+      end
+      values << VariantValue.new(:value => params[:q].capitalize)
+      respond_to do |format|
+        format.json { render json: values.map { |e| {type: type.name, name: e.value} } }
+      end
     else
-      print "### ELSE ###"
-      values = VariantValue.where("value like '%#{params[:q]}%'").limit(5)
-    end
-    values << VariantValue.new(:value => params[:q].capitalize)
-    respond_to do |format|
-      format.json { render json: values.map { |e| {name: e.value} } }
-      # format.json { render json: @variants.tokens(params[:q]) }
+      type = VariantType.where("name like '%#{params[:name]}%'")
+      respond_to do |format|
+        format.json { render json: type.map { |t| {name: t.name} } }
+      end
     end
   end
 
   # GET /variants/1
   # GET /variants/1.json
   def show
+    authorize! :show, @variant
   end
 
   # GET /variants/new

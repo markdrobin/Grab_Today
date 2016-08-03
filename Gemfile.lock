@@ -47,8 +47,6 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     arel (6.0.3)
-    awesomplete (0.0.6)
-      rails (~> 4.0)
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
@@ -200,7 +198,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  awesomplete
   byebug
   cancancan (~> 1.10)
   coffee-rails (~> 4.1.0, <= 4.2.1)

@@ -66,8 +66,8 @@ $(document).ready(function () {
             + data
             + '</li>').html();
         addOnChangeBehavior($('#addVariant .variant-name').last())
-        variant_complete()
         addTokenBehavior($('#addVariant .variant-value').last())
+        variant_complete()
       }
     })
   });
@@ -127,15 +127,43 @@ $(document).ready(function () {
   $(".variant-name").each(function () {
     addOnChangeBehavior($(this))
   })
+});
 
-// passing in `null` for the `options` arguments will result in the default
-// options being used
-//  $('#f-name .form-control').typeahead(null, {
-//    name: 'attribute_values',
-//    source: attrivalues,
-//    display: 'value',
-//  }, console.log('hi'));
+function init_bloodhound(attr) {
+  var attrivalues = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+      url: '/products/get_query.json?attr=' + attr + '&value=%QUERY',
+      wildcard: '%QUERY'
+    }
+  });
+  return attrivalues;
+}
 
+function newValueUrl(e) {
+  return function () {
+    return '/variants.json?name=' + e.closest('.form-group').find('.variant-name').val();
+  }
+}
+
+function addTokenBehavior(element) {
+  element.tokenInput(newValueUrl(element), {
+    queryParam: 'q',
+    crossDomain: false,
+    prePopulate: element.data('load'),
+    theme: "facebook",
+  });
+}
+
+function addOnChangeBehavior(element) {
+  element.on('change', function () {
+    var parent = $(this).closest('.form-group')
+    parent.find('li.token-input-token-facebook').remove()
+  })
+}
+
+function init_forms_autocomplete() {
   $('#f-name.form-control').typeahead({
     hint: true,
     highlight: true,
@@ -175,41 +203,6 @@ $(document).ready(function () {
     source: init_bloodhound('manufacturer'),
     display: 'value'
   });
-
-});
-
-function init_bloodhound(attr) {
-  var attrivalues = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    remote: {
-      url: '/products/get_query.json?attr=' + attr + '&value=%QUERY',
-      wildcard: '%QUERY'
-    }
-  });
-  return attrivalues;
-}
-
-function newValueUrl(e) {
-  return function () {
-    return '/variants.json?name=' + e.closest('.form-group').find('.variant-name').val();
-  }
-}
-
-function addTokenBehavior(element) {
-  element.tokenInput(newValueUrl(element), {
-    queryParam: 'q',
-    crossDomain: false,
-    prePopulate: element.data('load'),
-    theme: "facebook",
-  });
-}
-
-function addOnChangeBehavior(element) {
-  element.on('change', function () {
-    var parent = $(this).closest('.form-group')
-    parent.find('li.token-input-token-facebook').remove()
-  })
 }
 
 function variant_complete() {

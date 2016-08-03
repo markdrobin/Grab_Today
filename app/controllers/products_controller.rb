@@ -80,7 +80,6 @@ class ProductsController < ApplicationController
         q = query.map{|e| {value: e.manufacturer}}.uniq
       end
     end
-
     render json: q
   end
 

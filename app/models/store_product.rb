@@ -73,7 +73,13 @@ class StoreProduct < ActiveRecord::Base
         errors.add(:product, "already taken in this store.")
       end
     else
-      
+      store.store_products.each do |sp|
+        if sp.id != self.id
+          if self.name == sp.name && self.product_type == sp.product_type && self.brand == sp.brand && self.manufacturer == sp.manufacturer
+            errors.add(:product, "already taken in this store.")
+          end
+        end
+      end
     end
   end
 

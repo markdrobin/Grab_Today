@@ -53,7 +53,6 @@ class StoreProductsController < ApplicationController
     @store_product = StoreProduct.new(store_product_params)
     respond_to do |format|
       if @store_product.save
-        print "############### #{@store_product.price} ###############"
         if params[:images]
           params[:images].each { |image|
             @store_product.pictures.create(image: image)
@@ -81,7 +80,7 @@ class StoreProductsController < ApplicationController
         format.html { redirect_to @store_product, notice: 'Store product was successfully updated.' }
         format.json { render :show, status: :ok, location: @store_product }
       else
-        format.html { render :edit }
+        format.html { redirect_to :back, alert: 'Store Product is already taken.' }
         format.json { render json: @store_product.errors, status: :unprocessable_entity }
       end
     end
@@ -90,7 +89,7 @@ class StoreProductsController < ApplicationController
   # DELETE /store_products/1
   # DELETE /store_products/1.json
   def destroy
-    @store_product.destroy
+    @store_product.delete_product
     respond_to do |format|
       format.html { redirect_to store_url(@store_product.store_id), notice: 'Store product was successfully destroyed.' }
       format.json { head :no_content }

@@ -14,7 +14,7 @@ class StoreProduct < ActiveRecord::Base
   after_save :ensure_category_existence, :remove_blank_variants
   after_create :save_qr_code_path
   after_initialize :set_product_vars
-  validate :is_not_unique?, :on => :create
+  validate :is_not_unique?
 
   has_many :pictures, :dependent => :destroy
   accepts_nested_attributes_for :pictures, allow_destroy: true
@@ -24,7 +24,7 @@ class StoreProduct < ActiveRecord::Base
     ids = []
     value.split(',').each do |val|
       if val[0..4] == '-new-'
-        fav = Variant.create!(:name => params[:variant_category], :value => val.gsub(/-new-/,''))
+        fav = Variant.create!(:name => params[:variant_category], :value => val.gsub(/-new-/, ''))
         ids += [fav.id]
       else
         ids += [val.to_i]
@@ -68,8 +68,20 @@ class StoreProduct < ActiveRecord::Base
   end
 
   def is_not_unique?
-    if StoreProduct.exists?({:product_id => product_id, :store_id => store_id})
-      errors.add(:product, "already taken in this store.")
+    if self.new_record?
+      if StoreProduct.exists?({:product_id => product_id, :store_id => store_id})
+        errors.add(:product, "already taken in this store.")
+      end
+    else
+      
+    end
+  end
+
+  def delete_product
+    if product.store_products.count > 1
+      self.destroy
+    else
+      product.destroy
     end
   end
 

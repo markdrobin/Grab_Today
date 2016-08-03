@@ -34,6 +34,12 @@ Rails.application.routes.draw do
     get 'users/:id/reset_pass' => 'users/passwords#edit'
   end
 
+  resources :mockups do
+    collection do
+      get :dashboard, :sign_in, :sign_up, :stores, :store, :store_form, :product, :product_form, :profile, :profile_update, :profile_password
+    end
+  end
+
   # resources :store_products do
   #   get :autocomplete_product_brand, :on => :collection
   # end

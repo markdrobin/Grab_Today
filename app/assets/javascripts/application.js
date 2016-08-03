@@ -15,6 +15,7 @@
 //= require jquery.tokeninput
 //= require twitter/bootstrap
 //= require awesomplete
+//= require bootcards
 //= require_tree .
 
 $(document).ready(function () {

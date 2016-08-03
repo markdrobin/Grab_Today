@@ -14,6 +14,11 @@
  *= require token-input-facebook
  *= require_tree .
  *= require_self
+ *= stub custom
+ *= stub scaffolds
+ *= stub stores
+ *= require font-awesome
+ *= require bootcards-desktop
  */
 
 div.awesomplete > ul > li:hover {

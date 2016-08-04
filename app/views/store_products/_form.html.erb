@@ -52,12 +52,6 @@
       <div class="col-lg-10">
         <%= f.text_field :name, placeholder: :name.capitalize, :required => true, :class => 'form-control awesomplete', :id => 'f-name', autocomplete: 'off' %>
       </div>
-      <ul id="namelist" class="hidden">
-        <%# Product.all.order('name ASC').each do |p| %>
-        <% Product.new.all_unique('name').each do |n| %>
-            <li> <%= n %> </li>
-        <% end %>
-      </ul>
       <%= f.error_span(:name) %>
     </div>
 
@@ -67,12 +61,6 @@
         <%= f.text_field :product_type, placeholder: :product_type.capitalize, :class => 'form-control awesomplete', :id => 'f-product_type', autocomplete: 'off' %>
         <%#= f.select :product_type, ProductType.all.order('category ASC').collect { |p| p.category } << ProductType.new(:category => 'New Category').category, {include_blank: 'Select Category'}, :class => 'form-control', :id => 'f-category-select' %>
       </div>
-      <ul id="producttypelist" class="hidden">
-        <%# Product.all.order('product_type ASC').each do |p| %>
-        <% ProductType.new.all_unique.each do |p| %>
-            <li> <%= p %> </li>
-        <% end %>
-      </ul>
       <%= f.error_span(:product_type) %>
     </div>
 
@@ -81,12 +69,6 @@
       <div class="col-lg-10">
         <%= f.text_field :brand, placeholder: :brand.capitalize, :class => 'form-control', :id => 'f-brand', autocomplete: 'off' %>
       </div>
-      <ul id="brandlist" class="hidden">
-        <%# Product.all.order('brand ASC').each do |p| %>
-        <% Product.new.all_unique('brand').each do |b| %>
-            <li> <%= b %> </li>
-        <% end %>
-      </ul>
       <%= f.error_span(:brand) %>
     </div>
     <div class="form-group">
@@ -94,12 +76,6 @@
       <div class="col-lg-10">
         <%= f.text_field :manufacturer, placeholder: :manufacturer.capitalize, :class => 'form-control', :id => 'f-manufacturer', autocomplete: 'off' %>
       </div>
-      <ul id="manuflist" class="hidden">
-        <%# Product.all.order('manufacturer ASC').each do |p| %>
-        <% Product.new.all_unique('manufacturer').each do |m| %>
-            <li> <%= m %> </li>
-        <% end %>
-      </ul>
       <%= f.error_span(:manufacturer) %>
     </div>
 
@@ -124,11 +100,6 @@
       <%= f.error_span(:description) %>
     </div>
     <div id="addVariant">
-      <ul id="variantnamelist" class="hidden">
-        <% Variant.new.all_unique.each do |v| %>
-            <li> <%= v %> </li>
-        <% end %>
-      </ul>
       <% @store_product.variants.each do |v| %>
           <li>
             <%= render 'variant_form', variant: v, f: f %>
@@ -140,17 +111,7 @@
     <br><br>
 
     <script>
-      function initialize_scripts() {
-        new Awesomplete(document.getElementById("f-name"), {list: "#namelist", minChars: 1, autoFirst: true});
-        new Awesomplete(document.getElementById("f-brand"), {list: "#brandlist", minChars: 1, autoFirst: true});
-        new Awesomplete(document.getElementById("f-manufacturer"), {list: "#manuflist", minChars: 1, autoFirst: true});
-        new Awesomplete(document.getElementById("f-product_type"), {
-          list: "#producttypelist",
-          minChars: 1,
-          autoFirst: true
-        });
-      }
-      window.onload = initialize_scripts;
+      window.onload = init_forms_autocomplete();
       variant_complete();
     </script>
 

@@ -60,6 +60,4 @@ gem 'will_paginate-bootstrap'
 
 gem 'public_activity', github: 'pokonski/public_activity'
 
-gem 'awesomplete'
-
 gem 'cancancan', '~> 1.10'

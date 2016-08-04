@@ -63,6 +63,26 @@ class ProductsController < ApplicationController
     end
   end
 
+  def get_query
+    if params[:attr] == 'product_type'
+      query = ProductType.where("category like '%#{params[:value]}%'")
+      q = query.map{|e| {value: e.category}}.uniq
+    elsif params[:attr] == 'variant'
+      query = VariantType.where("name like '%#{params[:value]}%'")
+      q = query.map{|e| {value: e.name}}.uniq
+    else
+      query = Product.where("#{params[:attr]} like '%#{params[:value]}%'")
+      if params[:attr] == 'name'
+        q = query.map{|e| {value: e.name}}.uniq
+      elsif params[:attr] == 'brand'
+        q = query.map{|e| {value: e.brand}}.uniq
+      elsif params[:attr] == 'manufacturer'
+        q = query.map{|e| {value: e.manufacturer}}.uniq
+      end
+    end
+    render json: q
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product

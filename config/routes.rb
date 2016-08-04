@@ -21,7 +21,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :products
+  resources :products do
+    collection do
+      get :get_query
+    end
+  end
   resources :stores do
     member do
       # get '/'

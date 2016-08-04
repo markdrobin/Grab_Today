@@ -14,7 +14,7 @@ class StoreProduct < ActiveRecord::Base
   after_save :ensure_category_existence, :remove_blank_variants
   after_create :save_qr_code_path
   after_initialize :set_product_vars
-  validate :check_product_duplicate
+  validate :is_not_unique?
 
   has_many :pictures, :dependent => :destroy
   accepts_nested_attributes_for :pictures, allow_destroy: true
@@ -92,13 +92,16 @@ class StoreProduct < ActiveRecord::Base
   end
 
   def check_product_duplicate
-    print "############## start ##############"
-    if !self.is_not_unique?
-      print "############### in #############"
+    if self.valid?
       StoreProduct.all.each do |p|
         if p.id != self.id
           if self.name == p.name && self.product_type == p.product_type && self.brand == p.brand && self.manufacturer == p.manufacturer
-            print "############### hello #{p.name} ###############"
+            update(product_id: p.product_id)
+            Product.all.each do |product|
+              if product.store_products.count == 0
+                product.destroy
+              end
+            end
           end
         end
       end

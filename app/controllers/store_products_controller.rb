@@ -77,6 +77,7 @@ class StoreProductsController < ApplicationController
         }
       end
       if @store_product.update(store_product_params)
+        @store_product.check_product_duplicate
         format.html { redirect_to @store_product, notice: 'Store product was successfully updated.' }
         format.json { render :show, status: :ok, location: @store_product }
       else

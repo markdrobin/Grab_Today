@@ -10,7 +10,7 @@
         <% @store_product.pictures.each do |pic| %>
             <li class="span3" id="picture_<%= pic.id %>">
               <div class="thumbnail">
-                <%= image_tag pic.image.url, size: '200x200' %>
+                <%= image_tag pic.image.url, size: '200x200', :id => 'pix'%>
               </div>
         <% end %>
     <% end %>
@@ -48,6 +48,10 @@
   <dt><strong><%= model_class.human_attribute_name(:qr_code) %>:</strong></dt>
   <dd><div class="qr-view"><%= raw @qr.as_html %></div></dd>
 </dl>
+
+<div>
+  <a href="javascript:;" id="decodePix" class="btn btn-default">DECODE!</a>
+</div>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
             store_path(@store_product.store_id), :class => 'btn btn-default' %>

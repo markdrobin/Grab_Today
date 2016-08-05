@@ -12,6 +12,24 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require grid
+//= require version
+//= require detector
+//= require formatinf
+//= require errorlevel
+//= require bitmat
+//= require datablock
+//= require bmparser
+//= require datamask
+//= require rsdecoder
+//= require gf256poly
+//= require gf256
+//= require decoder
+//= require qrcode
+//= require findpat
+//= require alignpat
+//= require databr
+//= require qcode-decoder
 //= require jquery.tokeninput
 //= require twitter/bootstrap
 //= require typeahead.bundle.min
@@ -127,6 +145,18 @@ $(document).ready(function () {
   $(".variant-name").each(function () {
     addOnChangeBehavior($(this))
   })
+
+  $("#decodePix").on('click', function(){
+    console.log("HERE!")
+    var image = document.getElementById("pix");
+    console.log(image)
+    var qr = QCodeDecoder();
+    qr.decodeFromImage(image,function(er,res){
+      console.log(res);
+    });
+    console.log('DONE')
+  });
+
 });
 
 function init_bloodhound(attr) {

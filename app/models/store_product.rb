@@ -4,7 +4,11 @@ class StoreProduct < ActiveRecord::Base
 
   belongs_to :store
   belongs_to :product
+  has_many :store_order_items
+  has_many :store_orders, through: :store_order_items
   has_many :variants, dependent: :destroy
+  accepts_nested_attributes_for :store_order_items
+  accepts_nested_attributes_for :store_orders
   accepts_nested_attributes_for :variants, allow_destroy: true
 
   attr_accessor :name, :product_type, :brand, :manufacturer, :variant_tokens, :variant_category

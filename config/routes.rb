@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :store_order_items
+  resources :orders
+  resources :store_orders
   # devise_for :users
   devise_for :users, path: '', :controllers => {registrations: 'users/registrations'},
              :path_names => {:sign_in => 'sign_in', :sign_up => 'sign_up', :sign_out => 'sign_out'} do

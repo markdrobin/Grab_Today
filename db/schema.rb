@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160805040721) do
+ActiveRecord::Schema.define(version: 20160808034012) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "trackable_id",   limit: 4
@@ -31,10 +31,13 @@ ActiveRecord::Schema.define(version: 20160805040721) do
   add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
 
   create_table "orders", force: :cascade do |t|
-    t.decimal  "order_cost", precision: 8, scale: 2
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.decimal  "order_cost",           precision: 8, scale: 2
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.integer  "user_id",    limit: 4
   end
+
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "pictures", force: :cascade do |t|
     t.integer  "store_product_id",   limit: 4
@@ -72,18 +75,28 @@ ActiveRecord::Schema.define(version: 20160805040721) do
   add_index "products", ["deleted_at"], name: "index_products_on_deleted_at", using: :btree
 
   create_table "store_order_items", force: :cascade do |t|
-    t.decimal  "price",                precision: 8, scale: 2
-    t.integer  "quantity",   limit: 4
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
+    t.decimal  "price",                      precision: 8, scale: 2
+    t.integer  "quantity",         limit: 4
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.integer  "store_order_id",   limit: 4
+    t.integer  "store_product_id", limit: 4
   end
+
+  add_index "store_order_items", ["store_order_id"], name: "index_store_order_items_on_store_order_id", using: :btree
+  add_index "store_order_items", ["store_product_id"], name: "index_store_order_items_on_store_product_id", using: :btree
 
   create_table "store_orders", force: :cascade do |t|
     t.decimal  "total_cost",           precision: 5, scale: 2
     t.integer  "status",     limit: 4
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
+    t.integer  "store_id",   limit: 4
+    t.integer  "order_id",   limit: 4
   end
+
+  add_index "store_orders", ["order_id"], name: "index_store_orders_on_order_id", using: :btree
+  add_index "store_orders", ["store_id"], name: "index_store_orders_on_store_id", using: :btree
 
   create_table "store_products", force: :cascade do |t|
     t.decimal  "price",                           precision: 10, scale: 2
@@ -183,7 +196,12 @@ ActiveRecord::Schema.define(version: 20160805040721) do
     t.integer  "store_product_id", limit: 4
   end
 
+  add_foreign_key "orders", "users"
   add_foreign_key "pictures", "store_products"
+  add_foreign_key "store_order_items", "store_orders"
+  add_foreign_key "store_order_items", "store_products"
+  add_foreign_key "store_orders", "orders"
+  add_foreign_key "store_orders", "stores"
   add_foreign_key "store_products", "products"
   add_foreign_key "store_products", "stores"
   add_foreign_key "stores", "users"

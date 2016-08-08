@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  resources :store_order_items
   resources :orders
+  resources :store_order_items
   resources :store_orders
   # devise_for :users
   devise_for :users, path: '', :controllers => {registrations: 'users/registrations'},
@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :users do
     member do
       get :owned_stores
+      get :cart_items
     end
   end
   resources :variants

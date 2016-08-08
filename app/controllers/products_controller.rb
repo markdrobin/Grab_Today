@@ -12,6 +12,8 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+    # @qr = RQRCode::QRCode.new(@product.qr_path.to_s, :size => 4, :level => :h)
+    @qr = RQRCode::QRCode.new(@product.generate_qr, :size => 4, :level => :h)
   end
 
   # GET /products/new

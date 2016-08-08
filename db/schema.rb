@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160808034012) do
+ActiveRecord::Schema.define(version: 20160808065654) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "trackable_id",   limit: 4
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 20160808034012) do
     t.integer  "avatar_file_size",    limit: 4
     t.datetime "avatar_updated_at"
     t.datetime "deleted_at"
+    t.string   "qr_path",             limit: 255
   end
 
   add_index "products", ["deleted_at"], name: "index_products_on_deleted_at", using: :btree

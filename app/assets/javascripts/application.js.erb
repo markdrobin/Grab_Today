@@ -128,7 +128,7 @@ $(document).ready(function () {
   $(".variant-name").each(function () {
     addOnChangeBehavior($(this))
   })
-  
+
 });
 
 function init_bloodhound(attr) {
@@ -223,18 +223,15 @@ function addToCart() {
 
 }
 
-function processCode(result) {
-  console.log(result);
-}
-
 function doDecode() {
+  $("#product-div").removeClass()
+  $("#stores-ul").removeClass()
   var image = document.getElementById("pix");
 //  console.log(image)
   var qr = QCodeDecoder();
   qr.decodeFromImage(image, function (er, res) {
-
     if (er != null) {
-      console.log('ERROR!')
+      alert("Error: QR Code undefined. Try again.");
     } else {
       processCode(res);
     }
@@ -257,3 +254,47 @@ $(function () {
     reader.readAsDataURL(files[0]);
   });
 });
+
+function processCode(result) {
+  console.log(result);
+  var p = result.split('/')
+  if (p[0] == 'store_products') {
+    window.location = 'http://localhost:4000/' + result
+  } else if (p[0] == 'products') {
+    processProduct(parseInt(p[1]))
+  } else {
+    alert("Error: QR Code does not match any product. Try again.");
+  }
+}
+
+function processProduct(product_num) {
+  console.log(product_num)
+//  window.location = 'http://localhost:4000/products/' + product_num
+  $.ajax({
+    url: "/products/get_prod_attributes.json?id=" + product_num,
+    type: "GET",
+    success: function (data) {
+      console.log(data)
+      $("#product-div").html('<dl class="dl-horizontal">'
+          + '<dt><strong>Name:</strong></dt>'
+          + '<dd>' + data.name + '</dd>'
+          + '<dt><strong>Category:</strong></dt>'
+          + '<dd>' + data.product_type + '</dd>'
+          + '<dt><strong>Brand:</strong></dt>'
+          + '<dd>' + data.brand + '</dd>'
+          + '<dt><strong>Manufacturer:</strong></dt>'
+          + '<dd>' + data.manufacturer + '</dd>'
+          + '</dl>');
+
+      for (var i = 0; i < data.store_names.length; i++) {
+        $("#stores-ul").append('<li>'
+            + '<a href="http://localhost:4000/store_products/'
+            + data.sp_ids[i]
+            + '">'
+            + data.store_names[i]
+            + '</a>'
+            + '</li>').html();
+      }
+    }
+  })
+}

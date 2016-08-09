@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   resources :products do
     collection do
       get :get_query
+      get :get_prod_attributes
     end
   end
   resources :stores do

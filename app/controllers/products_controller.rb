@@ -65,6 +65,16 @@ class ProductsController < ApplicationController
     end
   end
 
+  def get_prod_attributes
+    product= Product.where(id: params[:id]).first
+    sps = StoreProduct.where(product_id: params[:id])
+    sp_ids = sps.map{|s| s.id}
+    store_names = sps.map{|s| Store.where(id: s.store_id).first.name}
+    p = {name: product.name, product_type: product.product_type, brand: product.brand, manufacturer: product.manufacturer, store_names: store_names, sp_ids: sp_ids}
+
+    render json: p
+  end
+
   def get_query
     if params[:attr] == 'product_type'
       query = ProductType.where("category like '%#{params[:value]}%'")

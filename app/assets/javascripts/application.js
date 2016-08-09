@@ -74,8 +74,8 @@ $(document).ready(function () {
     });
 
     $("#addVariant").on('click', '#cancel_variant', function () {
-        $(this).parent().find('.destroy-flag').val('true')
-        $(this).parent().hide()
+        $(this).parent().parent().parent().find('.destroy-flag').val('true')
+        $(this).parent().parent().parent().hide()
     });
 
     $('form').submit(function (e) {
@@ -172,3 +172,6 @@ function variant_complete_append() {
 function init_variant_awesomplete(element) {
     new Awesomplete(element, {list: "#variantnamelist", minChars: 1, autoFirst: true});
 }
+
+var value = jQuery('ul.token-input-list-facebook').val();                  // 43
+jQuery('div.token-input-dropdown-facebook').attr('size', value.length + 10 );

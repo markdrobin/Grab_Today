@@ -16,134 +16,148 @@
         </div>
     <% end %>
 
-    <div class="row">
-      <ul class="thumbnails files">
+    <!--<div class="row">-->
+    <!--<ul class="thumbnails files">-->
+    <!--<%# unless @store_product.pictures.empty? %>-->
+    <%# @store_product.pictures.each do |pic| %>
+    <%#= f.fields_for 'pictures_attributes[]', pic do |fp| %>
+    <%#= fp.hidden_field :id %>
+    <!--<li class="span3">-->
+    <!--<div class="thumbnail">-->
+    <%#= image_tag pic.image.url, size: '200x200' %>
+    <!--<div class="caption">-->
+    <!--<p style="text-align: center;">-->
+    <%#= fp.check_box :_destroy, value: true %>
+    <%#= fp.label 'delete' %>
+    <!--</p>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</li>-->
+    <!--<%# end %>-->
+    <!--<%# end %>-->
+    <!--<%# end %>-->
+    <!--</ul>-->
+    <!--</div>-->
+
+
+    <div class="col-md-4 col-md-offset-2">
+      <!--<h2>Add a product</h2>-->
+      <div class="form-group">
+        <label>Name*</label><br>
+        <%= f.text_field :name, placeholder: "Name", :required => true, :class => 'form-control', :id => 'f-name', autocomplete: 'off' %>
+        <ul id="namelist" class="hidden">
+          <%# Product.all.order('name ASC').each do |p| %>
+          <% Product.new.all_unique('name').each do |n| %>
+              <li> <%= n %> </li>
+          <% end %>
+        </ul>
+        <%= f.error_span(:name) %>
+      </div>
+      <div class="form-group">
+        <label>Category*</label><br>
+        <%= f.text_field :product_type, placeholder: :product_type.capitalize, :class => 'form-control', :id => 'f-product_type', autocomplete: 'off' %>
+        <ul id="producttypelist" class="hidden">
+          <%# Product.all.order('product_type ASC').each do |p| %>
+          <% ProductType.new.all_unique.each do |p| %>
+              <li> <%= p %> </li>
+          <% end %>
+        </ul>
+        <%= f.error_span(:product_type) %>
+      </div>
+      <div class="form-group">
+        <label>Brand*</label><br>
+        <%= f.text_field :brand, placeholder: "Brand", :class => 'form-control', :id => 'f-brand', autocomplete: 'off' %>
+        <ul id="brandlist" class="hidden">
+          <%# Product.all.order('brand ASC').each do |p| %>
+          <% Product.new.all_unique('brand').each do |b| %>
+              <li> <%= b %> </li>
+          <% end %>
+        </ul>
+        <%= f.error_span(:brand) %>
+      </div>
+      <div class="form-group">
+        <label>Manufacturer*</label><br>
+        <%= f.text_field :manufacturer, placeholder: :manufacturer.capitalize, :class => 'form-control', :id => 'f-manufacturer', autocomplete: 'off' %>
+        <ul id="manuflist" class="hidden">
+          <%# Product.all.order('manufacturer ASC').each do |p| %>
+          <% Product.new.all_unique('manufacturer').each do |m| %>
+              <li> <%= m %> </li>
+          <% end %>
+        </ul>
+        <%= f.error_span(:manufacturer) %>
+      </div>
+      <div class="form-group">
+        <label>Price</label>
+        <div class="input-group">
+          <span class="input-group-addon">
+            <%= fa_icon 'dollar' %>
+          </span>
+          <%= f.text_field :price, placeholder: :price.capitalize, :class => 'form-control' %>
+          <%= f.error_span(:price) %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Stocks*</label>
+        <%= f.text_field :stock, placeholder: :stock.capitalize, :class => 'form-control' %>
+        <%= f.error_span(:stock) %>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <%= f.text_area :description, rows: "3", placeholder: :description, :class => 'form-control' %>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <p class="divider without-hr">IMAGES</p>
+      <div class="row">
         <% unless @store_product.pictures.empty? %>
             <% @store_product.pictures.each do |pic| %>
                 <%= f.fields_for 'pictures_attributes[]', pic do |fp| %>
-                    <%= fp.hidden_field :id %>
-                    <li class="span3">
+                    <div class="col-xs-3">
                       <div class="thumbnail">
-                        <%= image_tag pic.image.url, size: '200x200' %>
-                        <div class="caption">
-                          <p style="text-align: center;">
-                            <%= fp.check_box :_destroy, value: true %>
-                            <%= fp.label 'delete' %>
-                          </p>
-                        </div>
+                        <%= image_tag pic.image.url %>
+                        <%= link_to :class => 'close' do %>
+                            &times;
+                        <% end %>
                       </div>
-                    </li>
+                    </div>
                 <% end %>
             <% end %>
         <% end %>
-      </ul>
-    </div>
+        <div class="col-xs-3">
+          <div class="thumbnail">
+            <img src="<%= image_path 'router/router-1.jpg' %>">
+            <div class="close">&times;</div>
+          </div>
+        </div>
+      </div>
 
-    <div class="control-group">
-      <%= f.label :pictures, :class => 'control-label' %><br>
-
-      <div class="controls">
-        <%= file_field_tag "images[]", type: :file, multiple: true %><br>
+      <div class="form-group">
+        <input type="file" placeholder="Select image">
       </div>
-    </div>
-
-    <div class="form-group">
-      <%#= f.label :name, :class => 'control-label col-lg-2' %>
-      <div class="col-lg-10">
-        <%= f.text_field :name, placeholder: :name.capitalize, :required => true, :class => 'form-control awesomplete', :id => 'f-name', autocomplete: 'off' %>
-      </div>
-      <ul id="namelist" class="hidden">
-        <%# Product.all.order('name ASC').each do |p| %>
-        <% Product.new.all_unique('name').each do |n| %>
-            <li> <%= n %> </li>
-        <% end %>
-      </ul>
-      <%= f.error_span(:name) %>
-    </div>
-
-    <div class="form-group">
-      <%#= f.label :product_type, :class => 'control-label col-lg-2' %>
-      <div class="col-lg-10">
-        <%= f.text_field :product_type, placeholder: :product_type.capitalize, :class => 'form-control awesomplete', :id => 'f-product_type', autocomplete: 'off' %>
-        <%#= f.select :product_type, ProductType.all.order('category ASC').collect { |p| p.category } << ProductType.new(:category => 'New Category').category, {include_blank: 'Select Category'}, :class => 'form-control', :id => 'f-category-select' %>
-      </div>
-      <ul id="producttypelist" class="hidden">
-        <%# Product.all.order('product_type ASC').each do |p| %>
-        <% ProductType.new.all_unique.each do |p| %>
-            <li> <%= p %> </li>
-        <% end %>
-      </ul>
-      <%= f.error_span(:product_type) %>
-    </div>
-
-    <div class="form-group">
-      <%#= f.label :brand, :class => 'control-label col-lg-2' %>
-      <div class="col-lg-10">
-        <%= f.text_field :brand, placeholder: :brand.capitalize, :class => 'form-control', :id => 'f-brand', autocomplete: 'off' %>
-      </div>
-      <ul id="brandlist" class="hidden">
-        <%# Product.all.order('brand ASC').each do |p| %>
-        <% Product.new.all_unique('brand').each do |b| %>
-            <li> <%= b %> </li>
-        <% end %>
-      </ul>
-      <%= f.error_span(:brand) %>
-    </div>
-    <div class="form-group">
-      <%#= f.label :manufacturer, :class => 'control-label col-lg-2' %>
-      <div class="col-lg-10">
-        <%= f.text_field :manufacturer, placeholder: :manufacturer.capitalize, :class => 'form-control', :id => 'f-manufacturer', autocomplete: 'off' %>
-      </div>
-      <ul id="manuflist" class="hidden">
-        <%# Product.all.order('manufacturer ASC').each do |p| %>
-        <% Product.new.all_unique('manufacturer').each do |m| %>
-            <li> <%= m %> </li>
-        <% end %>
-      </ul>
-      <%= f.error_span(:manufacturer) %>
-    </div>
-
-    <div class="form-group">
-      <%#= f.label :price, :class => 'control-label col-lg-2' %>
-      <div class="col-lg-10">
-        <%= f.text_field :price, placeholder: :price.capitalize, :class => 'form-control' %>
-      </div>
-      <%= f.error_span(:price) %>
-    </div>
-    <div class="form-group">
-      <%#= f.label :stock, :class => 'control-label col-lg-2' %>
-      <div class="col-lg-10">
-        <%= f.text_field :stock, placeholder: :stock.capitalize, :class => 'form-control' %>
-      </div>
-      <%= f.error_span(:stock) %>
-    </div>
-    <div class="form-group">
-      <div class="col-lg-10">
-        <%= f.text_field :description, placeholder: :description, :class => 'form-control' %>
-      </div>
-      <%= f.error_span(:description) %>
-    </div>
-    <div id="addVariant">
-      <ul id="variantnamelist" class="hidden">
-        <% Variant.new.all_unique.each do |v| %>
-            <li> <%= v %> </li>
-        <% end %>
-      </ul>
-      <% @store_product.variants.each do |v| %>
-          <li>
+      <div id="addVariant">
+        <p class="divider">VARIANTS</p>
+        <% @store_product.variants.each do |v| %>
             <%= render 'variant_form', variant: v, f: f %>
-          </li>
-      <% end %>
+        <% end %>
+      </div>
+      <a href="javascript:;" id="addNewVariant"><%= fa_icon 'plus' %> Variant</a>
+      <%= f.hidden_field :store_id, :value => params[:store_id] %>
     </div>
-    <a href="javascript:;" id="addNewVariant" class="btn btn-default">Add New Variant</a>
-    <%= f.hidden_field :store_id, :value => params[:store_id] %>
-    <br><br>
+
+    <div class="col-md-8 col-md-offset-2">
+      <p class="help-block">Fields with <b>*</b> are required.</p>
+      <button type="submit" class="btn btn-lg btn-primary btn-block">Done</button>
+    </div>
 
     <script>
       function initialize_scripts() {
         new Awesomplete(document.getElementById("f-name"), {list: "#namelist", minChars: 1, autoFirst: true});
         new Awesomplete(document.getElementById("f-brand"), {list: "#brandlist", minChars: 1, autoFirst: true});
-        new Awesomplete(document.getElementById("f-manufacturer"), {list: "#manuflist", minChars: 1, autoFirst: true});
+        new Awesomplete(document.getElementById("f-manufacturer"), {
+          list: "#manuflist",
+          minChars: 1,
+          autoFirst: true
+        });
         new Awesomplete(document.getElementById("f-product_type"), {
           list: "#producttypelist",
           minChars: 1,
@@ -153,12 +167,4 @@
       window.onload = initialize_scripts;
       variant_complete();
     </script>
-
-    <div class="form-group">
-      <div class="col-lg-offset-2 col-lg-10">
-        <%= f.submit :class => 'btn btn-primary' %>
-        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                    store_path(params[:store_id]), :class => 'btn btn-default' %>
-      </div>
-    </div>
 <% end %>

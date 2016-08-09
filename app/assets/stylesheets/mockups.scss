@@ -63,6 +63,11 @@ body.mockups {
     }
   }
 
+  ul.token-input-list-facebook {
+    width: 100%;
+    box-sizing:border-box;
+  }
+
   footer {
     margin-top: 50px;
   }
@@ -145,6 +150,9 @@ body.mockups {
   .form {
     button {
       margin-top: 20px;
+    }
+    .awesomplete {
+      width: 100%;
     }
     .signup-link {
       margin-top: 10px;
@@ -335,12 +343,7 @@ body.mockups {
     }
     .details {
       font-size: 16px;
-    }
-    .actions {
-      padding-top: 20px;
-    }
-    .header {
-      .qr {
+      .row .qr {
         padding: 5px;
         position: absolute;
         right: 15px;
@@ -353,9 +356,12 @@ body.mockups {
           background: #ededed;
         }
       }
-      .qr, h1 {
+      .qr, p {
         display: inline-block
       }
+    }
+    .actions {
+      padding-top: 20px;
     }
     .label {
       font-weight: 300;

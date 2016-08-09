@@ -1,62 +1,116 @@
-<%- model_class = StoreProduct -%>
-<div class="page-header">
-  <h1><%= t '.title', :default => model_class.model_name.human.titleize %></h1>
-</div>
+<div class="product jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-xs-12">
+        <% unless @store_product.pictures.empty? %>
+            <% @store_product.pictures.each_with_index do |pic, index| %>
+                <% if index == 0 %>
+                    <div class="thumbnail main-image-wrapper">
+                      <%= image_tag pic.image.url, class: "main-image" %>
+                    </div>
+                <% end %>
+                <% unless pic[index+1].nil? %>
+                    <div class="previews">
+                      <div class="col-xs-2">
+                        <div class="thumbnail">
+                          <img src="<%= image_path 'router/router-1.jpg' %>">
+                        </div>
+                      </div>
+                    </div>
+                <% end %>
+            <% end %>
+        <% end %>
 
-<center><h2><%= @store_product.get_name %></h2></center>
-<div class="row">
-  <ul class="thumbnails files">
-    <% unless @store_product.pictures.empty? %>
-        <% @store_product.pictures.each do |pic| %>
-            <li class="span3" id="picture_<%= pic.id %>">
-              <div class="thumbnail">
-                <%= image_tag pic.image.url, size: '200x200' %>
+      </div>
+      <div class="col-md-8 col-xs-12">
+        <div class="header">
+
+          <h1><%= @store_product.get_name %></h1>
+        </div>
+        <div class="details">
+          <div class="row">
+            <div class="qr">
+              <%= raw @qr.as_html %>
+            </div>
+            <p class="col-sm-3">
+              <b>Category</b>
+            </p>
+            <p class="col-sm-9">
+              <%= @store_product.get_type %>
+            </p>
+          </div>
+          <div class="row">
+            <p class="col-sm-3">
+              <b>Brand</b>
+            </p>
+            <p class="col-sm-9">
+              <%= @store_product.get_brand %>
+            </p>
+          </div>
+          <div class="row">
+            <p class="col-sm-3">
+              <b>Manufacturer</b>
+            </p>
+            <p class="col-sm-9">
+              <%= @store_product.get_manufacturer %>
+            </p>
+          </div>
+          <div class="row">
+            <p class="col-sm-3">
+              <b>Price</b>
+            </p>
+            <p class="col-sm-9">
+              <%= "P#{@store_product.price}" %>
+            </p>
+          </div>
+          <div class="row">
+            <p class="col-sm-3">
+              <b>Stocks</b>
+            </p>
+            <p class="col-sm-9">
+              <%= @store_product.stock %>
+              <span class="small text-muted activity"><%= render_activities @activities %></span>
+            </p>
+          </div>
+          <% if !@store_product.variants.empty? %>
+              <% @store_product.variants.each do |variant| %>
+                  <div class="row">
+                    <p class="col-sm-3">
+                      <b><%= variant.name %></b>
+                    </p>
+                    <p class="col-sm-9">
+                      <!--Wool, Cotton, Cloth-->
+                      <span class="label label-default"><%= variant.value %></span>
+                      <!-- <span class="label label-default">Cotton</span> -->
+                      <!-- <span class="label label-default">Cloth</span> -->
+                    </p>
+                  </div>
+              <% end %>
+          <% end %>
+          <p><%= @store_product.description %></p>
+          <div class="actions">
+            <div class="btn-group">
+              <div class="btn-group">
+                <%= link_to edit_store_product_path(@store_product, :store_id => @store_product.store_id), :class => 'btn btn-primary' do %>
+                    <i class="fa fa-pencil"></i>
+                    Edit
+                <% end %>
               </div>
-        <% end %>
-    <% end %>
-  </ul>
-</div>
+              <div class="btn-group">
+                <%= link_to store_product_path(@store_product),
+                            :method => 'delete',
+                            :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
+                            :class => 'btn btn-danger' do %>
+                    <i class="fa fa-trash"></i>
+                    Delete
+                <% end %>
+              </div>
+            </div>
+          </div>
 
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-  <dd><%= @store_product.get_name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:product_type) %>:</strong></dt>
-  <dd><%= @store_product.get_type %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:brand) %>:</strong></dt>
-  <dd><%= @store_product.get_brand %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:manufacturer) %>:</strong></dt>
-  <dd><%= @store_product.get_manufacturer %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:price) %>:</strong></dt>
-  <dd><%= "P#{@store_product.price}" %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:stock) %>:</strong></dt>
-  <dd><%= @store_product.stock %></dd>
-  <dd>
-    <div class="activity">
-      <%= render_activities @activities %>
+        </div>
+        </p>
+      </div>
     </div>
-  </dd>
-  <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
-  <dd><%= @store_product.description %></dd>
-  <% if !@store_product.variants.empty? %>
-      <dl class="dl-horizontal">
-        <% @store_product.variants.each do |variant| %>
-            <dt><strong><%= model_class.human_attribute_name(variant.name) %>:</strong></dt>
-            <dd><%= variant.value %></dd>
-        <% end %>
-      </dl>
-  <% end %>
-  <dt><strong><%= model_class.human_attribute_name(:qr_code) %>:</strong></dt>
-  <dd><div class="qr-view"><%= raw @qr.as_html %></div></dd>
-</dl>
-
-<%= link_to t('.back', :default => t("helpers.links.back")),
-            store_path(@store_product.store_id), :class => 'btn btn-default' %>
-<%= link_to t('.restock', :default => t("helpers.links.restock")),
-            restock_store_product_path(@store_product, :store_id => @store_product.store_id), :class => 'btn btn-default' %>
-<%= link_to t('.edit', :default => t("helpers.links.edit")),
-            edit_store_product_path(@store_product, :store_id => @store_product.store_id), :class => 'btn btn-default' %>
-<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-            store_product_path(@store_product),
-            :method => 'delete',
-            :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
-            :class => 'btn btn-danger' %>
+  </div>
+</div>

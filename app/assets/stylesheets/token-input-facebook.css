@@ -72,7 +72,7 @@ li.token-input-input-token-facebook {
 
 div.token-input-dropdown-facebook {
     position: absolute;
-    width: 400px;
+    width: 330px;
     background-color: #fff;
     overflow: hidden;
     border-left: 1px solid #ccc;
@@ -105,10 +105,12 @@ div.token-input-dropdown-facebook ul li {
 
 div.token-input-dropdown-facebook ul li.token-input-dropdown-item-facebook {
     background-color: #fff;
+    color: #333;
 }
 
 div.token-input-dropdown-facebook ul li.token-input-dropdown-item2-facebook {
     background-color: #fff;
+    color: #333;
 }
 
 div.token-input-dropdown-facebook ul li em {

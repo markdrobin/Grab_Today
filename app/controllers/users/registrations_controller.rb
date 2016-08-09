@@ -38,4 +38,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :login_status, :avatar, :user_type, stores_attributes: [:id, :name])
   end
 
+  protected
+
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
+
 end

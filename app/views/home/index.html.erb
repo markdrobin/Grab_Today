@@ -3,6 +3,15 @@
     <!-- <%= link_to 'View Owned Stores', user_path(current_user)%> -->
 <!-- <% end %> -->
 
+<% if current_user %>
+    <br/>
+    <br/>
+    <br/>
+    <center>
+    <%= current_user.user_type != 'Customer' ? '' : (link_to 'Upload QR', "users/#{current_user.id}/shopping", :class => 'btn btn-danger') %>
+    </center>
+<% end %>
+
 <div class="splash">
 		<!-- <h1 class="splash-title fade-in">GRAB.TODAY</h1> -->
 		<a href="#" class="splash-arrow">

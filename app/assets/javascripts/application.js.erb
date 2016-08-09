@@ -128,18 +128,7 @@ $(document).ready(function () {
   $(".variant-name").each(function () {
     addOnChangeBehavior($(this))
   })
-
-  $("#decodePix").on('click', function(){
-    console.log("HERE!")
-    var image = document.getElementById("pix");
-    console.log(image)
-    var qr = QCodeDecoder();
-    qr.decodeFromImage(image,function(er,res){
-      console.log(res);
-    });
-    console.log('DONE')
-  });
-
+  
 });
 
 function init_bloodhound(attr) {
@@ -233,3 +222,38 @@ function variant_complete() {
 function addToCart() {
 
 }
+
+function processCode(result) {
+  console.log(result);
+}
+
+function doDecode() {
+  var image = document.getElementById("pix");
+//  console.log(image)
+  var qr = QCodeDecoder();
+  qr.decodeFromImage(image, function (er, res) {
+
+    if (er != null) {
+      console.log('ERROR!')
+    } else {
+      processCode(res);
+    }
+  });
+}
+
+$(function () {
+  $('#pictureInput').on('change', function (event) {
+    var files = event.target.files;
+//    console.log(files.length)
+    var reader = new FileReader();
+    reader.onload = function (file) {
+      var img = new Image();
+      img.src = file.target.result
+      $('.qr-img-class').html('<img src="'
+          + file.target.result
+          + '" id="pix" width="250"> <br/> <br/> <a href="javascript:doDecode();" class="btn btn-default">DECODE!</a>'
+      );
+    }
+    reader.readAsDataURL(files[0]);
+  });
+});

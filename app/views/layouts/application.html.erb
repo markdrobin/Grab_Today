@@ -53,10 +53,6 @@
     </div>
 <% end %>
 
-<% if current_user %>
-    <%= current_user.user_type != 'Customer' ? '' : (link_to 'Upload Product QR Image', user_path(current_user), :class => 'btn btn-danger') %>
-<% end %>
-
 <div id="contents" class="container">
   <div class="yield-block">
     <%= yield %>

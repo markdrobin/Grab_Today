@@ -24,7 +24,6 @@ Rails.application.routes.draw do
       post :process_restock
     end
   end
-
   resources :products do
     collection do
       get :get_query
@@ -40,6 +39,7 @@ Rails.application.routes.draw do
 
   as :user do
     get 'users/:id/reset_pass' => 'users/passwords#edit'
+    get 'users/:id/shopping' => 'users#shopping'
   end
 
   # resources :store_products do

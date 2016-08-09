@@ -75,7 +75,7 @@ class UsersController < ApplicationController
 
   def cart_items
     @user = User.find_by_id(params[:id])
-    @orders = @user.orders
+    # @orders = @user.orders
   end
 
   private

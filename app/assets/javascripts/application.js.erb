@@ -1,0 +1,304 @@
+// This is a manifest file that'll be compiled into application.js, which will include all the files
+// listed below.
+//
+// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
+// or any plugin's vendor/assets/javascripts directory can be referenced here using a relative path.
+//
+// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
+// compiled file.
+//
+// Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
+// about supported directives.
+//
+//= require jquery
+//= require jquery_ujs
+//= require qcode-decoder.min
+//= require jquery.tokeninput
+//= require twitter/bootstrap
+//= require typeahead.bundle.min
+//= require_tree .
+
+$(document).ready(function () {
+  if ($(".splash").is(":visible")) {
+    $(".wrapper").css({"opacity": "0"});
+  }
+  $(".splash-arrow").click(function () {
+    $(".splash").slideUp("800", function () {
+      $(".wrapper").delay(100).animate({"opacity": "1.0"}, 800);
+    });
+  });
+});
+
+$(".closebtn").ready(function () {
+  var close = document.getElementsByClassName("closebtn");
+  var i;
+
+  // Loop through all close buttons
+  for (i = 0; i < close.length; i++) {
+    // When someone clicks on a close button
+    close[i].onclick = function () {
+
+      // Get the parent of <span class="closebtn"> (<div class="alert">)
+      var div = this.parentElement;
+
+      // Set the opacity of div to 0 (transparent)
+      div.style.opacity = "0";
+
+      // Hide the div after 600ms (the same amount of milliseconds it takes to fade out)
+      setTimeout(function () {
+        div.style.display = "none";
+      }, 600);
+    }
+
+    $(".notifiers").alert();
+    window.setTimeout(function () {
+      $(".notifiers").alert('.closebtn');
+    }, 2000);
+  }
+});
+
+$(document).ready(function () {
+  $("#addNewVariant").click(function () {
+    $.ajax({
+      url: "/store_products/new_variant_fields",
+      type: "GET",
+      success: function (data) {
+        $("#addVariant").append('<li>'
+            + data
+            + '</li>').html();
+        addOnChangeBehavior($('#addVariant .variant-name').last())
+        addTokenBehavior($('#addVariant .variant-value').last())
+        variant_complete()
+      }
+    })
+  });
+
+  $("#addVariant").on('click', '#cancel_variant', function () {
+    $(this).parent().parent().parent().find('.destroy-flag').val('true')
+    $(this).parent().parent().parent().hide()
+  });
+
+  $('form').submit(function (e) {
+    $("#new_variant_form").remove()
+  })
+
+  $(function () {
+    $('#f-name').on('change', function () {
+      var field_name = $(this).val();
+      $.ajax({
+        type: 'POST',
+        url: '/store_products/get_attributes',
+        data: {
+          name: $(this).val()
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (data != null) {
+            if (data.product_type != "") {
+              $('#f-product_type').val(data.product_type);
+            }
+            if (data.brand != "") {
+              $('#f-brand').val(data.brand);
+            }
+            if (data.manufacturer != "") {
+              $('#f-manufacturer').val(data.manufacturer);
+            }
+          }
+        }
+      });
+    });
+  });
+
+  $('form').submit(function (e) {
+    $(this).find('.variant-value').each(function () {
+      var parent = $(this).closest('.form-group')
+      var input = parent.find('.variant-value')
+      var values = []
+      parent.find('li.token-input-token-facebook p').each(function () {
+        values.push($(this).text().trim())
+      })
+      input.val($.unique(values).join(","))
+    })
+  })
+
+  $(".variant-value").each(function () {
+    addTokenBehavior($(this))
+  })
+
+  $(".variant-name").each(function () {
+    addOnChangeBehavior($(this))
+  })
+
+});
+
+function init_bloodhound(attr) {
+  var attrivalues = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+      url: '/products/get_query.json?attr=' + attr + '&value=%QUERY',
+      wildcard: '%QUERY'
+    }
+  });
+  return attrivalues;
+}
+
+function newValueUrl(e) {
+  return function () {
+    return '/variants.json?name=' + e.closest('.form-group').find('.variant-name.tt-input').val();
+  }
+}
+
+function addTokenBehavior(element) {
+  element.tokenInput(newValueUrl(element), {
+    queryParam: 'q',
+    crossDomain: false,
+    prePopulate: element.data('load'),
+    theme: "facebook",
+  });
+}
+
+function addOnChangeBehavior(element) {
+  element.on('change', function () {
+    var parent = $(this).closest('.form-group')
+    parent.find('li.token-input-token-facebook').remove()
+  })
+}
+
+function init_forms_autocomplete() {
+  $('#f-name.form-control').typeahead({
+    hint: true,
+    highlight: true,
+    minLength: 1
+  }, {
+    name: 'values',
+    source: init_bloodhound('name'),
+    display: 'value'
+  });
+
+  $('#f-product_type.form-control').typeahead({
+    hint: true,
+    highlight: true,
+    minLength: 1
+  }, {
+    name: 'values',
+    source: init_bloodhound('product_type'),
+    display: 'value'
+  });
+
+  $('#f-brand.form-control').typeahead({
+    hint: true,
+    highlight: true,
+    minLength: 1
+  }, {
+    name: 'values',
+    source: init_bloodhound('brand'),
+    display: 'value'
+  });
+
+  $('#f-manufacturer.form-control').typeahead({
+    hint: true,
+    highlight: true,
+    minLength: 2
+  }, {
+    name: 'values',
+    source: init_bloodhound('manufacturer'),
+    display: 'value'
+  });
+}
+
+function variant_complete() {
+  $(".variant-name").typeahead({
+    hint: true,
+    highlight: true,
+    minLength: 1
+  }, {
+    name: 'values',
+    source: init_bloodhound('variant'),
+    display: 'value'
+  });
+}
+
+function addToCart() {
+
+}
+
+function doDecode() {
+  var image = document.getElementById("pix");
+//  console.log(image)
+  var qr = QCodeDecoder();
+  qr.decodeFromImage(image, function (er, res) {
+    if (er != null) {
+      alert("Error: QR Code undefined. Try again.");
+    } else {
+      processCode(res);
+    }
+  });
+}
+
+$(function () {
+  $('#pictureInput').on('change', function (event) {
+    $("#product-div").html("");
+    $("#stores-ul").html("");
+    var files = event.target.files;
+//    console.log(files.length)
+    var reader = new FileReader();
+    reader.onload = function (file) {
+      var img = new Image();
+      img.src = file.target.result
+      $('.qr-img-class').html('<img src="'
+          + file.target.result
+          + '" id="pix" width="250"> <br/> <br/> <a href="javascript:doDecode();" class="btn btn-default">DECODE!</a>'
+      );
+    }
+    reader.readAsDataURL(files[0]);
+  });
+  console.log('DONE HERE')
+});
+
+function processCode(result) {
+  console.log(result);
+  var p = result.split('/')
+  if (p[0] == 'store_products') {
+    window.location = 'http://localhost:4000/' + result
+  } else if (p[0] == 'products') {
+    processProduct(parseInt(p[1]))
+  } else {
+    alert("Error: QR Code does not match any product. Try again.");
+  }
+}
+
+function processProduct(product_num) {
+  console.log(product_num)
+//  window.location = 'http://localhost:4000/products/' + product_num
+  $.ajax({
+    url: "/products/get_prod_attributes.json?id=" + product_num,
+    type: "GET",
+    success: function (data) {
+      console.log(data)
+      $("#product-div").html('<dl class="dl-horizontal">'
+          + '<dt><strong>Name:</strong></dt>'
+          + '<dd>' + data.name + '</dd>'
+          + '<dt><strong>Category:</strong></dt>'
+          + '<dd>' + data.product_type + '</dd>'
+          + '<dt><strong>Brand:</strong></dt>'
+          + '<dd>' + data.brand + '</dd>'
+          + '<dt><strong>Manufacturer:</strong></dt>'
+          + '<dd>' + data.manufacturer + '</dd>'
+          + '</dl>');
+      $("#stores-ul").html("");
+      for (var i = 0; i < data.store_names.length; i++) {
+        $("#stores-ul").append('<li>'
+            + '<a href="http://localhost:4000/store_products/'
+            + data.sp_ids[i]
+            + '">'
+            + data.store_names[i]
+            + '</a>'
+            + '</li>').html();
+      }
+    }
+  })
+}
+
+var value = jQuery('ul.token-input-list-facebook').val();                  // 43
+jQuery('div.token-input-dropdown-facebook').attr('size', value.length + 10 );

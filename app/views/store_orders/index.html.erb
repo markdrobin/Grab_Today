@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Store Orders</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Total cost</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @store_orders.each do |store_order| %>
+      <tr>
+        <td><%= store_order.total_cost %></td>
+        <td><%= store_order.status %></td>
+        <td><%= link_to 'Show', store_order %></td>
+        <td><%= link_to 'Edit', edit_store_order_path(store_order) %></td>
+        <td><%= link_to 'Destroy', store_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Store order', new_store_order_path %>

@@ -134,6 +134,7 @@
       <div class="form-group">
         <input type="file" placeholder="Select image">
       </div>
+
       <div id="addVariant">
         <p class="divider">VARIANTS</p>
         <% @store_product.variants.each do |v| %>
@@ -150,21 +151,7 @@
     </div>
 
     <script>
-      function initialize_scripts() {
-        new Awesomplete(document.getElementById("f-name"), {list: "#namelist", minChars: 1, autoFirst: true});
-        new Awesomplete(document.getElementById("f-brand"), {list: "#brandlist", minChars: 1, autoFirst: true});
-        new Awesomplete(document.getElementById("f-manufacturer"), {
-          list: "#manuflist",
-          minChars: 1,
-          autoFirst: true
-        });
-        new Awesomplete(document.getElementById("f-product_type"), {
-          list: "#producttypelist",
-          minChars: 1,
-          autoFirst: true
-        });
-      }
-      window.onload = initialize_scripts;
+      window.onload = init_forms_autocomplete();
       variant_complete();
     </script>
 <% end %>

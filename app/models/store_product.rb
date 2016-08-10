@@ -4,7 +4,11 @@ class StoreProduct < ActiveRecord::Base
 
   belongs_to :store
   belongs_to :product
+  has_many :store_order_items
+  has_many :store_orders, through: :store_order_items
   has_many :variants, dependent: :destroy
+  accepts_nested_attributes_for :store_order_items
+  accepts_nested_attributes_for :store_orders
   accepts_nested_attributes_for :variants, allow_destroy: true
 
   attr_accessor :name, :product_type, :brand, :manufacturer, :variant_tokens, :variant_category
@@ -14,7 +18,7 @@ class StoreProduct < ActiveRecord::Base
   after_save :ensure_category_existence, :remove_blank_variants
   after_create :save_qr_code_path
   after_initialize :set_product_vars
-  validate :is_not_unique?, :on => :create
+  validate :is_not_unique?
 
   has_many :pictures, :dependent => :destroy
   accepts_nested_attributes_for :pictures, allow_destroy: true
@@ -24,7 +28,7 @@ class StoreProduct < ActiveRecord::Base
     ids = []
     value.split(',').each do |val|
       if val[0..4] == '-new-'
-        fav = Variant.create!(:name => params[:variant_category], :value => val.gsub(/-new-/,''))
+        fav = Variant.create!(:name => params[:variant_category], :value => val.gsub(/-new-/, ''))
         ids += [fav.id]
       else
         ids += [val.to_i]
@@ -68,8 +72,43 @@ class StoreProduct < ActiveRecord::Base
   end
 
   def is_not_unique?
-    if StoreProduct.exists?({:product_id => product_id, :store_id => store_id})
-      errors.add(:product, "already taken in this store.")
+    if self.new_record?
+      if StoreProduct.exists?({:product_id => product_id, :store_id => store_id})
+        errors.add(:product, "already taken in this store.")
+      end
+    else
+      store.store_products.each do |sp|
+        if sp.id != self.id
+          if self.name == sp.name && self.product_type == sp.product_type && self.brand == sp.brand && self.manufacturer == sp.manufacturer
+            errors.add(:product, "already taken in this store.")
+          end
+        end
+      end
+    end
+  end
+
+  def delete_product
+    if product.store_products.count > 1
+      self.destroy
+    else
+      product.destroy
+    end
+  end
+
+  def check_product_duplicate
+    if self.valid?
+      StoreProduct.all.each do |p|
+        if p.id != self.id
+          if self.name == p.name && self.product_type == p.product_type && self.brand == p.brand && self.manufacturer == p.manufacturer
+            update(product_id: p.product_id)
+            Product.all.each do |product|
+              if product.store_products.count == 0
+                product.destroy
+              end
+            end
+          end
+        end
+      end
     end
   end
 
@@ -110,8 +149,4 @@ class StoreProduct < ActiveRecord::Base
       self.manufacturer = get_manufacturer
     end
   end
-
-  #def destroy_image?
-  #self.pictures.clear if @
-  #end
 end

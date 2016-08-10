@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Total cost:</strong>
+  <%= @store_order.total_cost %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @store_order.status %>
+</p>
+
+<%= link_to 'Edit', edit_store_order_path(@store_order) %> |
+<%= link_to 'Back', store_orders_path %>

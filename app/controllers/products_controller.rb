@@ -12,6 +12,8 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+    # @qr = RQRCode::QRCode.new(@product.qr_path.to_s, :size => 4, :level => :h)
+    @qr = RQRCode::QRCode.new(@product.generate_qr, :size => 4, :level => :h)
   end
 
   # GET /products/new
@@ -61,6 +63,36 @@ class ProductsController < ApplicationController
       format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def get_prod_attributes
+    product= Product.where(id: params[:id]).first
+    sps = StoreProduct.where(product_id: params[:id])
+    sp_ids = sps.map{|s| s.id}
+    store_names = sps.map{|s| Store.where(id: s.store_id).first.name}
+    p = {name: product.name, product_type: product.product_type, brand: product.brand, manufacturer: product.manufacturer, store_names: store_names, sp_ids: sp_ids}
+
+    render json: p
+  end
+
+  def get_query
+    if params[:attr] == 'product_type'
+      query = ProductType.where("category like '%#{params[:value]}%'")
+      q = query.map{|e| {value: e.category}}.uniq
+    elsif params[:attr] == 'variant'
+      query = VariantType.where("name like '%#{params[:value]}%'")
+      q = query.map{|e| {value: e.name}}.uniq
+    else
+      query = Product.where("#{params[:attr]} like '%#{params[:value]}%'")
+      if params[:attr] == 'name'
+        q = query.map{|e| {value: e.name}}.uniq
+      elsif params[:attr] == 'brand'
+        q = query.map{|e| {value: e.brand}}.uniq
+      elsif params[:attr] == 'manufacturer'
+        q = query.map{|e| {value: e.manufacturer}}.uniq
+      end
+    end
+    render json: q
   end
 
   private

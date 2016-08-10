@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :orders
+  resources :store_order_items
+  resources :store_orders
   # devise_for :users
   devise_for :users, path: '', :controllers => {registrations: 'users/registrations'},
              :path_names => {:sign_in => 'sign_in', :sign_up => 'sign_up', :sign_out => 'sign_out'} do
@@ -7,6 +10,7 @@ Rails.application.routes.draw do
   resources :users do
     member do
       get :owned_stores
+      get :cart_items
     end
   end
   resources :variants
@@ -20,8 +24,12 @@ Rails.application.routes.draw do
       post :process_restock
     end
   end
-
-  resources :products
+  resources :products do
+    collection do
+      get :get_query
+      get :get_prod_attributes
+    end
+  end
   resources :stores do
     member do
       # get '/'
@@ -32,6 +40,7 @@ Rails.application.routes.draw do
 
   as :user do
     get 'users/:id/reset_pass' => 'users/passwords#edit'
+    get 'users/:id/shopping' => 'users#shopping'
   end
 
   resources :mockups do

@@ -2,6 +2,7 @@ class Product < ActiveRecord::Base
   acts_as_paranoid
   has_many :store_products, dependent: :destroy
   has_many :stores, :through => :store_products
+  # after_create :save_qr_path
 
   def all_unique(attr)
     products = []
@@ -26,4 +27,17 @@ class Product < ActiveRecord::Base
       attrs.uniq
     end
   end
+
+  def generate_qr
+    self.qr_path = "products/#{id}"
+    save
+    qr_path
+  end
+
+  # private
+  # def save_qr_path
+  #   self.qr_path = "products/#{id}"
+  #   save
+  # end
+
 end

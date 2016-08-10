@@ -97,6 +97,12 @@
                 <% end %>
               </div>
               <div class="btn-group">
+                <%= link_to restock_store_product_path(@store_product, :store_id => @store_product.store_id), :class => 'btn btn-primary' do %>
+                    <i class="fa fa-pencil"></i>
+                    Restock
+                <% end %>
+              </div>
+              <div class="btn-group">
                 <%= link_to store_product_path(@store_product),
                             :method => 'delete',
                             :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},

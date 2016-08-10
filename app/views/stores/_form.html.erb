@@ -16,84 +16,85 @@
         </div>
     <% end %>
 
-    <%= image_tag @store.avatar.url, size: "100x100" %><br>
     <div class="form-group">
-      <%= f.label :avatar, :class => 'control-label col-lg-2' %>
-      <div class="col-lg-10">
-        <%= f.file_field :avatar, :class => 'form-control' %>
-      </div>
-      <%= f.error_span(:avatar) %>
-    </div>
-    <div class="form-group">
-      <%= f.label :name, :class => 'control-label col-lg-2' %>
-      <div class="col-lg-10">
-        <%= f.text_field :name, :required => true ,:class => 'form-control' %>
-      </div>
+      <label>Name*</label>
+      <%= f.text_field :name, :required => true, placeholder: 'Name', :class => 'form-control' %>
       <%= f.error_span(:name) %>
     </div>
     <div class="form-group">
-      <%= f.label :contact, :class => 'control-label col-lg-2' %>
-      <div class="col-lg-10">
-        <%= f.text_field :contact, :class => 'form-control' %>
-      </div>
+      <label>Category</label>
+      <%= f.select :category, Store.store_types.values, {include_blank: 'select category'}, :class => 'form-control' %>
+      <%= f.error_span(:category) %>
+
+    </div>
+    <div class="form-group">
+      <label>Contact</label>
+      <%= f.text_field :contact, placeholder: 'Contact', :class => 'form-control' %>
       <%= f.error_span(:contact) %>
     </div>
     <div class="form-group">
-      <%= f.label :location, :class => 'control-label col-lg-2' %>
-      <div class="col-lg-10">
-        <%= f.text_field :location, :class => 'form-control' %>
-      </div>
+      <label>Location</label>
+      <%= f.text_field :location, placeholder: "Location", :class => 'form-control' %>
       <%= f.error_span(:location) %>
     </div>
     <div class="form-group">
-      <%= f.label :category, :class => 'control-label col-lg-2' %>
-      <div class="col-lg-10">
-        <%= f.select :category, Store.store_types.values, {include_blank: 'select category'}, :class => 'form-control' %>
+      <label>Store Hours</label>
+      <div class="row">
+        <div class="col-sm-6">
+          <%= f.text_field :opening_time, :class => 'form-control', placeholder: 'From' %>
+        </div>
+        <div class="col-sm-6">
+          <%= f.text_field :closing_time, :class => 'form-control', placeholder: 'To' %>
+        </div>
+        <%= f.error_span(:opening_time) %>
+        <%= f.error_span(:closing_time) %>
       </div>
-      <%= f.error_span(:category) %>
     </div>
     <div class="form-group">
-      <%= f.label :store_hours, :class => 'control-label col-lg-2' %>
-      <div class="col-lg-10">
-        <%= f.text_field :store_hours, :class => 'form-control' %>
-      </div>
-      <%= f.error_span(:store_hours) %>
-    </div>
-    <div class="form-group">
-      <%= f.label :description, :class => 'control-label col-lg-2' %>
-      <div class="col-lg-10">
-        <%= f.text_field :description, :class => 'form-control' %>
-      </div>
+      <label>Description</label>
+      <%= f.text_area :description, rows: '2', :class => 'form-control', placeholder: 'Description' %>
       <%= f.error_span(:description) %>
     </div>
     <div class="form-group">
-      <%= f.label :website, :class => 'control-label col-lg-2' %>
-      <div class="col-lg-10">
-        <%= f.text_field :website, :class => 'form-control' %>
-      </div>
-      <%= f.error_span(:website) %>
-    </div>
-    <div class="form-group">
-      <%= f.label :facebook_page, :class => 'control-label col-lg-2' %>
-      <div class="col-lg-10">
-        <%= f.text_field :facebook_page, :class => 'form-control' %>
-      </div>
-      <%= f.error_span(:facebook_page) %>
-    </div>
-    <div class="form-group">
-      <%= f.label :twitter_page, :class => 'control-label col-lg-2' %>
-      <div class="col-lg-10">
-        <%= f.text_field :twitter_page, :class => 'form-control' %>
-      </div>
-      <%= f.error_span(:twitter_page) %>
+      <label>Image</label>
+      <%= f.file_field :avatar, placeholder: 'Select image' %>
+      <%= image_tag @store.avatar.url, size: "100x100" %>
+      <%= f.error_span(:avatar) %>
     </div>
 
+    <p class="divider">WEB INFORMATION</p>
     <div class="form-group">
-      <div class="col-lg-offset-2 col-lg-10">
-        <%= f.submit nil, :class => 'btn btn-primary' %>
-        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                    owned_stores_user_path(current_user), :class => 'btn btn-default' %>
+      <label>Facebook</label>
+      <div class="input-group">
+          <span class="input-group-addon">
+            <%= fa_icon 'facebook' %>
+          </span>
+        <%= f.text_field :facebook_page, :class => 'form-control', placeholder: 'Facebook' %>
+        <%= f.error_span(:facebook_page) %>
       </div>
     </div>
+    <div class="form-group">
+      <label>Twitter</label>
+      <div class="input-group">
+          <span class="input-group-addon">
+            <%= fa_icon 'twitter' %>
+          </span>
+        <%= f.text_field :twitter_page, :class => 'form-control', placeholder: 'Twitter' %>
+        <%= f.error_span(:twitter_page) %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Website</label>
+      <div class="input-group">
+          <span class="input-group-addon">
+            <%= fa_icon 'globe' %>
+          </span>
+        <%= f.text_field :website, :class => 'form-control', placeholder: 'Website' %>
+        <%= f.error_span(:website) %>
+      </div>
+    </div>
+
+    <p class="help-block">Fields with <b>*</b> are required.</p>
+    <button type="submit" class="btn btn-lg btn-primary btn-block">Done</button>
 
 <% end %>

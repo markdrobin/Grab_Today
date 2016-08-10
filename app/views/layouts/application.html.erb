@@ -27,7 +27,7 @@
             <li class="active"><a href="<%= root_path %>">Home</a></li>
             <%= current_user.user_type == 'Customer' ? '' : (menu_item "Stores", owned_stores_user_path(current_user)) %>
             <!--<li><a href="<%= stores_mockups_path %>">Stores</a></li>-->
-            <li><a href="#contact">Products</a></li>
+            <!--<li><a href="#contact">Products</a></li>-->
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">

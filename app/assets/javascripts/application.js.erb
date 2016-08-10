@@ -224,8 +224,6 @@ function addToCart() {
 }
 
 function doDecode() {
-  $("#product-div").removeClass()
-  $("#stores-ul").removeClass()
   var image = document.getElementById("pix");
 //  console.log(image)
   var qr = QCodeDecoder();
@@ -240,6 +238,8 @@ function doDecode() {
 
 $(function () {
   $('#pictureInput').on('change', function (event) {
+    $("#product-div").html("");
+    $("#stores-ul").html("");
     var files = event.target.files;
 //    console.log(files.length)
     var reader = new FileReader();
@@ -253,6 +253,7 @@ $(function () {
     }
     reader.readAsDataURL(files[0]);
   });
+  console.log('DONE HERE')
 });
 
 function processCode(result) {
@@ -285,7 +286,7 @@ function processProduct(product_num) {
           + '<dt><strong>Manufacturer:</strong></dt>'
           + '<dd>' + data.manufacturer + '</dd>'
           + '</dl>');
-
+      $("#stores-ul").html("");
       for (var i = 0; i < data.store_names.length; i++) {
         $("#stores-ul").append('<li>'
             + '<a href="http://localhost:4000/store_products/'

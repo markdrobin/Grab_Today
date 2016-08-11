@@ -147,10 +147,16 @@ body.mockups {
 
   }
 
+  span.twitter-typeahead {
+    display: inline-block;
+    width: 100%;
+  }
+
   .form {
     button {
       margin-top: 20px;
     }
+
     .form-control .tt-input {
       width: 100%;
     }
@@ -435,4 +441,5 @@ body.mockups {
       margin-top: 10px;
     }
   }
+
 }

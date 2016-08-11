@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     member do
       get :owned_stores
       get :cart_items
+      get :view_orders
     end
   end
   resources :variants
@@ -41,6 +42,7 @@ Rails.application.routes.draw do
   as :user do
     get 'users/:id/reset_pass' => 'users/passwords#edit'
     get 'users/:id/shopping' => 'users#shopping'
+    get 'users/:id/view_store_orders' => 'users#view_store_orders'
   end
 
   # resources :store_products do

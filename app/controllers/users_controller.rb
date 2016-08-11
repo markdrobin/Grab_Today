@@ -73,8 +73,14 @@ class UsersController < ApplicationController
     @stores = @user.stores
   end
 
+  def view_orders
+    @user = User.find_by_id(params[:id])
+    redirect_to "/users/#{@user.id}/view_store_orders"
+  end
+
   def cart_items
     @user = User.find_by_id(params[:id])
+    @orders = @user.orders if !@user.is_owner?
     # @orders = @user.orders
   end
 

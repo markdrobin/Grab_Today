@@ -8,7 +8,7 @@
     <br/>
     <br/>
     <center>
-    <%= current_user.user_type != 'Customer' ? '' : (link_to 'Upload QR', "users/#{current_user.id}/shopping", :class => 'btn btn-danger') %>
+    <%= current_user.user_type == 'Store Owner' ? (link_to 'View Orders', "/users/#{current_user.id}/view_orders", :class => 'btn btn-danger') : (link_to 'Upload QR', "users/#{current_user.id}/shopping", :class => 'btn btn-danger') %>
     </center>
 <% end %>
 

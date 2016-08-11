@@ -1,0 +1,56 @@
+<% if !current_user.stores.empty? %>
+    <%- model_class = Order -%>
+    <div class="page-header">
+      <h1><%= t '.title', :default => model_class.model_name.human.titleize + "s" %></h1>
+    </div>
+
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <!--<th><%#= model_class.human_attribute_name(:avatar) %></th>-->
+        <!--<th><%#= model_class.human_attribute_name(:name) %></th>-->
+        <th><%= model_class.human_attribute_name('Order Code') %></th>
+        <th><%= model_class.human_attribute_name(:store_name) %></th>
+        <th><%= model_class.human_attribute_name(:cost) %></th>
+        <th><%= model_class.human_attribute_name(:status) %></th>
+        <th><%= t '.actions' %></th>
+        <!--<th><%#= t '.actions', :default => t("helpers.actions") %></th>-->
+      </tr>
+      </thead>
+      <tbody>
+      <% if !current_user.get_store_orders.empty? %>
+          <% current_user.get_store_orders.each do |s_orders| %>
+              <% s_orders.each do |s_order| %>
+                  <tr>
+                    <!--<%# unless product.pictures.empty? %>-->
+                    <!--<td><%#= image_tag product.pictures.first.image.url, size: '50x50' %></td>-->
+                    <!--<%# else %>-->
+                    <!--<td><%#= image_tag '/assets/product.jpg', size: '50x50' %></td>-->
+                    <!--<%# end %>-->
+                    <td><%= link_to s_order.id, store_order_path(s_order.id) %></td>
+                    <td><%= link_to Store.find_by_id(s_order.store_id).name, store_path(s_order.store_id) %></td>
+                    <td><%= s_order.total_cost ? "P#{s_order.total_cost}" : 'P0.00' %></td>
+                    <td><%= s_order.status ? s_order.status : 0 %></td>
+                    <td>
+                      <%= link_to "Process", class: 'btn btn-default' %>
+                      <%= link_to "Cancel", class: 'btn btn-danger' %>
+                      <%#= link_to t('.edit', :default => t("helpers.links.edit")),
+                          edit_store_product_path(product, :store_id => product.store_id), :class => 'btn btn-default btn-xs' %>
+                      <%#= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                          store_product_path(product),
+                          :method => :delete,
+                          :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
+                          :class => 'btn btn-xs btn-danger' %>
+                    </td>
+                  </tr>
+              <% end %>
+
+          <% end %>
+      <% else %>
+          <tr>"No orders as of this moment"</tr>
+      <% end %>
+
+      </tbody>
+    </table>
+    <%#= will_paginate @store_orders, renderer: BootstrapPagination::Rails, inner_window: 1, outer_window: 0 %><br><br>
+<% end %>

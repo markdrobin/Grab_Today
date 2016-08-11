@@ -37,7 +37,7 @@ class StoreProductsController < ApplicationController
     previous_stock = @store_product.stock
     respond_to do |format|
       if @store_product.restock(new_stock)
-        @store_product.create_activity(:restock, owner: current_user, recipient: @store_product, parameters: {previous_stock: previous_stock, latest_stock: @store_product.stock.to_s})
+        @store_product.create_activity(:restock, store_owner: current_user, recipient: @store_product, parameters: {previous_stock: previous_stock, latest_stock: @store_product.stock.to_s})
         format.html { redirect_to @store_product, notice: 'Product was successfully restocked.' }
         format.json { render :show, status: :ok, location: @store_product }
       else

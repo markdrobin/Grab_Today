@@ -13,10 +13,27 @@ class User < ActiveRecord::Base
   end
 
   def get_orders
-    orders
+    unless is_owner?
+      orders
+    end
   end
 
   def is_owner?
     user_type == 'Store Owner'
   end
+
+  def get_store_orders
+    unless !is_owner?
+      if stores
+        @store_orders = []
+        stores.each do |s|
+          if !StoreOrder.where(store_id: s.id).nil?
+            @store_orders << StoreOrder.where(store_id: s.id)
+          end
+        end
+      end
+      @store_orders
+    end
+  end
+
 end

@@ -42,3 +42,20 @@ variant_list = [
 variant_list.each do |name, value, store_product_id|
   Variant.create( name: name, value: value, store_product_id: store_product_id )
 end
+
+# Order.create(order_cost: 300, user_id: 3)
+# Order.create(order_cost: 150, user_id: 1)
+#
+# StoreOrder.create(store_id: 1, total_cost: 300.00, order_id: 1, status: 1)
+# StoreOrder.create(store_id: 1, total_cost: 150.00, order_id: 2, status: 1)
+StoreOrder.create(store_id: 2, total_cost: 200.00, order_id: 1, status: 1)
+#
+# StoreOrderItem.create(store_product_id: 1, quantity: 2, price: 50.00, store_order_id: 1)
+# StoreOrderItem.create(store_product_id: 2, quantity: 2, price: 100.00, store_order_id: 1)
+# StoreOrderItem.create(store_product_id: 3, quantity: 2, price: 150.00, store_order_id: 1)
+#
+# StoreOrderItem.create(store_product_id: 3, quantity: 2, price: 150.00, store_order_id: 2)
+
+StoreOrderItem.create(store_product_id: 4, quantity: 1, price: 200.00, store_order_id: 3)
+
+

@@ -65,17 +65,26 @@
       <div class="col-lg-4">
         <img class="img-circle" src="<%= image_path 'gwapo2.jpg' %>" alt="Generic placeholder image" width="140" height="140">
         <h2>Gwapo Two</h2>
-        <p>“I-kluk mo na dyan ang caru. Jojovani Calvo na ako. Mag-e-Egyptian Airlines na lang ako. Bangladesh to the max itech!”</p>
+        <p>“I-kluk mo na dyan ang caru. Jojovani Calvo na ako. Mag-e-Egyptian Airlines na lang ako. Bangladesh to the
+          max itech!”</p>
         <!--<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>-->
       </div><!-- /.col-lg-4 -->
       <div class="col-lg-4">
         <img class="img-circle" src="<%= image_path 'gwapo3.png' %>" alt="Generic placeholder image" width="140" height="140">
         <h2>Gwapo Three</h2>
         <p>"Ang ig-agaw nga pag-umangkon sa iyang silingan nga classmate niya pag-highschool nga taga Kambinukot
-        daw duol sa Dumaguete unahan sa Lapu-Lapu duol daw sa may Julie's."</p>
+          daw duol sa Dumaguete unahan sa Lapu-Lapu duol daw sa may Julie's."</p>
         <!--<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>-->
       </div><!-- /.col-lg-4 -->
     </div>
+    <% if current_user %>
+        <br/>
+        <br/>
+        <br/>
+        <center>
+          <%= current_user.user_type == 'Store Owner' ? (link_to 'View Orders', "/users/#{current_user.id}/view_orders", :class => 'btn btn-danger') : (link_to 'Upload QR', "users/#{current_user.id}/shopping", :class => 'btn btn-danger') %>
+        </center>
+    <% end %>
 
     <hr class="featurette-divider">
     <div class="row featurette">

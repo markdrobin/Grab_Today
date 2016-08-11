@@ -27,10 +27,11 @@
 }
 
 .tt-hint {
-    color: #999
+    color: #999;
 }
 
 .tt-menu { /* used to be tt-dropdown-menu in older versions */
+    color: #555;
     width: 422px;
     margin-top: 4px;
     padding: 4px 0;

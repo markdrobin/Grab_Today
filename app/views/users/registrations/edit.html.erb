@@ -83,8 +83,7 @@
               <%= image_tag @user.avatar.url, size: "100x100" %>
             </div>
 
-
-            <%= f.hidden_field :confirm_password, value: @user.password %>
+            <%#= f.hidden_field :confirm_password, value: @user.password %>
 
             <p class="help-block">Fields with <b>*</b> are required.</p>
             <%= f.submit "Confirm changes", class: "btn btn-lg btn-primary btn-block" %>

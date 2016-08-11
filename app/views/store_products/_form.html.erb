@@ -1,5 +1,9 @@
-<%= form_for @store_product, :html => {:class => "form-horizontal store_product", multipart: true} do |f| %>
-
+<%= form_for @store_product, :class => "form form-horizontal store_product", multipart: true do |f| %>
+    <div class="col-md-8 col-md-offset-2">
+      <h2>
+        <%= (@store_product.new_record?) ? 'New product' : 'Update product' %>
+      </h2>
+    </div>
     <% if @store_product.errors.any? %>
         <div id="error_expl" class="panel panel-danger">
           <div class="panel-heading">
@@ -147,7 +151,7 @@
 
     <div class="col-md-8 col-md-offset-2">
       <p class="help-block">Fields with <b>*</b> are required.</p>
-      <button type="submit" class="btn btn-lg btn-primary btn-block">Done</button>
+      <%= f.submit " Done ", :class => 'btn btn-lg btn-primary btn-block' %>
     </div>
 
     <script>

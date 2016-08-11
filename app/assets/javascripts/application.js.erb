@@ -129,6 +129,12 @@ $(document).ready(function () {
     addOnChangeBehavior($(this))
   })
 
+
+  $('a[data-popup]').on('click', function(e) {
+    window.open( $(this).attr('href'), "Popup", "height=600, width=600" );
+    e.preventDefault();
+  });
+
 });
 
 function init_bloodhound(attr) {
@@ -298,3 +304,4 @@ function processProduct(product_num) {
     }
   })
 }
+

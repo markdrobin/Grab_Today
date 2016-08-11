@@ -32,8 +32,9 @@
                     <td><%= s_order.total_cost ? "P#{s_order.total_cost}" : 'P0.00' %></td>
                     <td><%= s_order.status ? s_order.status : 0 %></td>
                     <td>
-                      <%= link_to "Process", class: 'btn btn-default' %>
-                      <%= link_to "Cancel", class: 'btn btn-danger' %>
+                      <!--<%#= link_to "Process", class: 'btn btn-default' %>-->
+                      <%= link_to( 'View Order', store_order_path(s_order.id), 'data-popup' => true , class: 'btn btn-default') %>
+                      <%= link_to("Cancel", store_order_path(s_order.id), class: 'btn btn-danger') %>
                       <%#= link_to t('.edit', :default => t("helpers.links.edit")),
                           edit_store_product_path(product, :store_id => product.store_id), :class => 'btn btn-default btn-xs' %>
                       <%#= link_to t('.destroy', :default => t("helpers.links.destroy")),

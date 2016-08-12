@@ -300,11 +300,15 @@ body.mockups {
   }
 
   .qr {
+    padding: 5px;
+    position: absolute;
+    right: 15px;
+    background-color: #ededed;
+    width: auto;
+    height: auto;
     table {
-      border-width: 0;
-      border-style: none;
-      border-color: #0000ff;
-      border-collapse: collapse;
+        width: auto;
+        height: auto;
 
       td {
         border-width: 0;
@@ -313,8 +317,8 @@ body.mockups {
         border-collapse: collapse;
         padding: 0;
         margin: 0;
-        width: 3px;
-        height: 3px;
+        width: 5px;
+        height: 5px;
       }
 
       td.black {
@@ -354,9 +358,11 @@ body.mockups {
         position: absolute;
         right: 15px;
         background-color: #ededed;
+        width: auto;
+        height: auto;
         table {
-          width: 150px;
-          height: 150px;
+          width: auto;
+          height: auto;
         }
         .white {
           background: #ededed;

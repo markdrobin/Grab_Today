@@ -262,11 +262,16 @@ $(function () {
 });
 
 function processCode(result) {
-  console.log(result);
   var p = result.split('/')
   if (p[0] == 'store_products') {
-    window.location = 'http://localhost:4000/' + result
+//    window.location = 'http://localhost:4000/' + result
+//    var http = location.protocol;
+//    var slashes = http.concat("//")
+    var host = window.location.host + '';
+    host = host + "/"
+    window.location = "http://" + host + result;
   } else if (p[0] == 'products') {
+    console.log('PRODUC lang')
     processProduct(parseInt(p[1]))
   } else {
     alert("Error: QR Code does not match any product. Try again.");
@@ -293,8 +298,11 @@ function processProduct(product_num) {
           + '</dl>');
       $("#stores-ul").html("");
       for (var i = 0; i < data.store_names.length; i++) {
+        var host = window.location.host + '';
+        host = host + "/"
+        var url = "http://" + host + result;
         $("#stores-ul").append('<li>'
-            + '<a href="http://localhost:4000/store_products/'
+            + '<a href="' + url + '"'
             + data.sp_ids[i]
             + '">'
             + data.store_names[i]

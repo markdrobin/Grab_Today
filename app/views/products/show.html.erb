@@ -14,9 +14,13 @@
   <dd><%= @product.manufacturer %></dd>
 
   <dt><strong><%= model_class.human_attribute_name(:qr_code) %>:</strong></dt>
-  <dd>
-    <div class="qr-view"><%= raw @qr.as_html %></div>
-  </dd>
+    <div class="details">
+      <div class="row">
+        <div class="qr">
+          <%= raw @qr.as_html %>
+        </div>
+      </div>
+    </div>
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),

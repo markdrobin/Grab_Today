@@ -61,6 +61,11 @@ class StoreOrdersController < ApplicationController
     end
   end
 
+  def view
+    @store_order = StoreOrder.find(params[:id])
+    redirect_to "/store_orders/#{@store_order.id}/process"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_store_order

@@ -2,17 +2,20 @@
     <%= v.hidden_field :id unless variant.new_record? %>
     <%= v.hidden_field :_destroy, value: false, class: 'destroy-flag' %>
 
-    <div class="form-group">
-      <div class="col-lg-10">
-        <%= v.label :name, "Variant Category" %><br>
-        <%= v.text_field :name, placeholder: "Variant Category", :class => 'variant-name'%><br>
-      </div>
-      <div class="col-lg-10">
-        <%= v.label :variant_category, "Variant Value" %><br>
-        <%= v.text_field :value, placeholder: 'Variant value'.capitalize, :class => 'variant-value', data: {load: variant.to_token.map { |val| {name: val} }.to_json} %>
-        <br>
+    <div class="panel panel-default">
+      <div class="form-group">
+        <div class="panel-heading clearfix">
+          <h3 class="panel-title pull-left">
+            <%= v.text_field :name, size: "10", placeholder: "Description", :class => 'variant-name form-control' %><br>
+          </h3>
+          <div class="pull-right">
+            <a href="#" id="cancel_variant" class="close"><span>&times;</span></a>
+          </div>
+        </div>
+        <div class="panel-body">
+          <%= v.text_field :value, placeholder: "Values", :class => 'form-control token-input variant-value', data: {load: variant.to_token.map { |val| {name: val} }.to_json} %>
+        </div>
       </div>
       <%= v.error_span(:description) %>
     </div>
-    <a href="#" id="cancel_variant" class="btn btn-default">Cancel Variant</a><br><br>
 <% end %>

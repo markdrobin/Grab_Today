@@ -74,8 +74,8 @@ $(document).ready(function () {
   });
 
   $("#addVariant").on('click', '#cancel_variant', function () {
-    $(this).parent().find('.destroy-flag').val('true')
-    $(this).parent().hide()
+    $(this).parent().parent().parent().find('.destroy-flag').val('true')
+    $(this).parent().parent().parent().hide()
   });
 
   $('form').submit(function (e) {
@@ -305,3 +305,5 @@ function processProduct(product_num) {
   })
 }
 
+//var value = jQuery('ul.token-input-list-facebook').val();                  // 43
+//jQuery('div.token-input-dropdown-facebook').attr('size', value.length + 10 );

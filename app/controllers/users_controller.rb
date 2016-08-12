@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   load_and_authorize_resource
   protect_from_forgery
   before_action :authenticate_user!
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :owned_stores]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :owned_stores, :change_password]
 
   # GET /users
   # GET /users.json
@@ -25,6 +25,10 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
   end
+
+  # def change_password
+  #
+  # end
 
   # POST /users
   # POST /users.json

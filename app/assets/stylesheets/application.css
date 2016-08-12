@@ -13,6 +13,11 @@
  *= require token-input-facebook
  *= require_tree .
  *= require_self
+ *= stub custom
+ *= stub scaffolds
+ *= stub stores
+ *= require font-awesome
+ *= require bootcards-desktop
  */
 
 .tt-query {
@@ -22,11 +27,12 @@
 }
 
 .tt-hint {
-    color: #999
+    color: #999;
 }
 
 .tt-menu { /* used to be tt-dropdown-menu in older versions */
-    width: 422px;
+    color: #555;
+    width: inherit;
     margin-top: 4px;
     padding: 4px 0;
     background-color: #fff;

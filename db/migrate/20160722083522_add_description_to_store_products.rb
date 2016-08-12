@@ -1,4 +1,4 @@
-class AddDescriptionToStoreProducts < ActiveRecord::Migration
+ class AddDescriptionToStoreProducts < ActiveRecord::Migration
   def up
     add_column :store_products, :description, :string
   end

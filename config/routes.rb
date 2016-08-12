@@ -36,6 +36,12 @@ Rails.application.routes.draw do
       # get '/'
     end
   end
+  resources :store_orders do
+    member do
+       # get 'store_orders/:id/process' => 'store_orders#process'
+      get :view
+    end
+  end
 
   root to: 'home#index'
 
@@ -43,6 +49,16 @@ Rails.application.routes.draw do
     get 'users/:id/reset_pass' => 'users/passwords#edit'
     get 'users/:id/shopping' => 'users#shopping'
     get 'users/:id/view_store_orders' => 'users#view_store_orders'
+  end
+
+  as :store_orders do
+    get 'store_orders/:id/process' => 'store_orders#process'
+  end
+
+  resources :mockups do
+    collection do
+      get :dashboard, :sign_in, :sign_up, :stores, :store, :store_form, :product, :product_form, :profile, :profile_update, :profile_password
+    end
   end
 
   # resources :store_products do

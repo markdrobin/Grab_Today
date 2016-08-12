@@ -1,20 +1,117 @@
-<!-- <% if current_user %> -->
-    <!-- <%= link_to 'View Account', user_path(current_user)%> | -->
-    <!-- <%= link_to 'View Owned Stores', user_path(current_user)%> -->
-<!-- <% end %> -->
-
-<% if current_user %>
-    <br/>
-    <br/>
-    <br/>
-    <center>
-    <%= current_user.user_type == 'Store Owner' ? (link_to 'View Orders', "/users/#{current_user.id}/view_orders", :class => 'btn btn-danger') : (link_to 'Upload QR', "users/#{current_user.id}/shopping", :class => 'btn btn-danger') %>
-    </center>
-<% end %>
-
-<div class="splash">
-		<!-- <h1 class="splash-title fade-in">GRAB.TODAY</h1> -->
-		<a href="#" class="splash-arrow">
-      <%= image_tag('down-arrow.png')%>
+<div class="dashboard with-banner">
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+      <div class="item active">
+        <img class="first-slide" src="<%= image_path 'shopping.jpg' %>" alt="First slide">
+        <div class="container">
+          <div class="carousel-caption">
+            <h1>Example headline.</h1>
+            <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon
+              buttons on the left and right might not load/display properly due to web browser security rules.</p>
+            <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <img class="second-slide" src="<%= image_path 'qr2.jpg' %>" alt="Second slide">
+        <div class="container">
+          <div class="carousel-caption">
+            <h1>Another example headline.</h1>
+            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget
+              metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <img class="third-slide" src="<%= image_path 'times-square.jpg' %>" alt="Third slide">
+        <div class="container">
+          <div class="carousel-caption">
+            <h1>One more for good measure.</h1>
+            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget
+              metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+      <span class="fa fa-chevron-left" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
     </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+      <span class="fa fa-chevron-right" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
+  <div class="container testimonials">
+    <div class="row">
+      <div class="col-lg-4">
+        <img class="img-circle" src="<%= image_path 'gwapo1.jpg' %>" alt="Generic placeholder image" width="140" height="140">
+        <h2>Gwapo One</h2>
+        <p>With great power comes great electricity bills. <br>- MERALCO</p>
+        <!--Mark of House Robin, first of his name, King of the Hams, Steaks, and the Sausages. King of the
+          Seven Meat Pizza, and eater of the Slice and Biscuits in the office. The Unstarved, Father of Burgers,
+          Breaker of Breads, King of Chefs, Khal of the Great Wine Sea.-->
+        <!--<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>-->
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+        <img class="img-circle" src="<%= image_path 'gwapo2.jpg' %>" alt="Generic placeholder image" width="140" height="140">
+        <h2>Gwapo Two</h2>
+        <p>“I-kluk mo na dyan ang caru. Jojovani Calvo na ako. Mag-e-Egyptian Airlines na lang ako. Bangladesh to the
+          max itech!”</p>
+        <!--<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>-->
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+        <img class="img-circle" src="<%= image_path 'gwapo3.png' %>" alt="Generic placeholder image" width="140" height="140">
+        <h2>Gwapo Three</h2>
+        <p>"Ang ig-agaw nga pag-umangkon sa iyang silingan nga classmate niya pag-highschool nga taga Kambinukot
+          daw duol sa Dumaguete unahan sa Lapu-Lapu duol daw sa may Julie's."</p>
+        <!--<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>-->
+      </div><!-- /.col-lg-4 -->
+    </div>
+    <% if current_user %>
+        <br/>
+        <br/>
+        <br/>
+        <center>
+          <%= current_user.user_type == 'Store Owner' ? (link_to 'View Orders', "/users/#{current_user.id}/view_orders", :class => 'btn btn-danger') : (link_to 'Upload QR', "users/#{current_user.id}/shopping", :class => 'btn btn-danger') %>
+        </center>
+    <% end %>
+
+    <hr class="featurette-divider">
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span>
+        </h2>
+        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod
+          semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
+          commodo.</p>
+      </div>
+      <div class="col-md-5">
+        <img class="featurette-image img-responsive center-block" src="<%= image_path 'woman-hair-stylist.png' %>" alt="Generic placeholder image">
+      </div>
+    </div>
+
+    <hr class="featurette-divider">
+    <div class="row featurette">
+      <div class="col-md-7 col-md-push-5">
+        <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
+        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod
+          semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
+          commodo.</p>
+      </div>
+      <div class="col-md-5 col-md-pull-7">
+        <img class="featurette-image img-responsive center-block" src="<%= image_path 'discounts-signs.jpg' %>" alt="Generic placeholder image">
+      </div>
+    </div>
+  </div>
 </div>
+
